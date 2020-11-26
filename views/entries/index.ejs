@@ -26,7 +26,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="container bg-light">
+        <div class="col-2 bg-success box">
+          <ul class="overflow-auto index">
+            <% entries.forEach(entry => { %>
+            <li class="list-group-item-action index"><%= entry.title %></li>
+            <% }) %>
+          </ul>
+        </div>
+        <div class="col-10 bg-light box">
           <% entries.forEach(entry => { %>
           <div class="card mt-4">
             <div class="card-body">
