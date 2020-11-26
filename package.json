@@ -1,0 +1,35 @@
+{
+  "name": "wt",
+  "version": "1.0.0",
+  "description": "BlogApp",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricdeZ/WT.git"
+  },
+  "author": "Gruppe 47",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EricdeZ/WT/issues"
+  },
+  "homepage": "https://github.com/EricdeZ/WT#readme",
+  "dependencies": {
+    "dompurify": "^2.2.2",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "jsdom": "^16.4.0",
+    "marked": "^1.2.5",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.10.15",
+    "slugify": "^1.4.6"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.6"
+  }
+}

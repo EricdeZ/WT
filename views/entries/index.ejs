@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../public/assets/style.css" />
+
+    <title>BlogTitle</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-4 text-light">
+          <h1>-BlogTitle</h1>
+        </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4 d-flex justify-content-md-around">
+          <a href="/entries/addEntry" class="btn btn-success">Add Entry</a>
+          <a href="entries/edit" class="btn btn-info">Edit</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="container bg-light">
+          <% entries.forEach(entry => { %>
+          <div class="card mt-4">
+            <div class="card-body">
+              <h4 class="card-title"><%= entry.title %></h4>
+              <div class="card-subtitle text-muted mb-2">
+                <%= entry.createdAt.toLocaleDateString() %>
+              </div>
+              <div class="card-text mb-2"><%= entry.description %></div>
+              <a href="entries/<%= entry.slug %>" class="btn btn-primary"
+                >Read More</a
+              >
+              <a href="entries/edit/<%= entry.id %>" class="btn btn-info"
+                >Edit</a
+              >
+              <form
+                action="/entries/<%= entry.id %>?_method=DELETE"
+                class="d-inline"
+                method="POST"
+              >
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
