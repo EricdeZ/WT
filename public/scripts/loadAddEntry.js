@@ -1,0 +1,37 @@
+function loadAddEntry(){
+  $("#contentBox").load("../../public/views/_form_fields.html");
+};
+
+/*function loadAddEntry() {
+  const contentBox = document.getElementById("contentBox");
+  contentBox.innerHTML = `
+    <div class="row align-items-center">
+        <div class="col-lg-4 text-light">
+          <h1>-BlogTitle</h1>
+        </div>
+     </div>
+     <div class="row" style="height: 100%">
+        <div class="container bg-light p-4">
+          <h1 class="mb-4">Your Entry</h1>
+          <form action="javascript:postNewEntry()" method="POST" id="addEntryForm">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input required type="text" value="Title" name="title" id="title" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea required type="text" name="description" id="description" class="form-control">Description</textarea>
+            </div>
+            <div class="form-group">
+              <label for="markdown">MarkDown</label>
+              <textarea required type="text" name="markdown" id="markdown" class="form-control">Markdown</textarea>
+            </div>
+
+            <a href="/" class="btn btn-secondary">Cancel</a>
+            
+            <button type="submit" class="btn btn-primary">Save</button>
+
+          </form>
+        </div>
+      </div>`
+}*/
