@@ -13,6 +13,8 @@ function loadIndex(listItem) {
 }
 
 function showIndex(entry) {
+  const button = document.getElementById("editButton");
+  button.style.display = "block";
   const contentBox = document.getElementById("contentBox");
   //$("#contentBox").load("../../public/views/_form_fields.html");
   contentBox.innerHTML = `
@@ -21,7 +23,6 @@ function showIndex(entry) {
         ${(new Date(entry.createdAt).toLocaleDateString())}
       </div>
       <a href="/" class="btn btn-secondary">HomePage</a>
-      <a href="/articles/edit/${entry.id}" class="btn btn-info">Edit</a>
       <div>${entry.sanitizedHtml}></div>
   `;
 }
