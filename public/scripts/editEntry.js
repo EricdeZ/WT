@@ -1,4 +1,6 @@
-var currentEdit;
+let currentEdit;
+
+const dompurify = require("dompurify");
 
 function editEntry(listItem) {
     currentEdit = listItem;
@@ -51,17 +53,26 @@ function showEdit(entry) {
 }
 
 function saveEditEntry() {
-    let xmlhttp = new XMLHttpRequest();
-    let url = "http://localhost:5000/entries/edit" + currentEdit.id;
     const form = document.getElementById("editEntryForm");
-    var formData = new FormData(form);
-    xmlhttp.onreadystatechange = function () {
+    let formData = new FormData(form);
+    let xmlhttp1 = new XMLHttpRequest();
+    let url1 = "http://localhost:5000/entries/edit/" + currentEdit.id;
+    xmlhttp1.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            i = 0;
-            //Todo:
-
+            const contentBox = document.getElementById("contentBox");
+            //$("#contentBox").load("../../public/views/_form_fields.html");
+            contentBox.innerHTML = `
+    <h1 class="mb-4">${form.body.title}</h1>
+      <div class="text-muted mb-2">
+        ${Date.now().toLocaleDateString()}
+      </div>
+      <a href="/" class="btn btn-secondary">HomePage</a>
+      <div>${dompurify.sanitize(marked(form.body.markdown))}></div>
+  `;
         }
     };
-    xmlhttp.open("POST", url, true);
-    xmlhttp.send(formData);
+    xmlhttp1.open("POST", url1, true);
+    xmlhttp1.send(formData);
+
+
 }
