@@ -1,16 +1,12 @@
 function loadIndex(listItem) {
-    const button = document.getElementById("editButton");
-    button.style.visibility = "visible";
-    button.onclick = function () {
-        editEntry(listItem);
-    };
     let xmlhttp = new XMLHttpRequest();
     let url = "http://localhost:5000/entries/" + listItem.id;
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var entry = JSON.parse(this.responseText);
+            const entry = JSON.parse(this.responseText);
             showIndex(entry);
+            showEditButton(entry);
         }
     };
     xmlhttp.open("GET", url, true);
@@ -19,6 +15,7 @@ function loadIndex(listItem) {
 
 function showIndex(entry) {
     const contentBox = document.getElementById("contentBox");
+    $('#contentBox').data('entryData', entry);
     //$("#contentBox").load("../../public/views/_form_fields.html");
     contentBox.innerHTML = `
     <h1 class="mb-4">${entry.title}</h1>
@@ -28,4 +25,9 @@ function showIndex(entry) {
       <a href="/" class="btn btn-secondary">HomePage</a>
       <div>${entry.sanitizedHtml}></div>
   `;
+}
+
+function showEditButton(entry) {
+    const button = document.getElementById("editButton");
+    button.style.visibility = "visible";
 }

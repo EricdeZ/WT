@@ -27,12 +27,12 @@
         <div class="col-lg-4"></div>
         <div class="col-lg-4 d-flex justify-content-md-around">
           <button class="btn btn-success" onclick="loadAddEntry()">Add Entry</button>
-          <a class="btn btn-info" id="editButton" style="visibility:hidden">Edit</a>
+          <a class="btn btn-info" id="editButton" style="visibility:hidden" onclick="editEntry()">Edit</a>
         </div>
       </div>
       <div class="row">
         <div class="col-2 bg-success box">
-          <ul class="overflow-auto index">
+          <ul class="overflow-auto index" id="indexList">
             <% entries.forEach(entry => { %>
             <li class="list-group-item-action index" id="<%= entry.slug %>" onclick="loadIndex(this)">
               <%= entry.title %>

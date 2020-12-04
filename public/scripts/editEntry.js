@@ -1,25 +1,6 @@
-let currentEdit;
-
-const dompurify = require("dompurify");
-
-function editEntry(listItem) {
-    currentEdit = listItem;
-    let xmlhttp = new XMLHttpRequest();
-    let url = "http://localhost:5000/entries/" + listItem.id;
-
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var entry = JSON.parse(this.responseText);
-            showEdit(entry);
-        }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-}
-
-
-function showEdit(entry) {
+function editEntry() {
     const contentBox = document.getElementById("contentBox");
+    const entry = $('#contentBox').data('entryData');
     contentBox.innerHTML = `
     <div class="row align-items-center">
         <div class="col-lg-4 text-light">
@@ -30,6 +11,7 @@ function showEdit(entry) {
         <div class="container bg-light p-4">
           <h1 class="mb-4">Edit Entry</h1>
           <form action="javascript:saveEditEntry()" method="POST" id="editEntryForm" enctype="multipart/form-data">
+            <input type="hidden" name="editEntryFormSlug" value="${entry.slug}">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input required type="text" value=${entry.title} name="title" id="title" class="form-control"/>
@@ -54,25 +36,34 @@ function showEdit(entry) {
 
 function saveEditEntry() {
     const form = document.getElementById("editEntryForm");
+    const oldSlug = form.elements["editEntryFormSlug"].value;
     let formData = new FormData(form);
     let xmlhttp1 = new XMLHttpRequest();
-    let url1 = "http://localhost:5000/entries/edit/" + currentEdit.id;
+    let url = "http://localhost:5000/entries/edit/" + oldSlug;
     xmlhttp1.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            const contentBox = document.getElementById("contentBox");
-            //$("#contentBox").load("../../public/views/_form_fields.html");
-            contentBox.innerHTML = `
-    <h1 class="mb-4">${form.body.title}</h1>
-      <div class="text-muted mb-2">
-        ${Date.now().toLocaleDateString()}
-      </div>
-      <a href="/" class="btn btn-secondary">HomePage</a>
-      <div>${dompurify.sanitize(marked(form.body.markdown))}></div>
-  `;
+            const entry = JSON.parse(this.responseText);
+            showEditedEntry(entry, oldSlug);
+        } else if (this.readyState == 4 && this.status == 400) {
+            alert("Error occured while saving Entry!");
         }
     };
-    xmlhttp1.open("POST", url1, true);
+    xmlhttp1.open("POST", url, true);
     xmlhttp1.send(formData);
+}
 
-
+function showEditedEntry(entry, oldSlug) {
+    const indexList = document.getElementById("indexList");
+    indexList.removeChild(indexList.children[oldSlug]);
+    const newIndexEntry = document.createElement("li");
+    newIndexEntry.setAttribute("class", "list-group-item-action index");
+    newIndexEntry.setAttribute("id", entry.slug);
+    newIndexEntry.setAttribute("onclick", "loadIndex(this)");
+    newIndexEntry.innerHTML = `${entry.title}`;
+    if (indexList.children.length > 0) {
+        indexList.insertBefore(newIndexEntry, indexList.children[0]);
+    } else {
+        indexList.appendChild(newIndexEntry);
+    }
+    showIndex(entry)
 }
