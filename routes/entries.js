@@ -9,6 +9,11 @@ router.get("/", async (req, res) => {
   res.render("../views/entries/index");
 });
 
+router.get("/getEntries", async (req, res) => {
+    const entries = await Entry.find({});
+    res.json(entries);
+});
+
 router.get("/:slug", async (req, res) => {
   const entry = await Entry.findOne({slug: req.params.slug});
   res.json(entry);
@@ -32,8 +37,15 @@ router.post("/edit/:slug", upload.none(), async (req, res, next) => {
 });
 
 router.post("/", upload.none(), async (req, res, next) => {
-    await Utils.createEntry(req);
-  }
-);
+  const newEntry = await Utils.createEntry(req);
+  res.json(newEntry);
+  return;
+});
+
+router.delete("/:slug", async (req, res) => {
+  Entry.deleteOne({slug: req.params.slug}, async function (err) {});
+  res.redirect("/");
+  //Todo: rewrite redirect, only xmlhttp request allowed!
+});
 
 module.exports = router;
