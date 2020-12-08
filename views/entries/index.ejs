@@ -15,6 +15,7 @@
     <script src="../../public/scripts/loadAddEntry.js" type="text/javascript" async></script>
     <script src="../../public/scripts/postNewEntry.js" type="text/javascript" async></script>
     <script src="../../public/scripts/editEntry.js" type="text/javascript" async></script>
+    <script src="../../public/scripts/loadEntries.js" type="text/javascript" async></script>
 
     <title>BlogTitle</title>
   </head>
@@ -41,26 +42,8 @@
           </ul>
         </div>
         <div class="col-10 bg-light box overflow-auto" id="contentBox">
-          <% entries.forEach(entry => { %>
-          <div class="card mt-4">
-            <div class="card-body">
-              <h4 class="card-title"><%= entry.title %></h4>
-              <div class="card-subtitle text-muted mb-2">
-                <%= entry.createdAt.toLocaleDateString() %>
-              </div>
-              <div class="card-text mb-2"><%= entry.description %></div>
-              <a href="entries/<%= entry.slug %>" class="btn btn-primary">
-                Read More
-              </a>
-              <a href="entries/edit/<%= entry.id %>" class="btn btn-info">
-                Edit
-              </a>
-              <form action="/entries/<%= entry.id %>?_method=DELETE" class="d-inline" method="POST">
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </form>
-            </div>
-          </div>
-          <% }) %>
+          <h1>Welcome to your blog!</h1>
+          <button class="btn btn-success" onclick="loadEntries()">Show Entries</button>
         </div>
       </div>
     </div>

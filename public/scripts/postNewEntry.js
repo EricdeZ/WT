@@ -3,6 +3,7 @@ function postNewEntry() {
   var formData = new FormData(form);
   let xmlhttp = new XMLHttpRequest();
   let url = "http://localhost:5000/entries";
+  //location.replace("http://localhost:5000");
 
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -16,4 +17,5 @@ function postNewEntry() {
   xmlhttp.open("POST", url, true);
   //xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xmlhttp.send(formData);
+  loadEntries();
 }

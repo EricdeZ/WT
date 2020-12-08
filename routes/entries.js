@@ -9,6 +9,11 @@ router.get("/", async (req, res) => {
   res.render("../views/entries/index");
 });
 
+router.get("/getEntries", async (req, res) => {
+    const entries = await Entry.find({});
+    res.json(entries);
+});
+
 router.get("/:slug", async (req, res) => {
   const entry = await Entry.findOne({slug: req.params.slug});
   res.json(entry);
@@ -35,5 +40,10 @@ router.post("/", upload.none(), async (req, res, next) => {
     await Utils.createEntry(req);
   }
 );
+
+router.delete("/:id", async (req, res) => {
+    await Entry.findByIdAndDelete(req.params.id);
+    res.redirect("/");
+});
 
 module.exports = router;

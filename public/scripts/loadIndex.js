@@ -22,8 +22,8 @@ function showIndex(entry) {
       <div class="text-muted mb-2">
         ${(new Date(entry.createdAt).toLocaleDateString())}
       </div>
-      <a href="/" class="btn btn-secondary">HomePage</a>
-      <div>${entry.sanitizedHtml}></div>
+      <button onclick="loadEntries()" class="btn btn-secondary">HomePage</button>
+      <div>${entry.sanitizedHtml}</div>
   `;
 }
 
