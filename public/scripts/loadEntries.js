@@ -29,7 +29,7 @@ function showEntries(entries) {
         <a href="" class="btn btn-info">
             Edit
         </a>
-        <form action="/entries/${entries[i]}?_method=DELETE" class="d-inline" method="POST">
+        <form action="/entries/${entries[i].slug}?_method=DELETE" class="d-inline" method="POST">
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
         </div>

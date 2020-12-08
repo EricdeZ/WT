@@ -37,13 +37,15 @@ router.post("/edit/:slug", upload.none(), async (req, res, next) => {
 });
 
 router.post("/", upload.none(), async (req, res, next) => {
-    await Utils.createEntry(req);
-  }
-);
+  const newEntry = await Utils.createEntry(req);
+  res.json(newEntry);
+  return;
+});
 
-router.delete("/:id", async (req, res) => {
-    await Entry.findByIdAndDelete(req.params.id);
-    res.redirect("/");
+router.delete("/:slug", async (req, res) => {
+  Entry.deleteOne({slug: req.params.slug}, async function (err) {});
+  res.redirect("/");
+  //Todo: rewrite redirect, only xmlhttp request allowed!
 });
 
 module.exports = router;
