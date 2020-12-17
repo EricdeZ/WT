@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', onLoad);
+
 function onLoad() {
 
-  const views = new Views()
-  const models = new Models()
-  const controller = new Controller(views, models)
+  const controller = new Controller()
 
   registerEventListeners(controller)
+  setSessionStorageDefault()
   window.history.pushState({hello: "no"}, '', "http://localhost:5000/");
 }
 
@@ -25,13 +25,15 @@ function registerEventListeners(controller) {
 
   let editButton = document.getElementById('editButton');
   editButton.addEventListener('click', function(){
-    controller.handleEditButton({pushState: true})
+    let formData = JSON.parse(sessionStorage.getItem("currentEntry"))
+    controller.handleEditButton({pushState: true, formDataEdit: formData})
   })
 
   let addButton = document.getElementById('addButton');
   addButton.addEventListener('click', function(event){
     event.preventDefault()
-    controller.handleAddButton({pushState: true, formData: null})
+    let formData = JSON.parse(sessionStorage.getItem("addFormData"))
+    controller.handleAddButton({pushState: true, formDataAdd: formData})
   })
 
   window.addEventListener('popstate', function(event){
@@ -39,3 +41,19 @@ function registerEventListeners(controller) {
     console.log('location changed!');
   })
 }
+
+function setSessionStorageDefault() {
+
+  let formInput =
+  {
+    title: "Title",
+    description: "Description",
+    markdown: "MarkDown"
+  }
+  sessionStorage.setItem('addFormData', JSON.stringify(formInput));
+}
+
+/* sessionStorageList:
+*  currentEntry - The entry data loaded on IndexRequest
+*  addFormData - The data how it was before the new entry was saved
+*  editFormData - The data how it was before the edited entry was saved*/

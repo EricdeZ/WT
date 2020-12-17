@@ -1,4 +1,6 @@
-function showAddedEntry(entry) {
+IndexListView = function () {}
+
+IndexListView.showAddedEntry = function (entry) {
   const indexList = document.getElementById("indexList");
   const newIndexEntry = document.createElement("li");
   newIndexEntry.setAttribute("class", "list-group-item-action index");
@@ -12,13 +14,12 @@ function showAddedEntry(entry) {
   }
 }
 
-function showEditedEntry(entry, oldSlug) {
+IndexListView.showEditedEntry = function(entry, oldSlug) {
   let indexList = document.getElementById("indexList");
   indexList.removeChild(indexList.children[oldSlug]);
   let newIndexEntry = document.createElement("li");
   newIndexEntry.setAttribute("class", "list-group-item-action index");
   newIndexEntry.setAttribute("id", entry.slug);
-  newIndexEntry.setAttribute("onclick", "loadIndex(this)");
   newIndexEntry.innerHTML = `${entry.title}`;
   if (indexList.children.length > 0) {
     indexList.insertBefore(newIndexEntry, indexList.children[0]);

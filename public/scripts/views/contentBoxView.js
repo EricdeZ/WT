@@ -1,6 +1,7 @@
-function showIndex(entry) {
+ContentBoxView = function () {}
+
+ContentBoxView.showIndex = function (entry) {
   const contentBox = document.getElementById("contentBox");
-  $('#contentBox').data('entryData', entry);
 
   contentBox.innerHTML = `
     <h1 class="mb-4">${entry.title}</h1>
@@ -25,7 +26,7 @@ function showIndex(entry) {
 
 }
 
-function showEntries(entries) {
+ContentBoxView.showEntries = function (entries) {
   const contentBox = document.getElementById("contentBox");
   for (var i = 0; i < entries.length; i++) {
     if (i == 0) {
@@ -52,9 +53,8 @@ function showEntries(entries) {
   }
 }
 
-function showEditEntry() {
-  const contentBox = document.getElementById("contentBox");
-  const entry = $('#contentBox').data('entryData');
+ContentBoxView.showEditEntry = function (formData) {
+  let contentBox = document.getElementById("contentBox")
   contentBox.innerHTML = `
     <div class="row align-items-center">
         <div class="col-lg-4 text-light">
@@ -65,18 +65,18 @@ function showEditEntry() {
         <div class="container bg-light p-4">
           <h1 class="mb-4">Edit Entry</h1>
           <form action="" method="POST" id="editEntryForm" enctype="multipart/form-data">
-            <input type="hidden" name="editEntryFormSlug" value="${entry.slug}">
+            <input type="hidden" name="editEntryFormSlug" value="${formData.slug}">
             <div class="form-group">
                 <label for="title">Title</label>
-                <input required type="text" value=${entry.title} name="title" id="title" class="form-control"/>
+                <input required type="text" value=${formData.title} name="title" id="title" class="form-control"/>
             </div>
             <div class="form-group">
               <label for="description">Description</label>
-              <textarea required type="text" name="description" id="description" class="form-control">${entry.description}</textarea>
+              <textarea required type="text" name="description" id="description" class="form-control">${formData.description}</textarea>
             </div>
             <div class="form-group">
               <label for="markdown">MarkDown</label>
-              <textarea required type="text" name="markdown" id="markdown" class="form-control">${entry.markdown}</textarea>
+              <textarea required type="text" name="markdown" id="markdown" class="form-control">${formData.markdown}</textarea>
             </div>
 
             <a href="/" class="btn btn-secondary">Cancel</a>
@@ -88,19 +88,11 @@ function showEditEntry() {
       </div>`;
 }
 
-function showAddEntry(formData) {
+ContentBoxView.showAddEntry = function (formInput) {
 
-  let formInput = (formData !== null) ?
-    {
-      title: formData["title"].value,
-      description: formData["description"].value,
-      markdown: formData["markdown"].value} :
-    {
-      title: "Title",
-      description: "Description",
-      markdown: "MarkDown"
-    }
-  const contentBox = document.getElementById("contentBox");
+  sessionStorage.setItem('addFormData', JSON.stringify(formInput));
+
+  let contentBox = document.getElementById("contentBox");
   contentBox.innerHTML = `
     <div class="row align-items-center">
         <div class="col-lg-4 text-light">
@@ -133,7 +125,7 @@ function showAddEntry(formData) {
     </div>`
 }
 
-function resetContentBox() {
+ContentBoxView.resetContentBox = function () {
 
   const contentBox = document.getElementById("contentBox");
 

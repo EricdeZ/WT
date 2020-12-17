@@ -1,8 +1,7 @@
-function Controller(views, models) {
-  this.views = views
-  this.models = models
-  views.controller = this
-  models.controller = this
+Controller = function() {
+
+  const views = new Views(this)
+  const models = new Models(this)
 
   function XMLHttpRequestGet(url, callback) {
     let xmlhttp = new XMLHttpRequest();
@@ -60,11 +59,12 @@ function Controller(views, models) {
   }
 
   Controller.prototype.handleEditButton = function(transmittedData) {
-    views.handleEditButton()
+    views.handleEditButton(transmittedData.formDataEdit)
     let editEntryForm = document.getElementById('editEntryForm');
+    let oldSlug = editEntryForm.elements["editEntryFormSlug"].value;
     editEntryForm.addEventListener('submit', this.handleEditFormSubmit)
     if (transmittedData.pushState) {
-      history.pushState(transmittedData.formData, '', "http://localhost:5000/add");
+      history.pushState(null, '', "http://localhost:5000/entries/edit/" + oldSlug);
     }
   }
 
@@ -77,11 +77,9 @@ function Controller(views, models) {
   }
 
   Controller.prototype.handleAddButton = function(transmittedData) {
-    views.handleAddButton(transmittedData.formData)
-    let addEntryForm = document.getElementById('addEntryForm');
-    addEntryForm.addEventListener('submit', this.handleAddFormSubmit)
+    views.handleAddButton(transmittedData.formDataAdd)
     if (transmittedData.pushState) {
-      history.pushState(transmittedData.formData, '', "http://localhost:5000/add");
+      history.pushState(null, '', "http://localhost:5000/add");
     }
   }
 
@@ -94,13 +92,35 @@ function Controller(views, models) {
   }
 
   Controller.prototype.handleAddFormChanged = function(e) {
-    let formInput = e.target.form
-    history.replaceState({formInput: formInput}, "", "http://localhost:5000/add")
+    let formInput =
+    {
+      title: e.target.form["title"].value,
+      description: e.target.form["description"].value,
+      markdown: e.target.form["markdown"].value
+    }
+    sessionStorage.setItem('addFormData', JSON.stringify(formInput));
+  }
+
+  Controller.prototype.handleEditFormChanged = function(e) {
+    let formInput =
+      {
+        title: e.target.form["title"].value,
+        description: e.target.form["description"].value,
+        markdown: e.target.form["markdown"].value
+      }
+    sessionStorage.setItem('editFormData', JSON.stringify(formInput));
   }
 
   Controller.prototype.registerEventListenerById = function (id, type, eventListener) {
     let element = document.getElementById(id)
     element.addEventListener(type, eventListener)
+  }
+
+  Controller.prototype.registerEventListenerByIdWithParameter = function (id, type, eventListener, parameter) {
+    let element = document.getElementById(id)
+    element.addEventListener(type, function () {
+      eventListener(parameter)
+    })
   }
 
   Controller.prototype.handleUrlChange = function (event) {
@@ -111,14 +131,15 @@ function Controller(views, models) {
     let actionData = {
       indexElement : document.getElementById(urlEnd),
       pushState : false,
-      formData : event.state
+      formDataAdd : JSON.parse(sessionStorage.getItem("addFormData")),
+      formDataEdit : JSON.parse(sessionStorage.getItem("editFormData"))
     }
     let routes = [
       { path: "http://localhost:5000/" , handler: this.handleResetRequest},
       { path: "http://localhost:5000/getEntries" , handler: this.handleWelcomeButton},
       { path: "http://localhost:5000/entries/" + urlEnd , handler: this.handleIndexRequest},
       { path: "http://localhost:5000/add" , handler: this.handleAddButton},
-      //{ path: "http://localhost:5000/entries/edit/" + urlEnd , handler: this.handleEditButton},
+      { path: "http://localhost:5000/entries/edit/" + urlEnd , handler: this.handleEditButton},
     ];
 
     let matches = routes.map(route => {
@@ -131,7 +152,7 @@ function Controller(views, models) {
     let match = matches.find(match => match.result !== false);
 
     if (!match) {
-      this.handleWelcomeButton(actionData)
+      this.handleResetRequest(actionData)
     } else {
       match.route.handler(actionData)
     }

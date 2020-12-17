@@ -1,5 +1,5 @@
-function Views() {
-  Views.prototype.controller = null
+Views = function(controller) {
+  this.controller = controller
 
   Views.prototype.handleIndexRequest = function(entry) {
     if (!entry) {
@@ -7,8 +7,10 @@ function Views() {
       return
     }
     let entryJson = JSON.parse(entry)
-    showIndex(entryJson)
-    showEditButton()
+
+    ContentBoxView.showIndex(entryJson)
+    TitleBarView.showEditButton()
+    sessionStorage.setItem('currentEntry', JSON.stringify(entryJson));
     this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
   }.bind(this)
 
@@ -18,11 +20,12 @@ function Views() {
       return
     }
     let entriesJson = JSON.parse(entries)
-    showEntries(entriesJson)
+    ContentBoxView.showEntries(entriesJson)
   }
 
-  Views.prototype.handleEditButton = function() {
-    showEditEntry()
+  Views.prototype.handleEditButton = function(formData) {
+    ContentBoxView.showEditEntry(formData)
+    this.controller.registerEventListenerById("editEntryForm", "change", this.controller.handleEditFormChanged)
   }
 
   Views.prototype.handleEditFormSubmit = function(entry, params) {
@@ -32,8 +35,11 @@ function Views() {
     }
     const entryJson = JSON.parse(entry)
     let oldSlug = params[0]
-    showEditedEntry(entryJson, oldSlug)
-    showIndex(entryJson)
+    IndexListView.showEditedEntry(entryJson, oldSlug)
+    ContentBoxView.showIndex(entryJson)
+    let indexElement = document.getElementById(entryJson.slug)
+    let parameter = {pushState: true, indexElement : indexElement}
+    this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequest, parameter)
     this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
   }.bind(this)
 
@@ -43,18 +49,22 @@ function Views() {
       return
     }
     const entryJson = JSON.parse(entry)
-    showAddedEntry(entryJson)
-    showIndex(entryJson)
+    IndexListView.showAddedEntry(entryJson)
+    ContentBoxView.showIndex(entryJson)
+    let indexElement = document.getElementById(entryJson.slug)
+    let parameter = {pushState: true, indexElement : indexElement}
+    this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequest, parameter)
     this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
   }.bind(this)
 
   Views.prototype.handleAddButton = function(formData) {
-    showAddEntry(formData)
+    ContentBoxView.showAddEntry(formData)
+    this.controller.registerEventListenerById("addEntryForm", "submit", this.controller.handleAddFormSubmit)
     this.controller.registerEventListenerById("addEntryForm", "change", this.controller.handleAddFormChanged)
   }
 
   Views.prototype.handleResetRequest = function() {
-    resetContentBox()
+    ContentBoxView.resetContentBox()
     this.controller.registerEventListenerById("welcomeButton", "click", this.controller.handleWelcomeButton)
   }
 }
