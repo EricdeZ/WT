@@ -1,9 +1,9 @@
 const express = require("express");
 const Entry = require("./../models/entry");
 const router = express.Router();
-var multer = require('multer');
-var upload = multer({dest: 'uploads/'});
-var Utils = require("./routUtils")
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
+const Utils = require("./routUtils")
 
 router.get("/", async (req, res) => {
   res.render("../views/entries/index");

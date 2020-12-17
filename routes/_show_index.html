@@ -1,0 +1,6 @@
+<h1 class="mb-4">${entry.title}</h1>
+<div class="text-muted mb-2">
+    ${(new Date(entry.createdAt).toLocaleDateString())}
+</div>
+<button onclick="loadEntries()" class="btn btn-secondary">HomePage</button>
+<div>${entry.sanitizedHtml}</div>

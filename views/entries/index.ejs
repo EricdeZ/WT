@@ -11,11 +11,13 @@
     />
     <link rel="stylesheet" href="../../public/assets/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../../public/scripts/loadIndex.js" type="text/javascript" async></script>
-    <script src="../../public/scripts/loadAddEntry.js" type="text/javascript" async></script>
-    <script src="../../public/scripts/postNewEntry.js" type="text/javascript" async></script>
-    <script src="../../public/scripts/editEntry.js" type="text/javascript" async></script>
-    <script src="../../public/scripts/loadEntries.js" type="text/javascript" async></script>
+    <script src="../../public/scripts/controller/Controller.js" type="text/javascript" async></script>
+    <script src="../../public/scripts/views/Views.js" type="text/javascript" async></script>
+    <script src="../../public/scripts/views/contentBoxView.js" type="text/javascript" async></script>
+    <script src="../../public/scripts/views/indexListView.js" type="text/javascript" async></script>
+    <script src="../../public/scripts/views/titleBarView.js" type="text/javascript" async></script>
+    <script src="../../public/scripts/models/Models.js" type="text/javascript" async></script>
+    <script src="../../public/scripts/mvc.js" type="text/javascript" async></script>
 
     <title>BlogTitle</title>
   </head>
@@ -27,15 +29,15 @@
         </div>
         <div class="col-lg-4"></div>
         <div class="col-lg-4 d-flex justify-content-md-around">
-          <button class="btn btn-success" onclick="loadAddEntry()">Add Entry</button>
-          <a class="btn btn-info" id="editButton" style="visibility:hidden" onclick="editEntry()">Edit</a>
+          <button class="btn btn-success" id="addButton">Add Entry</button>
+          <a class="btn btn-info" id="editButton" style="visibility:hidden">Edit</a>
         </div>
       </div>
       <div class="row">
         <div class="col-2 bg-success box">
           <ul class="overflow-auto index" id="indexList">
             <% entries.forEach(entry => { %>
-            <li class="list-group-item-action index" id="<%= entry.slug %>" onclick="loadIndex(this)">
+            <li class="list-group-item-action index" id="<%= entry.slug %>">
               <%= entry.title %>
             </li>
             <% }) %>
@@ -43,7 +45,7 @@
         </div>
         <div class="col-10 bg-light box overflow-auto" id="contentBox">
           <h1>Welcome to your blog!</h1>
-          <button class="btn btn-success" onclick="loadEntries()">Show Entries</button>
+          <button class="btn btn-success" id="welcomeButton">Show Entries</button>
         </div>
       </div>
     </div>

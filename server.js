@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const entriesRouter = require("./routes/entries");
+const viewsRouter = require("./routes/views");
 const Entry = require("./models/entry");
 const methodOverride = require("method-override");
 
@@ -29,6 +30,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/entries", entriesRouter);
+app.use("/views", viewsRouter);
 
 const port = 5000;
 app.listen(port, () => console.log(`Server started on port ${port}`));
