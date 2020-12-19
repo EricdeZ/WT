@@ -1,11 +1,9 @@
-html {
-  height: 100%;
-}
-
-body {
+body,html {
   background-image: url("../resources/Background.png");
   height: 100%;
+  width: 100%;
   background-position: center;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #d1d6e4;
@@ -14,10 +12,52 @@ body {
   justify-content: center;
 }
 
+.head-row
+{
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+.title-col
+{
+  justify-self: start;
+  color: white;
+}
+
+.btn-col
+{
+  justify-self: end;
+  padding-left: 100px;
+}
+
+.content-row
+{
+  margin-left: 50px;
+  margin-right: 150px;
+}
+
+.container{
+  position: absolute;
+  top: 60px;
+}
+
+.content-box{
+  height: 80vh;
+  width: 150vw;
+}
+
 div.box {
-  height: 750px;
-  max-height: 750px;
+  height: 80vh;
+  max-height: 100vh;
   display: inline-block;
+}
+
+div.index-box
+{
+  background-color: #F86323!important;
+  width: 150px;!important;
+  max-width: 150px;!important;
+  visibility: visible; /*!*wenn button geklickt wird*!*/
 }
 
 li.index {
@@ -27,7 +67,104 @@ li.index {
 }
 
 ul.index {
-  height: 750px;
-  max-height: 750px;
-  height: 100%;
+  height: 68vh;
+  max-height: 68vh;
+  background-color: #F86323;
 }
+
+ul.index::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+
+ul.index::-webkit-scrollbar-track{
+  background: #F98F61;
+}
+
+ul.index::-webkit-scrollbar-thumb{
+  background: white;
+  border-radius: 20px;
+  border: 2px solid #F98F61;
+;
+}
+
+.btn.btn{
+  margin-right: 1rem;
+  width: 130px;
+  height: 40px;
+  position: relative;
+  color: white;
+  border: none;
+  outline: none;
+  padding: .5rem 1em;
+  border-radius: 25px;
+
+  --border-size: 4px;
+}
+
+.btn.btn-add-page
+{
+  --add_entry_col: #F98F61;
+  background-color: var(--add_entry_col);
+  z-index: 1;
+}
+
+.btn.btn-edit
+{
+  --edit_col: #61F994;
+  background-color: var(--edit_col);
+  z-index: 1;
+}
+
+/*--------------button animations--------------*/
+
+.btn.btn-add-page::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: inherit;
+  z-index: -1;
+  border:var(--border-size) solid var(--add_entry_col);
+}
+
+/*FOCUSED button is still hover state!!!*/
+
+.btn.btn-add-page:hover::before,
+.btn.btn-add-page:active::before
+{
+  top: calc(var(--border-size)*-.8);
+  bottom: calc(var(--border-size)*-.8);
+  left: calc(var(--border-size)*-.8);
+  right: calc(var(--border-size)*-.8);
+  border-color: #FFA179;
+  background-color: #FFA179;
+}
+
+.btn.btn-edit::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: inherit;
+  z-index: -1;
+  border:var(--border-size) solid var(--edit_col);
+}
+
+.btn.btn-edit:hover::before,
+.btn.btn-edit:active::before{
+  top: calc(var(--border-size)*-.8);
+  bottom: calc(var(--border-size)*-.8);
+  left: calc(var(--border-size)*-.8);
+  right: calc(var(--border-size)*-.8);
+  border-color: #80EBA4;
+  background-color: #80EBA4;
+}
+
+
+
+
