@@ -19,6 +19,31 @@
     <script src="../../public/scripts/models/Models.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/mvc.js" type="text/javascript" defer></script>
 
+    <script>
+      var toggle;
+      function openIndex()
+      {
+        if(toggle)
+        {
+          document.getElementById("indexRow").style.visibility = "hidden";
+          return toggle=0;
+        }
+        else{
+        document.getElementById("indexRow").style.visibility = "visible";
+        return toggle=1;}
+      }
+
+      function hover(element)
+      {
+        element.setAttribute("src", "public/resources/INDEX-H.svg")
+      }
+
+      function unhover(element)
+      {
+        element.setAttribute("src", "public/resources/INDEX.svg")
+      }
+    </script>
+
     <title>BlogTitle</title>
   </head>
   <body>
@@ -37,16 +62,15 @@
         <div class="col-sm-2 bg-success box index-box">
 
           <div class="row button-row">
-            <div id="index">
-            <span class="slide">
+            <span class="slide-menu">
               <a href="#" onclick="openIndex()">
-                <input name="btn-index" type="image" src="public/resources/INDEX.svg" width="150">
+                <input name="btn-index" type="image" src="public/resources/INDEX.svg" width="150"
+                       onmouseover="hover(this);" onmouseout="unhover(this);">
               </a>
             </span>
-            </div>
           </div>
 
-          <div class="row index-row">
+          <div class="row index-row" id="indexRow">
             <ul class="overflow-auto index" id="indexList">
             <% entries.forEach(entry => { %>
             <li class="list-group-item-action index" id="<%= entry.slug %>">

@@ -46,6 +46,8 @@ body,html {
   width: 150vw;
 }
 
+
+
 div.box {
   height: 80vh;
   max-height: 100vh;
@@ -54,10 +56,15 @@ div.box {
 
 div.index-box
 {
-  background-color: #F86323!important;
+  background-color: transparent!important; /*#F86323!important;*/
   width: 150px;!important;
   max-width: 150px;!important;
-  visibility: visible; /*!*wenn button geklickt wird*!*/
+  visibility: visible;
+}
+
+div.index-row
+{
+  visibility: hidden;
 }
 
 li.index {
@@ -67,8 +74,8 @@ li.index {
 }
 
 ul.index {
-  height: 68vh;
-  max-height: 68vh;
+  height: 69vh;
+  max-height: 69vh;
   background-color: #F86323;
 }
 
