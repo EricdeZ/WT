@@ -27,6 +27,10 @@ const entrySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isPublic: {
+    type: Boolean,
+    default: true,
+  }
 });
 
 entrySchema.pre("validate", function (next) {

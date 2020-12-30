@@ -4,17 +4,34 @@ function onLoad() {
 
   const controller = new Controller()
 
+  console.log(localStorage)
+  loadPrivateEntries()
   registerEventListeners(controller)
-  setSessionStorageDefault()
-  window.history.pushState({hello: "no"}, '', "http://localhost:5000/");
+  window.history.pushState(null, '', "http://localhost:5000/");
+}
+
+function loadPrivateEntries() {
+  let privateEntries = localStorage.getItem("entries")
+  let privateEntriesJson = JSON.parse(privateEntries)
+  for(let entry in privateEntriesJson) {
+    indexListView.showAddedEntry(privateEntriesJson[entry])
+  }
 }
 
 function registerEventListeners(controller) {
-  let indexList = document.getElementById('indexList');
-  let indexListChildren = [...indexList.children];
-  indexListChildren.forEach(element => {
+  let indexListPublic = document.getElementById('indexListPublic');
+  let indexListPublicChildren = [...indexListPublic.children];
+  indexListPublicChildren.forEach(element => {
     element.addEventListener('click', function(){
-      controller.handleIndexRequest({indexElement: element, pushState: true})
+      controller.handleIndexRequestPublic({indexElement: element, pushState: true})
+    })
+  })
+
+  let indexListPrivate = document.getElementById('indexListPrivate');
+  let indexListPrivateChildren = [...indexListPrivate.children];
+  indexListPrivateChildren.forEach(element => {
+    element.addEventListener('click', function(){
+      controller.handleIndexRequestPrivate({indexElement: element, pushState: true})
     })
   })
 
@@ -41,19 +58,3 @@ function registerEventListeners(controller) {
     console.log('location changed!');
   })
 }
-
-function setSessionStorageDefault() {
-
-  let formInput =
-  {
-    title: "Title",
-    description: "Description",
-    markdown: "MarkDown"
-  }
-  sessionStorage.setItem('addFormData', JSON.stringify(formInput));
-}
-
-/* sessionStorageList:
-*  currentEntry - The entry data loaded on IndexRequest
-*  addFormData - The data how it was before the new entry was saved
-*  editFormData - The data how it was before the edited entry was saved*/
