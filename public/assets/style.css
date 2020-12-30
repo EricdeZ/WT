@@ -68,15 +68,29 @@ div.index-row
 }
 
 li.index {
-  /* list-style-type: none; */
+  list-style-type: none;
   font-size: larger;
   cursor: pointer;
 }
 
 ul.index {
-  height: 69vh;
-  max-height: 69vh;
+  height: 68vh;
+  max-height: 68vh;
+  width: 150px;
+  max-width: 150px;
   background-color: #F86323;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+}
+
+li.list-group-item-action{
+  font-family: 'EB Garamond', serif;
+  padding-bottom: 5px;
+  color: white;
+  border-bottom: 2px solid white;
+
 }
 
 ul.index::-webkit-scrollbar{
@@ -122,7 +136,7 @@ ul.index::-webkit-scrollbar-thumb{
 
 .btn.btn-edit
 {
-  --edit_col: #61F994;
+  --edit_col: #52EB85;
   background-color: var(--edit_col);
   z-index: 1;
 }
@@ -130,6 +144,9 @@ ul.index::-webkit-scrollbar-thumb{
 .btn.btn-success
 {
   width: 130px;
+  --suc_col: #28A745;
+  background-color: var(--suc_col);
+  z-index: 1;
 }
 
 /*--------------button states--------------*/
@@ -146,7 +163,6 @@ ul.index::-webkit-scrollbar-thumb{
   border:var(--border-size) solid var(--add_entry_col);
 }
 
-/*FOCUSED button is still hover state!!!*/
 
 .btn.btn-add-page:hover::before,
 .btn.btn-add-page:active::before
@@ -181,6 +197,34 @@ ul.index::-webkit-scrollbar-thumb{
   background-color: #80EBA4;
 }
 
+li.list-group-item-action:hover
+{
+  background-color: #FFA179;
+}
+
+.btn.btn-success::before
+{
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: inherit;
+  z-index: -1;
+  border:var(--border-size) solid var(--edit_col);
+}
+
+.btn.btn-success:hover::before,
+.btn.btn-success:active::before
+{
+  top: calc(var(--border-size)*-.8);
+  bottom: calc(var(--border-size)*-.8);
+  left: calc(var(--border-size)*-.8);
+  right: calc(var(--border-size)*-.8);
+  border-color: #1BCF44;
+  background-color: #1BCF44;
+}
 
 
 
