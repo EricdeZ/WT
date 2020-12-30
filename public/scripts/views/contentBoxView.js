@@ -1,7 +1,7 @@
 ContentBoxView = function () {}
 
 ContentBoxView.showIndex = function (entry) {
-  const contentBox = document.getElementById("contentBox");
+  let contentBox = document.getElementById("contentBox");
 
   contentBox.innerHTML = `
     <h1 class="mb-4">${entry.title}</h1>
@@ -89,9 +89,6 @@ ContentBoxView.showEditEntry = function (formData) {
 }
 
 ContentBoxView.showAddEntry = function (formInput) {
-
-  sessionStorage.setItem('addFormData', JSON.stringify(formInput));
-
   let contentBox = document.getElementById("contentBox");
   contentBox.innerHTML = `
     <div class="row align-items-center">
@@ -115,9 +112,12 @@ ContentBoxView.showAddEntry = function (formInput) {
             <label for="markdown">MarkDown</label>
             <textarea required type="text" name="markdown" id="markdown" class="form-control">${formInput.markdown}</textarea>
           </div>
+          <div class="form-check">
+              <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
+              <label class="form-check-label" for="publicCheckbox">Public Entry</label>
+          </div>
 
           <a href="/" class="btn btn-secondary">Cancel</a>
-          
           <button type="submit" class="btn btn-primary">Save</button>
 
         </form>

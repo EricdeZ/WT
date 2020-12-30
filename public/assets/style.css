@@ -67,8 +67,8 @@ li.index {
 }
 
 ul.index {
-  height: 68vh;
-  max-height: 68vh;
+  height: 34vh;
+  max-height: 34vh;
   background-color: #F86323;
 }
 
@@ -88,7 +88,7 @@ ul.index::-webkit-scrollbar-thumb{
 ;
 }
 
-.btn.btn{
+.btn{
   margin-right: 1rem;
   width: 120px;
   height: 40px;

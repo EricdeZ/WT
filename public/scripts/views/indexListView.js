@@ -1,7 +1,12 @@
-IndexListView = function () {}
+indexListView = function () {}
 
-IndexListView.showAddedEntry = function (entry) {
-  const indexList = document.getElementById("indexList");
+indexListView.showAddedEntry = function (entry) {
+  let indexList
+  if (entry.isPublic) {
+    indexList = document.getElementById("indexListPublic");
+  } else {
+    indexList = document.getElementById("indexListPrivate");
+  }
   const newIndexEntry = document.createElement("li");
   newIndexEntry.setAttribute("class", "list-group-item-action index");
   newIndexEntry.setAttribute("id", entry.slug);
@@ -14,10 +19,15 @@ IndexListView.showAddedEntry = function (entry) {
   }
 }
 
-IndexListView.showEditedEntry = function(entry, oldSlug) {
-  let indexList = document.getElementById("indexList");
+indexListView.showEditedEntry = function(entry, oldSlug) {
+  let indexList
+  if (entry.isPublic) {
+    indexList = document.getElementById("indexListPublic");
+  } else {
+    indexList = document.getElementById("indexListPrivate");
+  }
   indexList.removeChild(indexList.children[oldSlug]);
-  let newIndexEntry = document.createElement("li");
+  const newIndexEntry = document.createElement("li");
   newIndexEntry.setAttribute("class", "list-group-item-action index");
   newIndexEntry.setAttribute("id", entry.slug);
   newIndexEntry.innerHTML = `${entry.title}`;

@@ -1,7 +1,8 @@
 Controller = function() {
 
-  const views = new Views(this)
   const models = new Models(this)
+  const views = new Views(this, models)
+  models.setSessionStorageDefault()
 
   function XMLHttpRequestGet(url, callback) {
     let xmlhttp = new XMLHttpRequest();
@@ -42,9 +43,18 @@ Controller = function() {
     }
   }
 
-  Controller.prototype.handleIndexRequest = function(transmittedData) {
+  Controller.prototype.handleIndexRequestPublic = function(transmittedData) {
     let url = "http://localhost:5000/entries/" + transmittedData.indexElement.id;
     XMLHttpRequestGet(url, views.handleIndexRequest)
+    if (transmittedData.pushState) {
+      history.pushState(null, '', url);
+    }
+  }
+
+  Controller.prototype.handleIndexRequestPrivate = function(transmittedData) {
+    let url = "http://localhost:5000/entriesPrivate/" + transmittedData.indexElement.id;
+    let entry = models.getEntryString([transmittedData.indexElement.id])
+    views.handleIndexRequest(entry)
     if (transmittedData.pushState) {
       history.pushState(null, '', url);
     }
@@ -72,8 +82,16 @@ Controller = function() {
     e.preventDefault()
     let editEntryForm = document.getElementById('editEntryForm');
     const oldSlug = editEntryForm.elements["editEntryFormSlug"].value;
-    let url = "http://localhost:5000/entries/edit/" + oldSlug;
-    XMLHttpRequestPostForm(url, views.handleEditFormSubmit, editEntryForm, [oldSlug])
+    if(models.getSessionDataByKeyJson(models.sessionKeys.currentEntry).isPublic) {
+      let url = "http://localhost:5000/entries/edit/" + oldSlug;
+      XMLHttpRequestPostForm(url, views.handleEditFormSubmit, editEntryForm, [oldSlug])
+    } else {
+      models.deleteEntry(oldSlug)
+      models.savePrivateEntry(editEntryForm)
+      let entry = models.getEntryString(Utils.convertToSlug(editEntryForm.title.value))
+      views.handleEditFormSubmit(entry, [oldSlug])
+    }
+
   }
 
   Controller.prototype.handleAddButton = function(transmittedData) {
@@ -86,8 +104,14 @@ Controller = function() {
   Controller.prototype.handleAddFormSubmit = function(e) {
     e.preventDefault()
     let addEntryForm = document.getElementById('addEntryForm');
-    let url = "http://localhost:5000/entries";
-    XMLHttpRequestPostForm(url, views.handleAddFormSubmit, addEntryForm)
+    if(addEntryForm.elements["publicCheckbox"].checked) {
+      let url = "http://localhost:5000/entries";
+      XMLHttpRequestPostForm(url, views.handleAddFormSubmit, addEntryForm)
+    } else {
+      models.savePrivateEntry(addEntryForm)
+      let entry = models.getEntryString(Utils.convertToSlug(addEntryForm.title.value))
+      views.handleAddFormSubmit(entry)
+    }
 
   }
 
@@ -98,7 +122,7 @@ Controller = function() {
       description: e.target.form["description"].value,
       markdown: e.target.form["markdown"].value
     }
-    sessionStorage.setItem('addFormData', JSON.stringify(formInput));
+    models.sessionSaveData(models.sessionKeys.addFormData, formInput)
   }
 
   Controller.prototype.handleEditFormChanged = function(e) {
@@ -108,7 +132,7 @@ Controller = function() {
         description: e.target.form["description"].value,
         markdown: e.target.form["markdown"].value
       }
-    sessionStorage.setItem('editFormData', JSON.stringify(formInput));
+      models.sessionSaveData(models.sessionKeys.editFormData, formInput)
   }
 
   Controller.prototype.registerEventListenerById = function (id, type, eventListener) {
@@ -131,13 +155,14 @@ Controller = function() {
     let actionData = {
       indexElement : document.getElementById(urlEnd),
       pushState : false,
-      formDataAdd : JSON.parse(sessionStorage.getItem("addFormData")),
-      formDataEdit : JSON.parse(sessionStorage.getItem("editFormData"))
+      formDataAdd : models.getSessionDataByKeyJson(models.sessionKeys.addFormData),
+      formDataEdit : models.getSessionDataByKeyJson(models.sessionKeys.formDataEdit)
     }
     let routes = [
       { path: "http://localhost:5000/" , handler: this.handleResetRequest},
       { path: "http://localhost:5000/getEntries" , handler: this.handleWelcomeButton},
-      { path: "http://localhost:5000/entries/" + urlEnd , handler: this.handleIndexRequest},
+      { path: "http://localhost:5000/entries/" + urlEnd , handler: this.handleIndexRequestPublic},
+      { path: "http://localhost:5000/entriesPrivate/" + urlEnd , handler: this.handleIndexRequestPrivate},
       { path: "http://localhost:5000/add" , handler: this.handleAddButton},
       { path: "http://localhost:5000/entries/edit/" + urlEnd , handler: this.handleEditButton},
     ];

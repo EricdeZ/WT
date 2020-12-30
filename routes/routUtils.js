@@ -10,6 +10,7 @@ module.exports = {
     entry.title = req.body.title;
     entry.description = req.body.description;
     entry.markdown = req.body.markdown;
+    entry.isPublic = true;
     try {
       await entry.save();
       return entry;
