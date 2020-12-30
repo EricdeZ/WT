@@ -53,6 +53,29 @@ function setSessionStorageDefault() {
   sessionStorage.setItem('addFormData', JSON.stringify(formInput));
 }
 
+let toggle;
+function openIndex()
+{
+  if(toggle)
+  {
+    document.getElementById("indexRow").style.visibility = "hidden";
+    return toggle=0;
+  }
+  else{
+    document.getElementById("indexRow").style.visibility = "visible";
+    return toggle=1;}
+}
+
+function hover(element)
+{
+  element.setAttribute("src", "public/resources/INDEX-H.svg")
+}
+
+function unhover(element)
+{
+  element.setAttribute("src", "public/resources/INDEX.svg")
+}
+
 /* sessionStorageList:
 *  currentEntry - The entry data loaded on IndexRequest
 *  addFormData - The data how it was before the new entry was saved

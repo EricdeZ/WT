@@ -8,7 +8,7 @@ ContentBoxView.showIndex = function (entry) {
       <div class="text-muted mb-2">
         ${(new Date(entry.createdAt).toLocaleDateString())}
       </div>
-      <button onclick="" id="homePageButton" class="btn btn-secondary">HomePage</button>
+      <button onclick="" id="homePageButton" class="btn btn-secondary">HOMEPAGE</button>
       <div>${entry.sanitizedHtml}</div>
   `;
 
@@ -41,10 +41,10 @@ ContentBoxView.showEntries = function (entries) {
         </div>
         <div>${entries[i].sanitizedHtml}</div>
         <a href="" class="btn btn-info">
-            Edit
+            EDIT
         </a>
         <form action="/entries/${entries[i].slug}?_method=DELETE" class="d-inline" method="POST">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-danger">DELETE</button>
         </form>
         </div>
         </div>
@@ -79,9 +79,9 @@ ContentBoxView.showEditEntry = function (formData) {
               <textarea required type="text" name="markdown" id="markdown" class="form-control">${formData.markdown}</textarea>
             </div>
 
-            <a href="/" class="btn btn-secondary">Cancel</a>
+            <a href="/" class="btn btn-secondary">CANCEL</a>
             
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">SAVE</button>
 
           </form>
         </div>
@@ -116,9 +116,9 @@ ContentBoxView.showAddEntry = function (formInput) {
             <textarea required type="text" name="markdown" id="markdown" class="form-control">${formInput.markdown}</textarea>
           </div>
 
-          <a href="/" class="btn btn-secondary">Cancel</a>
+          <a href="/" class="btn btn-secondary">CANCEL</a>
           
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary">SAVE</button>
 
         </form>
       </div>
@@ -131,6 +131,6 @@ ContentBoxView.resetContentBox = function () {
 
   contentBox.innerHTML = `
     <h1>Welcome to your blog!</h1>
-    <button class="btn btn-success" id="welcomeButton">Show Entries</button>
+    <button class="btn btn-success" id="welcomeButton">SHOW ENTRIES</button>
   `
 }
