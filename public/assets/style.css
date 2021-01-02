@@ -54,7 +54,7 @@ div.box {
 
 div.index-box
 {
-  background-color: #F86323!important;
+  background-color: transparent!important; /*#F86323!important;*/
   width: 150px;!important;
   max-width: 150px;!important;
   visibility: visible; /*!*wenn button geklickt wird*!*/
@@ -67,8 +67,8 @@ li.index {
 }
 
 ul.index {
-  height: 34vh;
-  max-height: 34vh;
+  height: 68vh;
+  max-height: 68vh;
   background-color: #F86323;
 }
 
@@ -88,7 +88,10 @@ ul.index::-webkit-scrollbar-thumb{
 ;
 }
 
-.btn{
+.btn.btn{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 1rem;
   width: 120px;
   height: 40px;
@@ -96,8 +99,9 @@ ul.index::-webkit-scrollbar-thumb{
   color: white;
   border: none;
   outline: none;
-  padding: .5rem 1em;
   border-radius: 25px;
+  font-family: 'Kanit', sans-serif;
+  font-size: small;
 
   --border-size: 4px;
 }
@@ -111,12 +115,20 @@ ul.index::-webkit-scrollbar-thumb{
 
 .btn.btn-edit
 {
-  --edit_col: #61F994;
+  --edit_col: #52EB85;
   background-color: var(--edit_col);
   z-index: 1;
 }
 
-/*--------------button animations--------------*/
+.btn.btn-success
+{
+  width: 130px;
+  --suc_col: #28A745;
+  background-color: var(--suc_col);
+  z-index: 1;
+}
+
+/*--------------button states--------------*/
 
 .btn.btn-add-page::before{
   content: '';
@@ -130,7 +142,6 @@ ul.index::-webkit-scrollbar-thumb{
   border:var(--border-size) solid var(--add_entry_col);
 }
 
-/*FOCUSED button is still hover state!!!*/
 
 .btn.btn-add-page:hover::before,
 .btn.btn-add-page:active::before

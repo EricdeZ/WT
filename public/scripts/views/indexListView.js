@@ -2,10 +2,12 @@ indexListView = function () {}
 
 indexListView.showAddedEntry = function (entry) {
   let indexList
+
+  //TODO if is public and toggle is on .... show/ hide
   if (entry.isPublic) {
     indexList = document.getElementById("indexListPublic");
   } else {
-    indexList = document.getElementById("indexListPrivate");
+    indexList = document.getElementById("indexListPublic");
   }
   const newIndexEntry = document.createElement("li");
   newIndexEntry.setAttribute("class", "list-group-item-action index");

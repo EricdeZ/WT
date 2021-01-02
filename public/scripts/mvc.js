@@ -58,3 +58,19 @@ function registerEventListeners(controller) {
     console.log('location changed!');
   })
 }
+
+function setSessionStorageDefault() {
+
+  let formInput =
+  {
+    title: "Title",
+    description: "Description",
+    markdown: "MarkDown"
+  }
+  sessionStorage.setItem('addFormData', JSON.stringify(formInput));
+}
+
+/* sessionStorageList:
+*  currentEntry - The entry data loaded on IndexRequest
+*  addFormData - The data how it was before the new entry was saved
+*  editFormData - The data how it was before the edited entry was saved*/
