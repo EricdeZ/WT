@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Kanit:wght@700&display=swap');
+    </style>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -29,8 +32,8 @@
           <h1>-BlogTitle</h1>
         </div>
         <div class="col-sm-4 btn-col">
-          <a class="btn btn-edit" id="editButton" >Edit</a>
-          <button class="btn btn-add-page" id="addButton">Add Entry</button>
+          <a class="btn btn-edit" id="editButton" >EDIT</a>
+          <button class="btn btn-add-page" id="addButton">ADD PAGE</button>
         </div>
       </div>
 
@@ -40,15 +43,22 @@
           <div class="row button-row">
             <div id="index">
             <span class="slide">
-              <a href="#" onclick="openIndex()">
-<!--                todo change href, get document by id and then openindex-->
-                <input name="btn-index" type="image" src="public/resources/INDEX.svg" width="150">
-              </a>
+<!--              todo delete these here-->
+                <input name="btn-index" id="index-button" type="image" src="public/resources/INDEX.svg" width="150"
+                       onmouseover="hover(this);" onmouseout="unhover(this);" onclick="openIndex()">
             </span>
             </div>
           </div>
 
           <div class="row index-row">
+              <div class="row filter-row" id="filter">
+                  <!--              todo delete functions here-->
+                <input name="btn-filter" id="show_private" type="image" src="public/resources/lock.svg" height="20px"
+                       onclick="showPrivate()">
+
+                <input name="btn-filter" id="show_public" type="image" src="public/resources/unlock.svg" height="20px"
+                       onclick="showPublic()">
+              </div>
             <ul class="overflow-auto index" id="indexListPublic">
               <% entries.forEach(entry => { %>
               <li class="list-group-item-action index" id="<%= entry.slug %>">
@@ -56,12 +66,13 @@
               </li>
               <% }) %>
             </ul>
-          </div>
 
+            <ul class="overflow-auto private-index" id="indexListPrivate"></ul>
+          </div>
         </div>
         <div class="col-sm-10 bg-light box overflow-auto content-box" id="contentBox">
           <h1>Welcome to your blog!</h1>
-          <button class="btn btn-edit" id="welcomeButton">Show Entries</button>
+          <button class="btn btn-edit" id="welcomeButton">SHOW ENTRIES</button>
         </div>
       </div>
     </div>

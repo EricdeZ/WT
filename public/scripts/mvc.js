@@ -53,6 +53,18 @@ function registerEventListeners(controller) {
     controller.handleAddButton({pushState: true, formDataAdd: formData})
   })
 
+  //todo implement these:
+  let indexButton = document.getElementById("index-button");
+  indexButton.addEventListener('click', function (event){
+    controller.handleindexButton({pushState: true})})
+  indexButton.addEventListener('mouseover', function (event){
+    controller.handleindexHover()
+  })
+  indexButton.addEventListener('mouseout', function (event){
+    controller.handleindexUnhover()
+  })
+  //todo---------------------------
+
   window.addEventListener('popstate', function(event){
     controller.handleUrlChange(event)
     console.log('location changed!');
@@ -68,6 +80,44 @@ function setSessionStorageDefault() {
     markdown: "MarkDown"
   }
   sessionStorage.setItem('addFormData', JSON.stringify(formInput));
+}
+
+let toggle;
+function openIndex()
+{
+  if(toggle)
+  {
+    document.getElementById("indexListPublic").style.visibility = "hidden";
+    document.getElementById("filter").style.visibility = "hidden";
+    document.getElementById("indexListPrivate").style.visibility = "hidden"
+    return toggle=0;
+  }
+  else{
+    document.getElementById("indexListPublic").style.visibility = "visible";
+    document.getElementById("filter").style.visibility = "visible";
+    return toggle=1;}
+}
+
+function hover(element)
+{
+  element.setAttribute("src", "public/resources/INDEX-H.svg")
+}
+
+function unhover(element)
+{
+  element.setAttribute("src", "public/resources/INDEX.svg")
+}
+
+function showPrivate()
+{
+  document.getElementById("indexListPublic").style.visibility = "hidden";
+  document.getElementById("indexListPrivate").style.visibility = "visible";
+}
+
+function showPublic()
+{
+  document.getElementById("indexListPublic").style.visibility = "visible";
+  document.getElementById("indexListPrivate").style.visibility = "hidden";
 }
 
 /* sessionStorageList:

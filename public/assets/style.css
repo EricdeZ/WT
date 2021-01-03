@@ -57,35 +57,84 @@ div.index-box
   background-color: transparent!important; /*#F86323!important;*/
   width: 150px;!important;
   max-width: 150px;!important;
-  visibility: visible; /*!*wenn button geklickt wird*!*/
+  visibility: visible;
+}
+
+div.index-row
+{
+  visibility: hidden;
+}
+
+div.button-row
+{
+  height: 76px;
+}
+
+div.row.filter-row
+{
+  margin: 0;
+  padding: 5px;
+  height: 30px;
+  width: 150px;
+  background-color: #F86323;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
 }
 
 li.index {
-  /* list-style-type: none; */
+  list-style-type: none;
   font-size: larger;
   cursor: pointer;
 }
 
 ul.index {
-  height: 68vh;
-  max-height: 68vh;
+  height: 65vh;
+  max-height: 65vh;
+  width: 150px;
+  max-width: 150px;
   background-color: #F86323;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
 }
 
-ul.index::-webkit-scrollbar{
+ul.private-index
+{
+  height: 65vh;
+  max-height: 65vh;
+  width: 150px;
+  max-width: 150px;
+  background-color: #F86323;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+  margin-top: -67.5vh;
+}
+
+
+li.list-group-item-action{
+  font-family: 'EB Garamond', serif;
+  padding-bottom: 5px;
+  color: white;
+  border-bottom: 2px solid white;
+}
+
+ul::-webkit-scrollbar{
   width: 8px;
   height: 8px;
 }
 
-ul.index::-webkit-scrollbar-track{
+ul::-webkit-scrollbar-track{
   background: #F98F61;
 }
 
-ul.index::-webkit-scrollbar-thumb{
+ul::-webkit-scrollbar-thumb{
   background: white;
   border-radius: 20px;
   border: 2px solid #F98F61;
-;
 }
 
 .btn.btn{
@@ -176,6 +225,34 @@ ul.index::-webkit-scrollbar-thumb{
   background-color: #80EBA4;
 }
 
+li.list-group-item-action:hover
+{
+  background-color: #FFA179;
+}
+
+.btn.btn-success::before
+{
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: inherit;
+  z-index: -1;
+  border:var(--border-size) solid var(--edit_col);
+}
+
+.btn.btn-success:hover::before,
+.btn.btn-success:active::before
+{
+  top: calc(var(--border-size)*-.8);
+  bottom: calc(var(--border-size)*-.8);
+  left: calc(var(--border-size)*-.8);
+  right: calc(var(--border-size)*-.8);
+  border-color: #1BCF44;
+  background-color: #1BCF44;
+}
 
 
 
