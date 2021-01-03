@@ -131,6 +131,6 @@ ContentBoxView.resetContentBox = function () {
 
   contentBox.innerHTML = `
     <h1>Welcome to your blog!</h1>
-    <button class="btn btn-success" id="welcomeButton">SHOW ENTRIES</button>
+    <button class="btn btn-homepage" id="welcomeButton">SHOW ENTRIES</button>
   `
 }

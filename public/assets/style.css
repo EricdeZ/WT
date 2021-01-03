@@ -44,6 +44,9 @@ body,html {
 .content-box{
   height: 80vh;
   width: 150vw;
+  display: flex;
+  text-align: center;
+  padding: 20px;
 }
 
 div.box {
@@ -169,12 +172,13 @@ ul::-webkit-scrollbar-thumb{
   z-index: 1;
 }
 
-.btn.btn-success
+.btn.btn-homepage
 {
   width: 130px;
   --suc_col: #28A745;
   background-color: var(--suc_col);
   z-index: 1;
+  margin-top: 30px;;
 }
 
 /*--------------button states--------------*/
@@ -230,7 +234,7 @@ li.list-group-item-action:hover
   background-color: #FFA179;
 }
 
-.btn.btn-success::before
+.btn.btn-homepage::before
 {
   content: '';
   position: absolute;
@@ -243,8 +247,8 @@ li.list-group-item-action:hover
   border:var(--border-size) solid var(--edit_col);
 }
 
-.btn.btn-success:hover::before,
-.btn.btn-success:active::before
+.btn.btn-homepage:hover::before,
+.btn.btn-homepage:active::before
 {
   top: calc(var(--border-size)*-.8);
   bottom: calc(var(--border-size)*-.8);
