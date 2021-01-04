@@ -53,8 +53,55 @@ function registerEventListeners(controller) {
     controller.handleAddButton({pushState: true, formDataAdd: formData})
   })
 
+  let indexButton = document.getElementById("index-button");
+  indexButton.addEventListener('click', function (event){
+    controller.handleIndexButtonClick()})
+
+  indexButton.addEventListener('mouseover', function (event){
+    controller.handleIndexButtonHover()})
+
+  indexButton.addEventListener('mouseout', function (event){
+    controller.handleIndexButtonUnhover()})
+
+  let showPrivateButton = document.getElementById('show-private');
+  showPrivateButton.addEventListener('click', function(event){
+    controller.handleShowPrivateButtonClick()})
+
+  showPrivateButton.addEventListener('mouseover', function(event){
+    controller.handleShowPrivateButtonHover()})
+
+  showPrivateButton.addEventListener('mouseout', function(event){
+    controller.handleShowPrivateButtonUnhover()})
+
+  let showPublicButton = document.getElementById('show-public');
+  showPublicButton.addEventListener('click', function (event){
+    controller.handleShowPublicButtonClick()})
+
+  showPublicButton.addEventListener('mouseover', function(event){
+    controller.handleShowPublicButtonHover()})
+
+  showPublicButton.addEventListener('mouseout', function(event){
+    controller.handleShowPublicButtonUnhover()})
+
   window.addEventListener('popstate', function(event){
     controller.handleUrlChange(event)
     console.log('location changed!');
   })
 }
+
+function setSessionStorageDefault() {
+
+  let formInput =
+  {
+    title: "Title",
+    description: "Description",
+    markdown: "MarkDown"
+  }
+  sessionStorage.setItem('addFormData', JSON.stringify(formInput));
+}
+
+
+/* sessionStorageList:
+*  currentEntry - The entry data loaded on IndexRequest
+*  addFormData - The data how it was before the new entry was saved
+*  editFormData - The data how it was before the edited entry was saved*/

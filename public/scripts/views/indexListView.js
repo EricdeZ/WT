@@ -2,9 +2,11 @@ indexListView = function () {}
 
 indexListView.showAddedEntry = function (entry) {
   let indexList
-  if (entry.isPublic) {
+  if (entry.isPublic)
+  {
     indexList = document.getElementById("indexListPublic");
-  } else {
+  }
+  else{
     indexList = document.getElementById("indexListPrivate");
   }
   const newIndexEntry = document.createElement("li");
