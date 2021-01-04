@@ -43,9 +43,12 @@ Views = function(controller, models) {
     let parameter = {pushState: true, indexElement : indexElement}
     if (models.getCurrentEntryJson().isPublic) {
       this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPublic, parameter)
+      this.controller.handleShowPublicButtonClick()
     } else {
       this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPrivate, parameter)
+      this.controller.handleShowPrivateButtonClick()
     }
+    models.sessionSaveData(models.sessionKeys.currentEntry, entryJson)
     this.controller.registerEventListenerById("deleteButton", "click", this.controller.handleDeleteButton)
     this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
   }.bind(this)
@@ -62,9 +65,12 @@ Views = function(controller, models) {
     let parameter = {pushState: true, indexElement : indexElement}
     if (entryJson.isPublic) {
       this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPublic, parameter)
+      this.controller.handleShowPublicButtonClick()
     } else {
       this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPrivate, parameter)
+      this.controller.handleShowPrivateButtonClick()
     }
+    models.sessionSaveData(models.sessionKeys.currentEntry, entryJson)
     this.controller.registerEventListenerById("deleteButton", "click", this.controller.handleDeleteButton)
     this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
     models.resetFormData(models.sessionKeys.addFormData)
