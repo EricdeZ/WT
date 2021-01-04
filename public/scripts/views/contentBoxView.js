@@ -9,6 +9,7 @@ ContentBoxView.showIndex = function (entry) {
         ${(new Date(entry.createdAt).toLocaleDateString())}
       </div>
       <button onclick="" id="homePageButton" class="btn btn-secondary">HomePage</button>
+      <button onclick="" id="deleteButton" class="btn btn-secondary">Delete</button>
       <div>${entry.sanitizedHtml}</div>
   `;
 

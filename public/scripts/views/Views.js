@@ -13,6 +13,7 @@ Views = function(controller, models) {
     TitleBarView.showEditButton()
     models.sessionSaveData(models.sessionKeys.currentEntry, entryJson)
     this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
+    this.controller.registerEventListenerById("deleteButton", "click", this.controller.handleDeleteButton)
   }.bind(this)
 
   Views.prototype.handleWelcomeButton = function(entries) {
@@ -45,6 +46,7 @@ Views = function(controller, models) {
     } else {
       this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPrivate, parameter)
     }
+    this.controller.registerEventListenerById("deleteButton", "click", this.controller.handleDeleteButton)
     this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
   }.bind(this)
 
@@ -63,6 +65,7 @@ Views = function(controller, models) {
     } else {
       this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPrivate, parameter)
     }
+    this.controller.registerEventListenerById("deleteButton", "click", this.controller.handleDeleteButton)
     this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
     models.resetFormData(models.sessionKeys.addFormData)
   }.bind(this)
@@ -73,6 +76,16 @@ Views = function(controller, models) {
     this.controller.registerEventListenerById("addEntryForm", "submit", this.controller.handleAddFormSubmit)
     this.controller.registerEventListenerById("addEntryForm", "change", this.controller.handleAddFormChanged)
   }
+
+  Views.prototype.handleDeleteButton = function(entry) {
+    if (!entry) {
+      alert("No data transmitted!")
+      return
+    }
+    const entryJson = JSON.parse(entry)
+    indexListView.deleteEntry(entryJson)
+    this.handleResetRequest()
+  }.bind(this)
 
   Views.prototype.handleResetRequest = function() {
     ContentBoxView.resetContentBox()

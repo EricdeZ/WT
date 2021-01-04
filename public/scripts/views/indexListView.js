@@ -37,3 +37,13 @@ indexListView.showEditedEntry = function(entry, oldSlug) {
     indexList.appendChild(newIndexEntry);
   }
 }
+
+indexListView.deleteEntry = function(entry) {
+  let indexList
+  if (entry.isPublic) {
+    indexList = document.getElementById("indexListPublic");
+  } else {
+    indexList = document.getElementById("indexListPrivate");
+  }
+  indexList.removeChild(indexList.children[entry.slug]);
+}

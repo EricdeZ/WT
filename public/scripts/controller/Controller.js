@@ -35,6 +35,22 @@ Controller = function() {
     xmlhttp.send(formData);
   }
 
+  function XMLHttpRequestDelete(url, callback, params = {}) {
+    let xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        callback(this.responseText, params)
+      } else if (this.readyState == 4 && this.status == 400) {
+        alert("Entry could not be deleted!")
+      }
+    };
+
+    xmlhttp.open("POST", url, true);
+    xmlhttp.send();
+  }
+
+
   Controller.prototype.handleResetRequest = function(transmittedData) {
     let url = "http://localhost:5000"
     views.handleResetRequest()
@@ -66,6 +82,18 @@ Controller = function() {
     if (transmittedData.pushState) {
       history.pushState(null, '', "http://localhost:5000/getEntries");
     }
+  }
+
+  Controller.prototype.handleDeleteButton = function() {
+    let currentEntry = models.getCurrentEntryJson()
+    if (currentEntry.isPublic) {
+      let url = "/entries/" + currentEntry.slug + "?_method=DELETE"
+      XMLHttpRequestDelete(url, views.handleDeleteButton)
+    } else {
+      models.deleteEntry(currentEntry.slug)
+      views.handleDeleteButton(JSON.stringify(currentEntry))
+    }
+    models.resetFormData(models.sessionKeys.currentEntry)
   }
 
   Controller.prototype.handleEditButton = function(transmittedData) {

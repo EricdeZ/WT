@@ -43,9 +43,18 @@ router.post("/", upload.none(), async (req, res, next) => {
 });
 
 router.delete("/:slug", async (req, res) => {
-  Entry.deleteOne({slug: req.params.slug}, async function (err) {});
-  res.redirect("/");
-  //Todo: rewrite redirect, only xmlhttp request allowed!
+  let entry = await Entry.findOne({slug: req.params.slug});
+  if (entry) {
+    Entry.deleteOne({slug: req.params.slug}, async function(err) {
+      if (err) {
+        res.status(400);
+      }
+    });
+    res.json(entry)
+  } else {
+    res.status(400);
+  }
+
 });
 
 module.exports = router;
