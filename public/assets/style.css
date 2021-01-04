@@ -76,12 +76,13 @@ div.button-row
 div.row.filter-row
 {
   margin: 0;
-  padding: 5px;
+  padding: 8px;
   height: 30px;
   width: 150px;
+  position: relative;
   background-color: #F86323;
-  display: inline-flex;
-  align-items: flex-end;
+  display: flex;
+  align-items: center;
   justify-content: space-evenly;
 }
 

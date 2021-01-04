@@ -43,9 +43,7 @@
           <div class="row button-row">
             <div id="index">
             <span class="slide">
-<!--              todo delete these here-->
-                <input name="btn-index" id="index-button" type="image" src="public/resources/INDEX.svg" width="150"
-                       onmouseover="hover(this);" onmouseout="unhover(this);" onclick="openIndex()">
+                <input name="btn-index" id="index-button" type="image" src="public/resources/INDEX.svg" width="150">
             </span>
             </div>
           </div>
@@ -53,11 +51,8 @@
           <div class="row index-row">
               <div class="row filter-row" id="filter">
                   <!--              todo delete functions here-->
-                <input name="btn-filter" id="show_private" type="image" src="public/resources/lock.svg" height="20px"
-                       onclick="showPrivate()">
-
-                <input name="btn-filter" id="show_public" type="image" src="public/resources/unlock.svg" height="20px"
-                       onclick="showPublic()">
+                <input name="btn-filter" id="show-private" type="image" src="public/resources/lock.svg" height="20px">
+                <input name="btn-filter" id="show-public" type="image" src="public/resources/unlock.svg" height="20px">
               </div>
             <ul class="overflow-auto index" id="indexListPublic">
               <% entries.forEach(entry => { %>

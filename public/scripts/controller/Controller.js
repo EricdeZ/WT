@@ -3,6 +3,7 @@ Controller = function() {
   const models = new Models(this)
   const views = new Views(this, models)
   models.setSessionStorageDefault()
+  this.toggle;
 
   function XMLHttpRequestGet(url, callback) {
     let xmlhttp = new XMLHttpRequest();
@@ -182,5 +183,59 @@ Controller = function() {
       match.route.handler(actionData)
     }
 
+  }
+
+  Controller.prototype.handleIndexButtonClick = function() {
+
+    if(this.toggle) {
+      document.getElementById("indexListPublic").style.visibility = "hidden";
+      document.getElementById("filter").style.visibility = "hidden";
+      document.getElementById("indexListPrivate").style.visibility = "hidden"
+      return this.toggle = 0;
+    } else {
+      document.getElementById("indexListPublic").style.visibility = "visible";
+      document.getElementById("filter").style.visibility = "visible";
+      return this.toggle = 1;
+    }
+  }
+
+  Controller.prototype.handleIndexButtonHover = function () {
+    document.getElementById("index-button").setAttribute("src",
+        "http://localhost:5000/public/resources/INDEX-H.svg");
+  }
+
+  Controller.prototype.handleIndexButtonUnhover = function () {
+    document.getElementById("index-button").setAttribute("src",
+        "http://localhost:5000/public/resources/INDEX.svg");
+  }
+
+  Controller.prototype.handleShowPrivateButtonClick = function () {
+    document.getElementById("indexListPublic").style.visibility = "hidden";
+    document.getElementById("indexListPrivate").style.visibility = "visible";
+  }
+
+  Controller.prototype.handleShowPrivateButtonHover = function ()
+  {
+    document.getElementById("show-private").style.height = "25px";
+  }
+
+  Controller.prototype.handleShowPrivateButtonUnhover = function ()
+  {
+    document.getElementById("show-private").style.height = "20px";
+  }
+
+  Controller.prototype.handleShowPublicButtonClick = function () {
+    document.getElementById("indexListPublic").style.visibility = "visible";
+    document.getElementById("indexListPrivate").style.visibility = "hidden";
+  }
+
+  Controller.prototype.handleShowPublicButtonHover = function ()
+  {
+    document.getElementById("show-public").style.height = "25px";
+  }
+
+  Controller.prototype.handleShowPublicButtonUnhover = function ()
+  {
+    document.getElementById("show-public").style.height = "20px";
   }
 }
