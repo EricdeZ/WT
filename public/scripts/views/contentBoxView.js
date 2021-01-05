@@ -117,6 +117,9 @@ ContentBoxView.showAddEntry = function (formInput) {
               <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
               <label class="form-check-label" for="publicCheckbox">Public Entry</label>
           </div>
+          <div>
+            <canvas id="canvas"></canvas>
+          </div>
 
           <a href="/" class="btn btn-secondary">Cancel</a>
           <button type="submit" class="btn btn-primary">Save</button>
@@ -124,7 +127,9 @@ ContentBoxView.showAddEntry = function (formInput) {
         </form>
       </div>
     </div>`
+  Canvas.loadCanvas();
 }
+
 
 ContentBoxView.resetContentBox = function () {
 

@@ -258,6 +258,8 @@ li.list-group-item-action:hover
   border-color: #1BCF44;
   background-color: #1BCF44;
 }
-
+#canvas {
+  border: 2px solid black;
+}
 
 
