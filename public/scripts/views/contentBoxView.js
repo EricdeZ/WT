@@ -117,6 +117,13 @@ ContentBoxView.showAddEntry = function (formInput) {
               <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
               <label class="form-check-label" for="publicCheckbox">Public Entry</label>
           </div>
+          
+          <div>
+                <label for="image">Upload Image</label>
+                <input type="file" id="image"
+                       name="image">
+            </div>
+            
           <div>
             <canvas id="canvas"></canvas>
           </div>
