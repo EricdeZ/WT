@@ -8,9 +8,9 @@ ContentBoxView.showIndex = function (entry) {
       <div class="text-muted mb-2">
         ${(new Date(entry.createdAt).toLocaleDateString())}
       </div>
-      <button onclick="" id="homePageButton" class="btn btn-secondary">HomePage</button>
-      <button onclick="" id="deleteButton" class="btn btn-secondary">Delete</button>
-      <div>${entry.sanitizedHtml}</div>
+      <button onclick="" id="homePageButton" class="btn btn-secondary" style="margin-bottom: 20px">HomePage</button>
+      <button onclick="" id="deleteButton" class="btn btn-secondary" style="margin-bottom: 20px">Delete</button>
+      <div style="text-align: left">${entry.sanitizedHtml}</div>
   `;
 
   /*let xmlhttp = new XMLHttpRequest();
@@ -40,14 +40,10 @@ ContentBoxView.showEntries = function (entries) {
         <div class="card-subtitle text-muted mb-2">
         ${(new Date(entries[i].createdAt).toLocaleDateString())}
         </div>
-        <div>${entries[i].sanitizedHtml}</div>
-        <a href="" class="btn btn-info">
-            EDIT
-        </a>
-        <form action="/entries/${entries[i].slug}?_method=DELETE" class="d-inline" method="POST">
-            <button type="submit" class="btn btn-danger">DELETE</button>
-        </form>
-        </div>
+<!--        TODO:Description is undefined ....BOLD desciption....show only part of article text...read button to show full article-->
+        <div style="text-align: left">${entries[i].description}</div> 
+        <div style="text-align: left">${entries[i].sanitizedHtml}</div>
+        <button class="btn btn-homepage" id="read-button">READ</button>
         </div>
         </div>
     `;
@@ -76,7 +72,7 @@ ContentBoxView.showEditEntry = function (formData) {
               <textarea required type="text" name="description" id="description" class="form-control">${formData.description}</textarea>
             </div>
             <div class="form-group">
-              <label for="markdown">MarkDown</label>
+              <label for="markdown">Text</label>
               <textarea required type="text" name="markdown" id="markdown" class="form-control">${formData.markdown}</textarea>
             </div>
 
@@ -103,15 +99,15 @@ ContentBoxView.showAddEntry = function (formInput) {
         <form action="" method="POST" id="addEntryForm">
           <div class="form-group">
               <label for="title">Title</label>
-              <input required type="text" value=${formInput.title} name="title" id="title" class="form-control"/>
+              <input required type="text" name="title" id="title" class="form-control" placeholder="Enter a title..."/>
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea required type="text" name="description" id="description" class="form-control">${formInput.description}</textarea>
+            <textarea required type="text" name="description" id="description" class="form-control" placeholder="Write a description..."></textarea>
           </div>
           <div class="form-group">
-            <label for="markdown">MarkDown</label>
-            <textarea required type="text" name="markdown" id="markdown" class="form-control">${formInput.markdown}</textarea>
+            <label for="markdown">Text</label>
+            <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
           <div class="form-check">
               <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
