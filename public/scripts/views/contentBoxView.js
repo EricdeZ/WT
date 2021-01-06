@@ -33,6 +33,7 @@ ContentBoxView.showEntries = function (entries) {
     if (i == 0) {
       contentBox.innerHTML = ``
     }
+    let readButtonId = "read-button" + entries[i].slug
     contentBox.innerHTML += `
         <div class="card mt-4">
             <div class="card-body">
@@ -43,7 +44,7 @@ ContentBoxView.showEntries = function (entries) {
 <!--        TODO:Description is undefined ....read button to show full article-->
         <div style="text-align: left; font-weight: bold">${entries[i].description}</div> 
         <div style="text-align: left; display:-webkit-box; -webkit-box-orient:vertical; overflow: hidden; -webkit-line-clamp: 3">${entries[i].sanitizedHtml}</div>
-        <button class="btn btn-homepage" id="read-button">READ</button>
+        <button class="btn btn-homepage" id=${readButtonId}>READ</button>
         </div>
         </div>
     `;

@@ -10,6 +10,14 @@ Views = function(controller, models) {
     let entryJson = JSON.parse(entry)
 
     ContentBoxView.showIndex(entryJson)
+    if (!this.controller.toggle) {
+      this.controller.handleIndexButtonClick()
+    }
+    if (entryJson.isPublic) {
+      this.controller.handleShowPublicButtonClick()
+    } else {
+      this.controller.handleShowPrivateButtonClick()
+    }
     TitleBarView.showEditButton()
     models.sessionSaveData(models.sessionKeys.currentEntry, entryJson)
     this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
@@ -23,7 +31,12 @@ Views = function(controller, models) {
     }
     let entriesJson = JSON.parse(entries)
     ContentBoxView.showEntries(entriesJson)
-  }
+    for(let i = 0; i < entriesJson.length; i++) {
+      let indexElement = document.getElementById(entriesJson[i].slug)
+      let parameter = {pushState: true, indexElement : indexElement}
+      this.controller.registerEventListenerByIdWithParameter("read-button" + entriesJson[i].slug, "click", this.controller.handleIndexRequestPublic, parameter)
+    }
+  }.bind(this)
 
   Views.prototype.handleEditButton = function(formData) {
     ContentBoxView.showEditEntry(formData)
