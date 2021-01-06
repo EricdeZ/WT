@@ -42,7 +42,7 @@ ContentBoxView.showEntries = function (entries) {
         </div>
 <!--        TODO:Description is undefined ....BOLD desciption....show only part of article text...read button to show full article-->
         <div style="text-align: left">${entries[i].description}</div> 
-        <div style="text-align: left">${entries[i].sanitizedHtml}</div>
+        <div style="text-align: left; display:-webkit-box; -webkit-box-orient:vertical; overflow: hidden; -webkit-line-clamp: 3">${entries[i].sanitizedHtml}</div>
         <button class="btn btn-homepage" id="read-button">READ</button>
         </div>
         </div>
