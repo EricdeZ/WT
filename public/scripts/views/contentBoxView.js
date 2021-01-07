@@ -10,6 +10,7 @@ ContentBoxView.showIndex = function (entry) {
       </div>
       <button onclick="" id="homePageButton" class="btn btn-secondary" style="margin-bottom: 20px">HomePage</button>
       <button onclick="" id="deleteButton" class="btn btn-secondary" style="margin-bottom: 20px">Delete</button>
+      <div style="text-align: left; font-weight: bold">${entry.description}</div>
       <div style="text-align: left">${entry.sanitizedHtml}</div>
   `;
 
@@ -41,7 +42,6 @@ ContentBoxView.showEntries = function (entries) {
         <div class="card-subtitle text-muted mb-2">
         ${(new Date(entries[i].createdAt).toLocaleDateString())}
         </div>
-<!--        TODO:Description is undefined ....read button to show full article-->
         <div style="text-align: left; font-weight: bold">${entries[i].description}</div> 
         <div style="text-align: left; display:-webkit-box; -webkit-box-orient:vertical; overflow: hidden; -webkit-line-clamp: 3">${entries[i].sanitizedHtml}</div>
         <button class="btn btn-homepage" id=${readButtonId}>READ</button>

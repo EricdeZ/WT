@@ -7,8 +7,8 @@ Canvas.loadCanvas = function () {
     let drawing = false;
     let x = 0;
     let y = 0;
-    canvas.height = 200;
-    canvas.width = 700;
+    canvas.height = 500;
+    canvas.width = 800;
 //drawing function
     function drawLine(ctx, x1, y1, x2, y2) {
         ctx.beginPath();
