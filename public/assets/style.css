@@ -47,6 +47,7 @@ body,html {
   display: flex;
   text-align: center;
   padding: 20px;
+  align-content: start;
 }
 
 div.box {
@@ -262,5 +263,50 @@ li.list-group-item-action:hover
   border: 2px solid black;
 }
 
+input[type="file"]{
+  display: none;
+}
 
+#custom-upload{
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+  width: 120px;
+  height: 40px;
+  position: relative;
+  color: white;
+  --suc_col: #28A745;
+  background-color: var(--suc_col);
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  font-family: 'Kanit', sans-serif;
+  font-size: small;
+  --border-size: 4px;
+  z-index: 1;
+}
+
+#custom-upload::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: inherit;
+  z-index: -1;
+  border:var(--border-size) solid var(--suc_col);
+}
+
+#custom-upload:hover::before,
+#custom-upload:active::before{
+  top: calc(var(--border-size)*-.8);
+  bottom: calc(var(--border-size)*-.8);
+  left: calc(var(--border-size)*-.8);
+  right: calc(var(--border-size)*-.8);
+  border-color: #1BCF44;
+  background-color: #1BCF44;
+}
 
