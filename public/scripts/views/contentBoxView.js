@@ -119,7 +119,7 @@ ContentBoxView.showAddEntry = function (formInput) {
             
             </div>
             <div class="col-bg-6 uploads-zone">
-            list
+            list of uploads
             </div>
           </div>
           
