@@ -329,6 +329,7 @@ input[type="file"]{
   height: 300px;
   width: 300px;
   border: 2px dashed #BBBBBB;
+  border-radius: 5px;
   color: #BBBBBB;
   display: flex;
   justify-content: space-between;
@@ -344,5 +345,27 @@ input[type="file"]{
 
 .custom-upload{
   margin: 20px;
-
 }
+
+.uploads-zone{
+  height: 300px;
+  width: 300px;
+  border-radius: 5px;
+  background-color: #f86323;
+  color: white;
+  padding: 20px;
+}
+
+section{
+  display: block;
+  margin: 15px auto;
+  width: 30px;
+  height: 30px;
+}
+
+.colors {
+  height: 40px;
+  width: 40px;
+  position: relative;
+}
+

@@ -9,17 +9,21 @@ Canvas.loadCanvas = function () {
     let y = 0;
     canvas.height = 500;
     canvas.width = 800;
+
+    const color = document.querySelector('#colorChange');
+
 //drawing function
     function drawLine(ctx, x1, y1, x2, y2) {
         ctx.beginPath();
-        ctx.strokeStyle = 'black';
         ctx.lineWidth = 5;
         ctx.lineCap = "round";
+        ctx.strokeStyle = color.value;
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.stroke();
         ctx.closePath();
     }
+
 // event.offsetX and Y gives the offset from the top left of the canvas.
     canvas.addEventListener('mousedown', e => {
         x = e.offsetX;

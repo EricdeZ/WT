@@ -1,3 +1,4 @@
+
 ContentBoxView = function () {}
 
 ContentBoxView.showIndex = function (entry) {
@@ -119,13 +120,19 @@ ContentBoxView.showAddEntry = function (formInput) {
             
             </div>
             <div class="col-bg-6 uploads-zone">
-            list of uploads
+            list of uploads is shown here
             </div>
           </div>
           
           <div class="row canvas-row" style="margin: 20px"> 
             <div class="col-1 tools">
             tools
+                <div class="color-picker">
+                <input class="colors" value="#F86323" type="color" id="colorChange" name="colorChange">
+                </div>
+<!--                <section class="thickness">
+                    <input type="number" class="stroke-weight" value="3">
+                </section>-->
             </div>
             <div class="col-11 canvas">
             <canvas id="canvas"></canvas>
