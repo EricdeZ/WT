@@ -33,7 +33,9 @@ const entrySchema = new mongoose.Schema({
     default: true,
   },
   image: {
-    type: Buffer
+    contentType: String,
+    path: String,
+    image: Buffer
   }
 });
 

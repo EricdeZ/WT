@@ -120,13 +120,6 @@ ContentBoxView.showAddEntry = function (formInput) {
           <div class="form-group">
             <input type="file" id="image" name="image" class="form-control"/>
           </div>
-<<<<<<< Updated upstream
-=======
-          <div>
-            <canvas id="canvas"></canvas>
-          </div>
->>>>>>> Stashed changes
-
           <a href="/" class="btn btn-secondary">Cancel</a>
           <button type="submit" class="btn btn-primary">Save</button>
 
