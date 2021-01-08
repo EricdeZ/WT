@@ -4,6 +4,8 @@ const entriesRouter = require("./routes/entries");
 const viewsRouter = require("./routes/views");
 const Entry = require("./models/entry");
 const methodOverride = require("method-override");
+const multer = require('multer');
+const path = require('path');
 
 const app = express();
 
@@ -23,6 +25,19 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
   console.log("Successfully connected to DataBase!");
 });
+
+const storage = multer.diskStorage({
+  destination:function (req,file,cb){
+    cb(null,'uploads')
+  },
+  filename:function(req,file,cb){
+    cb(null, Date.now() + '_' + path.extname(file.originalname));
+  }
+})
+
+const upload = multer({
+  storage:storage
+})
 
 app.get("/", async (req, res) => {
   const entries = await Entry.find().sort({ createdAt: "desc" });

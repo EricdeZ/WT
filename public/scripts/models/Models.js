@@ -57,7 +57,8 @@ Models = function(controller) {
         createdAt: Date.now(),
         slug: Utils.convertToSlug(EntryForm.title.value),
         sanitizedHtml: EntryForm.markdown.value,
-        isPublic: false
+        isPublic: false,
+        image: EntryForm.image
       }
     let entries = localStorage.getItem("entries")
     if (entries) {

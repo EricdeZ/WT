@@ -11,7 +11,9 @@ module.exports = {
     entry.description = req.body.description;
     entry.markdown = req.body.markdown;
     entry.isPublic = true;
+    entry.image = req.image.file.buffer;
     try {
+      //TODO
       await entry.save();
       return entry;
     } catch (e) {

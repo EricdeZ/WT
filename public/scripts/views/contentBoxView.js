@@ -114,9 +114,18 @@ ContentBoxView.showAddEntry = function (formInput) {
             <textarea required type="text" name="markdown" id="markdown" class="form-control">${formInput.markdown}</textarea>
           </div>
           <div class="form-check">
-              <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
-              <label class="form-check-label" for="publicCheckbox">Public Entry</label>
+            <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
+            <label class="form-check-label" for="publicCheckbox">Public Entry</label>
           </div>
+          <div class="form-group">
+            <input type="file" id="image" name="image" class="form-control"/>
+          </div>
+<<<<<<< Updated upstream
+=======
+          <div>
+            <canvas id="canvas"></canvas>
+          </div>
+>>>>>>> Stashed changes
 
           <a href="/" class="btn btn-secondary">Cancel</a>
           <button type="submit" class="btn btn-primary">Save</button>
