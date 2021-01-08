@@ -110,15 +110,15 @@ ContentBoxView.showAddEntry = function (formInput) {
               <label class="form-check-label" for="publicCheckbox">Public Entry</label>
           </div>
           
-          <div class="row upload-row" style="margin: 20px"> 
+          <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
             <div class="col-bg-6 dropzone">
-            <label for="image" class="custom-upload" >Drag and Drop or</label>
+            <label for="image" class="custom-upload" id="drag-drop">Drag and Drop or</label>
             <label for="image" class="custom-upload" id="custom-upload">BROWSE</label>
             <input type="file" id="image"
                      name="image">
             
             </div>
-            <div class="col-bg-6 dropzone">
+            <div class="col-bg-6 uploads-zone">
             list
             </div>
           </div>
@@ -135,8 +135,8 @@ ContentBoxView.showAddEntry = function (formInput) {
 
          
 
-          <a href="/" class="btn btn-secondary">Cancel</a>
-          <button type="submit" class="btn btn-primary">Save</button>
+          <a href="/" class="btn btn-secondary" style="margin: 20px">Cancel</a>
+          <button type="submit" class="btn btn-primary" style="margin: 20px">Save</button>
 
         </form>
       </div>

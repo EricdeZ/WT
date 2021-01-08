@@ -50,6 +50,21 @@ body,html {
   align-content: start;
 }
 
+.content-box::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+
+.content-box::-webkit-scrollbar-track{
+  background: #E6E6E6;
+}
+
+.content-box::-webkit-scrollbar-thumb{
+  background: #F98F61;
+  border-radius: 20px;
+  border: 2px solid #E6E6E6;
+}
+
 div.box {
   height: 80vh;
   max-height: 100vh;
@@ -310,3 +325,24 @@ input[type="file"]{
   background-color: #1BCF44;
 }
 
+.dropzone{
+  height: 300px;
+  width: 300px;
+  border: 2px dashed #BBBBBB;
+  color: #BBBBBB;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 40px;
+  padding-top: 60px;
+  background-image: url("http://localhost:5000/public/resources/upload.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: white;
+}
+
+.custom-upload{
+  margin: 20px;
+
+}
