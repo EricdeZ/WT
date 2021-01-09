@@ -10,12 +10,13 @@ Canvas.loadCanvas = function () {
     canvas.height = 500;
     canvas.width = 800;
 
-    const color = document.querySelector('#colorChange');
-
+    const color = document.getElementById('colorChange');
+    const thickness = document.getElementById('thickness');
+    const clearButton = document.getElementById('clear-btn');
 //drawing function
     function drawLine(ctx, x1, y1, x2, y2) {
         ctx.beginPath();
-        ctx.lineWidth = 5;
+        ctx.lineWidth = thickness.value;
         ctx.lineCap = "round";
         ctx.strokeStyle = color.value;
         ctx.moveTo(x1, y1);
@@ -44,5 +45,11 @@ Canvas.loadCanvas = function () {
             y = 0;
             drawing = false;
         }
+    });
+    thickness.addEventListener('change', e => {
+        document.getElementById('thickness-label').innerHTML = thickness.value;
+    });
+    clearButton.addEventListener('click', e => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
 }

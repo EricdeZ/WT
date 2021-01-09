@@ -130,9 +130,11 @@ ContentBoxView.showAddEntry = function (formInput) {
                 <div class="color-picker">
                 <input class="colors" value="#F86323" type="color" id="colorChange" name="colorChange">
                 </div>
-<!--                <section class="thickness">
-                    <input type="number" class="stroke-weight" value="3">
-                </section>-->
+                <div class="slidecontainer thickness">
+                    <label for="thickness" class="thickness-label" id="thickness-label">5</label>
+                    <input type="range" min="1" max="50" value="5" class="slider" id="thickness">
+                </div>
+                <button class="btn clear-btn" style="background-color: darkred" id="clear-btn">X</button>
             </div>
             <div class="col-11 canvas">
             <canvas id="canvas"></canvas>
