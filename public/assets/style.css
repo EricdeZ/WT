@@ -275,7 +275,7 @@ li.list-group-item-action:hover
   background-color: #1BCF44;
 }
 #canvas {
-  border: 2px solid black;
+  border: 2px solid #28A745;
 }
 
 input[type="file"]{
@@ -356,16 +356,119 @@ input[type="file"]{
   padding: 20px;
 }
 
-section{
-  display: block;
-  margin: 15px auto;
-  width: 30px;
-  height: 30px;
-}
-
-.colors {
+.colors{
   height: 40px;
   width: 40px;
   position: relative;
+  border-radius: 25px;
+  border: white;
+  outline: none;
+  -webkit-appearance: none;
 }
 
+.colors:focus{
+  outline: #d1d6e4;
+  -moz-outline-radius: 100%;
+}
+
+.colors::-webkit-color-swatch{
+  border-radius: 25px;
+  border: none;
+}
+
+.slider{
+  height: 10px;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  margin-bottom: 20px;
+  background: transparent;
+}
+
+.slider:focus{
+  outline: none;
+}
+
+.slider::-webkit-slider-runnable-track{
+  background: #FFA179;
+  height: 5px;
+}
+
+.slider::-moz-range-track{
+  background: #FFA179;
+  height: 5px;
+}
+
+.slider::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  background: #f86323;
+  margin-top: -5px;
+  border-radius: 50%;
+}
+
+.slider::-moz-range-thumb{
+  height: 15px;
+  width: 15px;
+  background: #f86323;
+  margin-top: -5px;
+  border-radius: 50%;
+}
+
+.btn.clear-btn{
+  background-color: firebrick;
+  background-image: url("http://localhost:5000/public/resources/trash.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  margin: 0;
+  width: 40px;
+  z-index: 1;
+}
+
+.btn.clear-btn::before{
+  content: '';
+  background-image: url("http://localhost:5000/public/resources/trash.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: inherit;
+  z-index: -1;
+  border:var(--border-size) solid firebrick;
+}
+
+.btn.clear-btn:hover::before,
+.btn.clear-btn:active::before{
+  background-image: url("http://localhost:5000/public/resources/trash.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  top: calc(var(--border-size)*-.8);
+  bottom: calc(var(--border-size)*-.8);
+  left: calc(var(--border-size)*-.8);
+  right: calc(var(--border-size)*-.8);
+  border-color: #FF3030;
+  background-color: #FF3030;
+}
+
+.tools{
+  background: #28A745;
+  height: 500px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 200px;
+
+}
+
+.canvas{
+  padding-left: 0;
+  display: flex;
+  justify-content: flex-start;
+}

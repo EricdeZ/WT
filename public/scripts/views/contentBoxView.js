@@ -125,18 +125,17 @@ ContentBoxView.showAddEntry = function (formInput) {
           </div>
           
           <div class="row canvas-row" style="margin: 20px"> 
-            <div class="col-1 tools">
-            tools
+            <div class="col-2 tools">
                 <div class="color-picker">
-                <input class="colors" value="#F86323" type="color" id="colorChange" name="colorChange">
+                <input class="colors" value="#000000" type="color" id="colorChange" name="colorChange">
                 </div>
                 <div class="slidecontainer thickness">
                     <label for="thickness" class="thickness-label" id="thickness-label">5</label>
                     <input type="range" min="1" max="50" value="5" class="slider" id="thickness">
                 </div>
-                <button class="btn clear-btn" style="background-color: darkred" id="clear-btn">X</button>
+                <button class="btn clear-btn" id="clear-btn"></button>
             </div>
-            <div class="col-11 canvas">
+            <div class="col-10 canvas">
             <canvas id="canvas"></canvas>
             </div>
           </div>
@@ -144,8 +143,8 @@ ContentBoxView.showAddEntry = function (formInput) {
 
          
 
-          <a href="/" class="btn btn-secondary" style="margin: 20px">Cancel</a>
-          <button type="submit" class="btn btn-primary" style="margin: 20px">Save</button>
+          <a href="/" class="btn btn-secondary" style="margin: 20px">CANCEL</a>
+          <button type="submit" class="btn btn-primary" style="margin: 20px">SAVE</button>
 
         </form>
       </div>
