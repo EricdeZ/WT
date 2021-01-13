@@ -133,6 +133,8 @@ ContentBoxView.showAddEntry = function (formInput) {
                     <label for="thickness" class="thickness-label" id="thickness-label">5</label>
                     <input type="range" min="1" max="50" value="5" class="slider" id="thickness">
                 </div>
+                <button class="btn undo-btn" id="undo-btn"></button>
+                <button class="btn undo-btn redo-btn" id="redo-btn"></button>
                 <button class="btn clear-btn" id="clear-btn"></button>
             </div>
             <div class="col-10 canvas">
@@ -140,9 +142,6 @@ ContentBoxView.showAddEntry = function (formInput) {
             </div>
           </div>
           
-
-         
-
           <a href="/" class="btn btn-secondary" style="margin: 20px">CANCEL</a>
           <button type="submit" class="btn btn-primary" style="margin: 20px">SAVE</button>
 

@@ -415,6 +415,10 @@ input[type="file"]{
   border-radius: 50%;
 }
 
+.thickness-label{
+  color: white;
+}
+
 .btn.clear-btn{
   background-color: firebrick;
   background-image: url("http://localhost:5000/public/resources/trash.svg");
@@ -456,6 +460,61 @@ input[type="file"]{
   background-color: #FF3030;
 }
 
+.btn.undo-btn{
+  background-color: #f86323;
+  background-image: url("http://localhost:5000/public/resources/undo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  margin: 0;
+  width: 40px;
+  z-index: 1;
+}
+
+.btn.undo-btn:enabled::before{
+  content: '';
+  background-image: url("http://localhost:5000/public/resources/undo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: inherit;
+  z-index: -1;
+  border:var(--border-size) solid #f86323;
+}
+
+.btn.undo-btn:hover:enabled::before,
+.btn.undo-btn:active:enabled::before{
+  background-image: url("http://localhost:5000/public/resources/undo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  top: calc(var(--border-size)*-.8);
+  bottom: calc(var(--border-size)*-.8);
+  left: calc(var(--border-size)*-.8);
+  right: calc(var(--border-size)*-.8);
+  border-color: #F87F4A;
+  background-color: #F87F4A;
+}
+
+.btn.undo-btn.redo-btn {
+  background-image: url("http://localhost:5000/public/resources/redo.svg");
+}
+
+.btn.undo-btn.redo-btn:enabled::before {
+  background-image: url("http://localhost:5000/public/resources/redo.svg");
+}
+
+.btn.undo-btn.redo-btn:hover:enabled::before,
+.btn.undo-btn.redo-btn:active:enabled::before {
+  background-image: url("http://localhost:5000/public/resources/redo.svg");
+}
+
+
 .tools{
   background: #28A745;
   height: 500px;
@@ -463,7 +522,8 @@ input[type="file"]{
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  padding-bottom: 200px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 
 }
 

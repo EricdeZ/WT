@@ -13,6 +13,16 @@ Canvas.loadCanvas = function () {
     const color = document.getElementById('colorChange');
     const thickness = document.getElementById('thickness');
     const clearButton = document.getElementById('clear-btn');
+    const undoButton = document.getElementById('undo-btn');
+    const redoButton = document.getElementById('redo-btn');
+
+
+    let undoArray = [];
+    let indexUndo = -1;
+    let redoArray = [];
+    let indexRedo = -1;
+    disableButtons();
+
 //drawing function
     function drawLine(ctx, x1, y1, x2, y2) {
         ctx.beginPath();
@@ -23,6 +33,33 @@ Canvas.loadCanvas = function () {
         ctx.lineTo(x2, y2);
         ctx.stroke();
         ctx.closePath();
+    }
+
+    function disableButtons()
+    {
+        document.getElementById('undo-btn').disabled = true;
+        document.getElementById('redo-btn').disabled = true;
+    }
+
+    function isButtonActive(index, button)
+    {
+        if(index > -1)
+        {
+            button.disabled = false;
+        }
+        else{
+            button.disabled = true;
+        }
+    }
+
+    function clearCanvas()
+    {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        undoArray = [];
+        indexUndo = -1;
+        redoArray = [];
+        indexRedo = -1;
+        disableButtons();
     }
 
 // event.offsetX and Y gives the offset from the top left of the canvas.
@@ -44,12 +81,60 @@ Canvas.loadCanvas = function () {
             x = 0;
             y = 0;
             drawing = false;
+            undoArray.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            indexUndo++;
+            isButtonActive(indexUndo, undoButton);
         }
     });
     thickness.addEventListener('change', e => {
         document.getElementById('thickness-label').innerHTML = thickness.value;
     });
+
     clearButton.addEventListener('click', e => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var result = confirm('Are you sure you want to delete your masterpiece?');
+        if(result){
+            clearCanvas();
+        }
+
     });
+
+    undoButton.addEventListener('click', e =>
+    {
+        if(indexUndo < 0)
+        {
+            clearCanvas();
+        }
+        if(indexUndo === 0)
+        {
+            redoArray.push(undoArray.pop());
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            indexRedo++;
+            indexUndo--;
+            isButtonActive(indexRedo, redoButton);
+            isButtonActive(indexUndo, undoButton);
+        }
+        else {
+            indexUndo--;
+            redoArray.push(undoArray.pop());
+            indexRedo++;
+            ctx.putImageData(undoArray[indexUndo], 0, 0);
+            isButtonActive(indexRedo, redoButton);
+            isButtonActive(indexUndo, undoButton);
+        }
+    });
+
+    redoButton.addEventListener('click', e=>
+    {
+        if(indexRedo > -1)
+        {
+            ctx.putImageData(redoArray[indexRedo], 0, 0);
+            indexRedo--;
+            undoArray.push(redoArray.pop());
+            indexUndo++;
+            isButtonActive(indexRedo, redoButton);
+            isButtonActive(indexUndo, undoButton);
+        }
+    });
+
+
 }
