@@ -38,7 +38,7 @@
       </div>
 
       <div class="row content-row">
-        <div class="col-sm-2 bg-success box index-box">
+        <div class="col-sm-1 bg-success box index-box">
 
           <div class="row button-row">
             <div id="index">
@@ -65,11 +65,28 @@
             <ul class="overflow-auto private-index" id="indexListPrivate"></ul>
           </div>
         </div>
-        <div class="col-sm-10 bg-light box overflow-auto content-box" id="contentBox">
+        <div class="col-sm-9 bg-light box overflow-auto content-box" id="contentBox">
           <h1>Welcome to your blog!</h1>
           <button class="btn btn-homepage" id="welcomeButton">SHOW ENTRIES</button>
         </div>
+        <div class="col-sm-2 bg-success box chat-box">
+          <div class="container">
+            <div class="row">
+              <pre id="chatMessages" style="height: 400px; overflow: scroll"></pre>
+            </div>
+            <div class="row justify-content-md-center">
+              <div class="col-sm-9">
+                <input class="col-sm-12" type="text" id="messageBox" placeholder="Type your message here" style="width: 100%; padding: 10px;" />
+              </div>
+              <div class="col-sm-3 align-self-center">
+                <button  id="chatSendButton" title="SendButton" class="btn btn-primary btn-chat">S</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
+
     </div>
   </body>
 </html>

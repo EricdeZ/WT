@@ -7,15 +7,16 @@ body,html {
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #d1d6e4;
-  display: flex;
+  /*display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;*/
 }
 
 .head-row
 {
   margin-left: 150px;
   margin-right: 150px;
+  margin-top: 50px;
 }
 
 .title-col
@@ -33,7 +34,7 @@ body,html {
 .content-row
 {
   margin-left: 50px;
-  margin-right: 150px;
+  /*margin-right: 150px;*/
 }
 
 .container{
@@ -61,6 +62,17 @@ div.index-box
   width: 150px;!important;
   max-width: 150px;!important;
   visibility: visible;
+}
+
+div.chat-box
+{
+  background-color: white!important; /*#F86323!important;*/
+  margin-left: 30px;
+  height: 80vh;
+  width: 150px;!important;
+  max-width: 250px;
+  visibility: visible;
+  justify-content: center
 }
 
 div.index-row
@@ -164,6 +176,11 @@ ul::-webkit-scrollbar-thumb{
   --add_entry_col: #F98F61;
   background-color: var(--add_entry_col);
   z-index: 1;
+}
+
+.btn.btn-chat
+{
+  width: 100%;
 }
 
 .btn.btn-edit

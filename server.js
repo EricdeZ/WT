@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const entriesRouter = require("./routes/entries");
 const viewsRouter = require("./routes/views");
 const Entry = require("./models/entry");
-const http = require('http');
 const WebSocket = require('ws');
 const methodOverride = require("method-override");
 
@@ -26,19 +25,6 @@ db.once("open", function () {
   console.log("Successfully connected to DataBase!");
 });
 
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server })
-wss.on('connection', function connection(ws) {
-  ws.on('message', function incoming(data) {
-    wss.clients.forEach(function each(client) {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(data);
-      }
-    })
-  })
-})
-
-
 app.get("/", async (req, res) => {
   const entries = await Entry.find().sort({ createdAt: "desc" });
   res.render("entries/index", { entries: entries });
@@ -48,5 +34,17 @@ app.use("/entries", entriesRouter);
 app.use("/views", viewsRouter);
 
 const port = 5000;
-app.listen(port, () => console.log(`Server started on port ${port}`));
+const server = app.listen(port, () => console.log(`Server started on port ${port}`));
+
+const wss = new WebSocket.Server({ server })
+
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(data) {
+    wss.clients.forEach(function each(client) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
+    })
+  })
+})
 

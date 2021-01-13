@@ -7,6 +7,7 @@ function onLoad() {
   console.log(localStorage)
   loadPrivateEntries()
   registerEventListeners(controller)
+  createWebSocket()
   window.history.pushState(null, '', "http://localhost:5000/");
 }
 
@@ -87,6 +88,39 @@ function registerEventListeners(controller) {
     controller.handleUrlChange(event)
     console.log('location changed!');
   })
+}
+
+function createWebSocket() {
+
+  const sendBtn = document.querySelector('#chatSendButton');
+  const messages = document.querySelector('#chatMessages');
+  const messageBox = document.querySelector('#messageBox');
+
+  let ws = new WebSocket('ws://localhost:5000');
+  ws.onopen = () => {
+    console.log('Connection opened!');
+  }
+  ws.onmessage = ({ data }) => showMessage(data);
+  ws.onclose = function() {
+    ws = null;
+  }
+
+  sendBtn.onclick = function() {
+    if (!ws) {
+      showMessage("No WebSocket connection :(");
+      return ;
+    }
+
+    ws.send(messageBox.value);
+    showMessage(messageBox.value);
+  }
+
+  function showMessage(message) {
+    messages.textContent += `\n\n${message}`;
+    messages.scrollTop = messages.scrollHeight;
+    messageBox.value = '';
+  }
+
 }
 
 function setSessionStorageDefault() {
