@@ -86,13 +86,13 @@ ContentBoxView.showEditEntry = function (formData) {
       </div>`;
 }
 
-ContentBoxView.showAddEntry = function (formInput) {
+ContentBoxView.showAddEntry = function (formInput, useDefault) {
   let contentBox = document.getElementById("contentBox");
   contentBox.innerHTML = `
     <div class="row d-flex align-items-start " style="height: 100%">
       <div class="container bg-light">
         <h1 class="mb-4">Your Entry</h1>
-        <div action="" method="POST" id="addEntryForm">
+        <form action="" method="POST" id="addEntryForm">
           <div class="form-group">
               <label for="title">Title</label>
               <input required type="text" name="title" id="title" class="form-control" placeholder="Enter a title..."/>
@@ -147,7 +147,13 @@ ContentBoxView.showAddEntry = function (formInput) {
         </form>
       </div>
     </div>`
-  Canvas.loadCanvas();
+
+  let form = document.getElementById("addEntryForm");
+  if (!useDefault) {
+    form.elements["title"].value = formInput.title
+    form.elements["description"].value = formInput.description
+    form.elements["markdown"].value = formInput.markdown
+  }
 }
 
 

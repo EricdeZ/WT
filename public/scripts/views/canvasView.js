@@ -1,6 +1,5 @@
-Canvas = function() {}
+CanvasView = function() {
 
-Canvas.loadCanvas = function () {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
@@ -12,10 +11,8 @@ Canvas.loadCanvas = function () {
 
     const color = document.getElementById('colorChange');
     const thickness = document.getElementById('thickness');
-    const clearButton = document.getElementById('clear-btn');
     const undoButton = document.getElementById('undo-btn');
     const redoButton = document.getElementById('redo-btn');
-
 
     let undoArray = [];
     let indexUndo = -1;
@@ -35,25 +32,12 @@ Canvas.loadCanvas = function () {
         ctx.closePath();
     }
 
-    function disableButtons()
-    {
+    function disableButtons() {
         document.getElementById('undo-btn').disabled = true;
         document.getElementById('redo-btn').disabled = true;
     }
 
-    function isButtonActive(index, button)
-    {
-        if(index > -1)
-        {
-            button.disabled = false;
-        }
-        else{
-            button.disabled = true;
-        }
-    }
-
-    function clearCanvas()
-    {
+    function clearCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         undoArray = [];
         indexUndo = -1;
@@ -63,19 +47,21 @@ Canvas.loadCanvas = function () {
     }
 
 // event.offsetX and Y gives the offset from the top left of the canvas.
-    canvas.addEventListener('mousedown', e => {
+    CanvasView.prototype.canvasOnMouseDown = function (e) {
         x = e.offsetX;
         y = e.offsetY;
         drawing = true;
-    });
-    canvas.addEventListener('mousemove', e => {
+    }
+
+    CanvasView.prototype.canvasOnMouseMove = function (e) {
         if (drawing === true) {
             drawLine(ctx, x, y, e.offsetX, e.offsetY);
             x = e.offsetX;
             y = e.offsetY;
         }
-    });
-    window.addEventListener('mouseup', e => {
+    }
+
+    CanvasView.prototype.canvasOnMouseUp = function (e) {
         if (drawing === true) {
             drawLine(ctx, x, y, e.offsetX, e.offsetY);
             x = 0;
@@ -83,58 +69,48 @@ Canvas.loadCanvas = function () {
             drawing = false;
             undoArray.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
             indexUndo++;
-            isButtonActive(indexUndo, undoButton);
+            undoButton.disabled = indexUndo <= -1
         }
-    });
-    thickness.addEventListener('change', e => {
-        document.getElementById('thickness-label').innerHTML = thickness.value;
-    });
+    }
 
-    clearButton.addEventListener('click', e => {
+    CanvasView.prototype.thicknessOnChange = function (e) {
+        document.getElementById('thickness-label').innerHTML = thickness.value;
+    }
+
+    CanvasView.prototype.clearButtonOnClick = function (e) {
         var result = confirm('Are you sure you want to delete your masterpiece?');
         if(result){
             clearCanvas();
         }
+    }
 
-    });
-
-    undoButton.addEventListener('click', e =>
-    {
-        if(indexUndo < 0)
-        {
+    CanvasView.prototype.undoButtonOnClick = function (e) {
+        if(indexUndo < 0) {
             clearCanvas();
         }
-        if(indexUndo === 0)
-        {
+        if(indexUndo === 0) {
             redoArray.push(undoArray.pop());
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             indexRedo++;
             indexUndo--;
-            isButtonActive(indexRedo, redoButton);
-            isButtonActive(indexUndo, undoButton);
-        }
-        else {
+        } else {
             indexUndo--;
             redoArray.push(undoArray.pop());
             indexRedo++;
             ctx.putImageData(undoArray[indexUndo], 0, 0);
-            isButtonActive(indexRedo, redoButton);
-            isButtonActive(indexUndo, undoButton);
         }
-    });
+        redoButton.disabled = indexRedo <= -1;
+        undoButton.disabled = indexUndo <= -1;
+    }
 
-    redoButton.addEventListener('click', e=>
-    {
-        if(indexRedo > -1)
-        {
+    CanvasView.prototype.redoButtonOnClick = function () {
+        if(indexRedo > -1) {
             ctx.putImageData(redoArray[indexRedo], 0, 0);
             indexRedo--;
             undoArray.push(redoArray.pop());
             indexUndo++;
-            isButtonActive(indexRedo, redoButton);
-            isButtonActive(indexUndo, undoButton);
+            redoButton.disabled = indexRedo <= -1;
+            undoButton.disabled = indexUndo <= -1;
         }
-    });
-
-
+    }
 }

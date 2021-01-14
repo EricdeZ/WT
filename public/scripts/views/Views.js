@@ -1,6 +1,7 @@
 Views = function(controller, models) {
   this.controller = controller
   this.models = models
+  this.canvasController = new CanvasController()
 
   Views.prototype.handleIndexRequest = function(entry) {
     if (!entry) {
@@ -91,7 +92,9 @@ Views = function(controller, models) {
 
   Views.prototype.handleAddButton = function(formData) {
     models.sessionSaveData(models.sessionKeys.addFormData, formData)
-    ContentBoxView.showAddEntry(formData)
+    let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
+    ContentBoxView.showAddEntry(formData, useDefault)
+    this.canvasController.loadCanvas()
     this.controller.registerEventListenerById("addEntryForm", "submit", this.controller.handleAddFormSubmit)
     this.controller.registerEventListenerById("addEntryForm", "change", this.controller.handleAddFormChanged)
   }

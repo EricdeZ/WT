@@ -9,6 +9,14 @@ Models = function(controller) {
     entries : "entries"            // All private entries which are saved in users browser
   }
 
+  this.formDataDefault =
+    {
+    title: "Title",
+    description: "Description",
+    markdown: "MarkDown",
+    isPublic: false
+  }
+
   //-----------------------------------SESSIONSTORAGE-------------------------
 
   Models.prototype.setSessionStorageDefault = function() {
@@ -16,14 +24,7 @@ Models = function(controller) {
   }
 
   Models.prototype.resetFormData = function (key) {
-    let formInput =
-        {
-          title: "Title",
-          description: "Description",
-          markdown: "MarkDown",
-          isPublic: false
-        }
-    sessionStorage.setItem(key, JSON.stringify(formInput));
+    sessionStorage.setItem(key, JSON.stringify(this.formDataDefault));
   }
 
   Models.prototype.getCurrentEntryJson = function () {
