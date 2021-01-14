@@ -93,8 +93,10 @@ function registerEventListeners(controller) {
 function createWebSocket() {
 
   const sendBtn = document.querySelector('#chatSendButton');
+  const confirmBtn = document.querySelector('#confirmUsernameButton');
   const messages = document.querySelector('#chatMessages');
   const messageBox = document.querySelector('#messageBox');
+  const usernameBox = document.querySelector('#usernameBox');
 
   let ws = new WebSocket('ws://localhost:5000');
   ws.onopen = () => {
@@ -110,13 +112,25 @@ function createWebSocket() {
       showMessage("No WebSocket connection :(");
       return ;
     }
-
-    ws.send(messageBox.value);
-    showMessage(messageBox.value);
+    if (messageBox.value != "") {
+      let chatMessage = usernameBox.value + ": " + messageBox.value;
+      ws.send(chatMessage);
+      showMessage(chatMessage);
+    }
   }
 
+  confirmBtn.onclick = function() {
+    if(usernameBox.value != "") {
+      usernameBox.style.display = "none";
+      confirmBtn.style.display = "none";
+      messageBox.style.display = "block";
+      sendBtn.style.display = "block";
+    }
+  }
+
+
   function showMessage(message) {
-    messages.textContent += `\n\n${message}`;
+    messages.textContent += `${message}\n\n`;
     messages.scrollTop = messages.scrollHeight;
     messageBox.value = '';
   }

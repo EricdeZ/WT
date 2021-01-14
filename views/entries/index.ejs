@@ -76,10 +76,12 @@
             </div>
             <div class="row justify-content-md-center">
               <div class="col-sm-9">
-                <input class="col-sm-12" type="text" id="messageBox" placeholder="Type your message here" style="width: 100%; padding: 10px;" />
+                <input class="col-sm-12" type="text" id="messageBox" placeholder="Type your message here" style="width: 100%; padding: 10px; display:none;" />
+                <input class="col-sm-12" type="text" id="usernameBox" placeholder="Select username" style="width: 100%; padding: 10px;" />
               </div>
               <div class="col-sm-3 align-self-center">
-                <button  id="chatSendButton" title="SendButton" class="btn btn-primary btn-chat">S</button>
+                <button  id="chatSendButton" title="SendButton" class="btn btn-primary btn-chat" style="display: none">S</button>
+                <button  id="confirmUsernameButton" title="ConfirmUsernameButton" class="btn btn-primary btn-chat">C</button>
               </div>
             </div>
           </div>

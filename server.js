@@ -7,6 +7,7 @@ const WebSocket = require('ws');
 const methodOverride = require("method-override");
 
 const app = express();
+let chatlog = [];
 
 mongoose.connect("mongodb://localhost/blog", {
   useNewUrlParser: true,
@@ -39,7 +40,10 @@ const server = app.listen(port, () => console.log(`Server started on port ${port
 const wss = new WebSocket.Server({ server })
 
 wss.on('connection', function connection(ws) {
+  let chat = retrieveChatLog();
+  ws.send(chat);
   ws.on('message', function incoming(data) {
+    logChatMessage(data);
     wss.clients.forEach(function each(client) {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(data);
@@ -48,3 +52,21 @@ wss.on('connection', function connection(ws) {
   })
 })
 
+function logChatMessage(message) {
+  if(chatlog.length < 20) {
+    chatlog.push(message);
+  } else {
+    chatlog.shift();
+    chatlog.push(message);
+  }
+}
+
+function retrieveChatLog(){
+  let chatLogString = "";
+  chatlog.forEach(item => chatLogString = chatLogString + item + "\n\n");
+  //console.log(chatLogString);
+  if(chatlog.length > 0) {
+    chatLogString = chatLogString.slice(0,-2);
+  }
+  return chatLogString;
+}
