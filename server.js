@@ -44,6 +44,10 @@ app.get("/", async (req, res) => {
   res.render("entries/index", { entries: entries });
 });
 
+app.get("/documentation", async (req, res) => {
+  res.render("documentation");
+});
+
 app.use("/entries", entriesRouter);
 app.use("/views", viewsRouter);
 

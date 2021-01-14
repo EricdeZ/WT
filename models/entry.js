@@ -11,6 +11,10 @@ const entrySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: false,
+  },
   markdown: {
     type: String,
     required: true,

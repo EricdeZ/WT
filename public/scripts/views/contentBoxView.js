@@ -8,9 +8,10 @@ ContentBoxView.showIndex = function (entry) {
       <div class="text-muted mb-2">
         ${(new Date(entry.createdAt).toLocaleDateString())}
       </div>
-      <button onclick="" id="homePageButton" class="btn btn-secondary">HomePage</button>
-      <button onclick="" id="deleteButton" class="btn btn-secondary">Delete</button>
-      <div>${entry.sanitizedHtml}</div>
+      <button onclick="" id="homePageButton" class="btn btn-secondary" style="margin-bottom: 20px">HomePage</button>
+      <button onclick="" id="deleteButton" class="btn btn-secondary" style="margin-bottom: 20px">Delete</button>
+      <div style="text-align: left; font-weight: bold">${entry.description}</div>
+      <div style="text-align: left">${entry.sanitizedHtml}</div>
   `;
 
   /*let xmlhttp = new XMLHttpRequest();
@@ -33,6 +34,7 @@ ContentBoxView.showEntries = function (entries) {
     if (i == 0) {
       contentBox.innerHTML = ``
     }
+    let readButtonId = "read-button" + entries[i].slug
     contentBox.innerHTML += `
         <div class="card mt-4">
             <div class="card-body">
@@ -40,14 +42,9 @@ ContentBoxView.showEntries = function (entries) {
         <div class="card-subtitle text-muted mb-2">
         ${(new Date(entries[i].createdAt).toLocaleDateString())}
         </div>
-        <div>${entries[i].sanitizedHtml}</div>
-        <a href="" class="btn btn-info">
-            EDIT
-        </a>
-        <form action="/entries/${entries[i].slug}?_method=DELETE" class="d-inline" method="POST">
-            <button type="submit" class="btn btn-danger">DELETE</button>
-        </form>
-        </div>
+        <div style="text-align: left; font-weight: bold">${entries[i].description}</div> 
+        <div style="text-align: left; display:-webkit-box; -webkit-box-orient:vertical; overflow: hidden; -webkit-line-clamp: 3">${entries[i].sanitizedHtml}</div>
+        <button class="btn btn-homepage" id=${readButtonId}>READ</button>
         </div>
         </div>
     `;
@@ -76,7 +73,7 @@ ContentBoxView.showEditEntry = function (formData) {
               <textarea required type="text" name="description" id="description" class="form-control">${formData.description}</textarea>
             </div>
             <div class="form-group">
-              <label for="markdown">MarkDown</label>
+              <label for="markdown">Text</label>
               <textarea required type="text" name="markdown" id="markdown" class="form-control">${formData.markdown}</textarea>
             </div>
 
@@ -92,41 +89,67 @@ ContentBoxView.showEditEntry = function (formData) {
 ContentBoxView.showAddEntry = function (formInput) {
   let contentBox = document.getElementById("contentBox");
   contentBox.innerHTML = `
-    <div class="row align-items-center">
-        <div class="col-lg-4 text-light">
-          <h1>-BlogTitle</h1>
-        </div>
-    </div>
-    <div class="row" style="height: 100%">
-      <div class="container bg-light p-4">
+    <div class="row d-flex align-items-start " style="height: 100%">
+      <div class="container bg-light">
         <h1 class="mb-4">Your Entry</h1>
-        <form action="" method="POST" id="addEntryForm">
+        <div action="" method="POST" id="addEntryForm">
           <div class="form-group">
               <label for="title">Title</label>
-              <input required type="text" value=${formInput.title} name="title" id="title" class="form-control"/>
+              <input required type="text" name="title" id="title" class="form-control" placeholder="Enter a title..."/>
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea required type="text" name="description" id="description" class="form-control">${formInput.description}</textarea>
+            <textarea required type="text" name="description" id="description" class="form-control" placeholder="Write a description..."></textarea>
           </div>
           <div class="form-group">
-            <label for="markdown">MarkDown</label>
-            <textarea required type="text" name="markdown" id="markdown" class="form-control">${formInput.markdown}</textarea>
+            <label for="markdown">Text</label>
+            <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
           <div class="form-check">
             <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
             <label class="form-check-label" for="publicCheckbox">Public Entry</label>
           </div>
-          <div class="form-group">
-            <input type="file" id="image" name="image" class="form-control"/>
+          
+          <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
+            <div class="col-bg-6 dropzone">
+            <label for="image" class="custom-upload" id="drag-drop">Drag and Drop or</label>
+            <label for="image" class="custom-upload" id="custom-upload">BROWSE</label>
+            <input type="file" id="image"
+                     name="image">
+            
+            </div>
+            <div class="col-bg-6 uploads-zone">
+            list of uploads is shown here
+            </div>
           </div>
-          <a href="/" class="btn btn-secondary">Cancel</a>
-          <button type="submit" class="btn btn-primary">Save</button>
+          
+          <div class="row canvas-row" style="margin: 20px"> 
+            <div class="col-2 tools">
+                <div class="color-picker">
+                <input class="colors" value="#000000" type="color" id="colorChange" name="colorChange">
+                </div>
+                <div class="slidecontainer thickness">
+                    <label for="thickness" class="thickness-label" id="thickness-label">5</label>
+                    <input type="range" min="1" max="50" value="5" class="slider" id="thickness">
+                </div>
+                <button class="btn undo-btn" id="undo-btn"></button>
+                <button class="btn undo-btn redo-btn" id="redo-btn"></button>
+                <button class="btn clear-btn" id="clear-btn"></button>
+            </div>
+            <div class="col-10 canvas">
+            <canvas id="canvas"></canvas>
+            </div>
+          </div>
+          
+          <a href="/" class="btn btn-secondary" style="margin: 20px">CANCEL</a>
+          <button type="submit" class="btn btn-primary" style="margin: 20px">SAVE</button>
 
         </form>
       </div>
     </div>`
+  Canvas.loadCanvas();
 }
+
 
 ContentBoxView.resetContentBox = function () {
 
