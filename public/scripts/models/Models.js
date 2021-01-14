@@ -3,7 +3,7 @@ Models = function(controller) {
   this.sessionKeys = {
     currentEntry : "currentEntry", // The entry data loaded on IndexRequest
     addFormData : "addFormData",   // The data how it was before the new entry was saved
-    editFormData : "editFormData"  // The data how it was before the edited entry was saved
+    editFormData : "editFormData",  // The data how it was before the edited entry was saved
   }
   this.localKeys = {
     entries : "entries"            // All private entries which are saved in users browser
@@ -49,7 +49,11 @@ Models = function(controller) {
 
   //-----------------------------------LOCALSTORAGE-------------------------
 
-  Models.prototype.savePrivateEntry = function(EntryForm) {
+  Models.prototype.readFile = async function (EntryForm) {
+
+  }
+
+  Models.prototype.savePrivateEntry = async function(EntryForm) {
     let formInput =
       {
         title: EntryForm.title.value,
@@ -59,8 +63,23 @@ Models = function(controller) {
         slug: Utils.convertToSlug(EntryForm.title.value),
         sanitizedHtml: EntryForm.markdown.value,
         isPublic: false,
-        image: EntryForm.image
       }
+
+    const files = EntryForm.images.files
+    const imageList = []
+    let reader = new FileReader();
+
+    for (let i = 0; i < EntryForm.images.files.length; i++) {
+      await reader.readAsDataURL(files[i]);
+      const image_file = {
+        data: reader.result
+      };
+      imageList.push(image_file)
+    }
+    formInput.images = imageList;
+
+
+
     let entries = localStorage.getItem("entries")
     if (entries) {
       entries = JSON.parse(entries)

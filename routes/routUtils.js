@@ -7,19 +7,31 @@ const fs = require('fs');
 
 module.exports = {
   createEntry: async function (req) {
-    const img = fs.readFileSync(req.file.path);
-    const encode_image = img.toString('base64');
-    const image_file = {
-      contentType: req.file.mimetype,
-      path: req.file.path,
-      image: new Buffer(encode_image,'base64')
-    };
     let entry = new Entry();
     entry.title = req.body.title;
     entry.description = req.body.description;
     entry.markdown = req.body.markdown;
     entry.isPublic = true;
-    entry.image = image_file;
+
+
+    const images = req.files;
+    const imageList = [];
+    images.forEach(image => {
+      const img = fs.readFileSync(image.path);
+      const encode_image = img.toString('base64');
+      const image_file = {
+        contentType: image.mimetype,
+        originalName: image.originalname,
+        path: image.path,
+        data: "data:" + image.mimetype + ";base64," + encode_image
+      };
+      imageList.push(image_file)
+    })
+
+
+
+
+    entry.images = imageList;
     try {
       //TODO
       await entry.save();

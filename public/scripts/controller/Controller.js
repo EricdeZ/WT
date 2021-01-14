@@ -137,9 +137,11 @@ Controller = function() {
       let url = "http://localhost:5000/entries";
       XMLHttpRequestPostForm(url, views.handleAddFormSubmit, addEntryForm)
     } else {
-      models.savePrivateEntry(addEntryForm)
-      let entry = models.getEntryString(Utils.convertToSlug(addEntryForm.title.value))
-      views.handleAddFormSubmit(entry)
+      models.savePrivateEntry(addEntryForm).then(() =>{
+          let entry = models.getEntryString(Utils.convertToSlug(addEntryForm.title.value))
+          views.handleAddFormSubmit(entry)
+      })
+
     }
 
   }

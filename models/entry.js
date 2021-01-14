@@ -36,11 +36,12 @@ const entrySchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  image: {
+  images: [{
     contentType: String,
+    originalName: String,
     path: String,
-    image: Buffer
-  }
+    data: String
+  }]
 });
 
 entrySchema.pre("validate", function (next) {

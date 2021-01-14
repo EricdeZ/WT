@@ -36,7 +36,7 @@ router.post("/edit/:slug", upload.none(), async (req, res, next) => {
   }
 });
 
-router.post("/", upload.single('image'), async (req, res, next) => {
+router.post("/", upload.array('images', 10), async (req, res, next) => {
   const newEntry = await Utils.createEntry(req);
   res.json(newEntry);
   return;

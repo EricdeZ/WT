@@ -14,6 +14,13 @@ ContentBoxView.showIndex = function (entry) {
       <div style="text-align: left">${entry.sanitizedHtml}</div>
   `;
 
+  entry.images.forEach(image => {
+    //let decodedStr = atob(image.data);
+    //let imageHtml = new Image();
+    //imageHtml.src = image.data;
+    contentBox.innerHTML += `<img src="${image.data}"></img>`
+  })
+
   /*let xmlhttp = new XMLHttpRequest();
   let url = "http://localhost:5000/views/showIndex";
 
@@ -112,13 +119,10 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
           
           <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
             <div class="col-bg-6 dropzone">
-            <label for="image" class="custom-upload" id="drag-drop">Drag and Drop or</label>
-            <label for="image" class="custom-upload" id="custom-upload">BROWSE</label>
-            <input type="file" id="image"
-                     name="image">
-            
-            </div>
-            <div class="col-bg-6 uploads-zone">
+              <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
+              <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
+              <input type="file" id="images" name="images" multiple>
+            </div> <div class="col-bg-6 uploads-zone">
             list of uploads is shown here
             </div>
           </div>
