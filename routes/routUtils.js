@@ -25,13 +25,13 @@ module.exports = {
           path: image.path,
           data: "data:" + image.mimetype + ";base64," + encode_image
         };
-        imageList.push(image_file)
+        if(image.mimetype.split('/')[0] === 'image')
+          imageList.push(image_file)
       })
     }
 
     entry.images = imageList;
     try {
-      //TODO
       await entry.save();
       return entry;
     } catch (e) {

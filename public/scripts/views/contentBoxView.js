@@ -87,7 +87,7 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
             <div class="col-bg-6 dropzone">
               <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
               <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
-              <input type="file" id="images" name="images" multiple>
+              <input type="file" id="images" name="images" multiple accept="image/*">
             </div> <div class="col-bg-6 uploads-zone">
             list of uploads is shown here
             </div>
@@ -155,7 +155,7 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
             <div class="col-bg-6 dropzone">
               <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
               <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
-              <input type="file" id="images" name="images" multiple>
+              <input type="file" id="images" name="images" multiple accept="image/*">
             </div> <div class="col-bg-6 uploads-zone">
             list of uploads is shown here
             </div>
