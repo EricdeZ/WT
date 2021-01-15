@@ -2,16 +2,10 @@ body,html {
     background-image: url("../resources/Background.png");
     height: 100%;
     width: 100%;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     align-items: center;
     background-position: center;
     background-size: cover;
-    /*background-attachment: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #d1d6e4;
-    */
 }
 
 p {
