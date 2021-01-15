@@ -40,7 +40,10 @@ Views = function(controller, models) {
   }.bind(this)
 
   Views.prototype.handleEditButton = function(formData) {
-    ContentBoxView.showEditEntry(formData)
+    models.sessionSaveData(models.sessionKeys.editFormData, formData)
+    let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
+    ContentBoxView.showEditEntry(formData, useDefault)
+    this.canvasController.loadCanvas()
     this.controller.registerEventListenerById("editEntryForm", "change", this.controller.handleEditFormChanged)
   }
 
