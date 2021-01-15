@@ -53,33 +53,7 @@ Models = function(controller) {
 
   }
 
-  Models.prototype.savePrivateEntry = async function(EntryForm) {
-    let formInput =
-      {
-        title: EntryForm.title.value,
-        description: EntryForm.description.value,
-        markdown: EntryForm.markdown.value,
-        createdAt: Date.now(),
-        slug: Utils.convertToSlug(EntryForm.title.value),
-        sanitizedHtml: EntryForm.markdown.value,
-        isPublic: false,
-      }
-
-    const files = EntryForm.images.files
-    const imageList = []
-    let reader = new FileReader();
-
-    for (let i = 0; i < EntryForm.images.files.length; i++) {
-      await reader.readAsDataURL(files[i]);
-      const image_file = {
-        data: reader.result
-      };
-      imageList.push(image_file)
-    }
-    formInput.images = imageList;
-
-
-
+  function addPrivateEntryToLocalStorage(formInput) {
     let entries = localStorage.getItem("entries")
     if (entries) {
       entries = JSON.parse(entries)
@@ -88,6 +62,39 @@ Models = function(controller) {
     }
     entries[formInput.slug] = formInput
     localStorage.setItem("entries", JSON.stringify(entries))
+  }
+
+  Models.prototype.savePrivateEntry = function(EntryForm, callback) {
+    const formInput =
+      {
+        title: EntryForm.title.value,
+        description: EntryForm.description.value,
+        markdown: EntryForm.markdown.value,
+        createdAt: Date.now(),
+        slug: Utils.convertToSlug(EntryForm.title.value),
+        sanitizedHtml: EntryForm.markdown.value,
+        isPublic: false,
+        images: []
+      }
+
+    const files = EntryForm.images.files
+
+    for (let i = 0; i < files.length; i++) {
+      (function(file, files) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+          const image_file = {
+            data: e.target.result
+          };
+          formInput.images.push(image_file)
+          if(files[files.length - 1] === file) {
+            addPrivateEntryToLocalStorage(formInput)
+            callback(JSON.stringify(formInput))
+          }
+        }
+        reader.readAsDataURL(file);
+      })(files[i], files);
+    }
   }
 
   Models.prototype.getEntryJson = function (key) {
