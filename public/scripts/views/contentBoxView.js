@@ -78,6 +78,8 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
             <label for="markdown">Text</label>
             <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
+          <textarea type="text" name="uploadList" id="uploadList" hidden></textarea>
+          
           <div class="form-check">
             <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
             <label class="form-check-label" for="publicCheckbox">Public Entry</label>
@@ -88,8 +90,10 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
               <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
               <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
               <input type="file" id="images" name="images" multiple accept="image/*">
-            </div> <div class="col-bg-6 uploads-zone">
-            list of uploads is shown here
+            </div> 
+            <div class="col-bg-6 uploads-zone">
+            List of Uploads:
+                <ul id="nameList" name="nameList" class="fileList"></ul>
             </div>
           </div>
           
@@ -123,7 +127,10 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
     form.elements["title"].value = formInput.title
     form.elements["description"].value = formInput.description
     form.elements["markdown"].value = formInput.markdown
-    //TODO: add formInput.images to Fileupload
+    form.elements["uploadList"].value = JSON.stringify(formInput.images)
+    for (let i = 0; i < formInput.images.length; i++) {
+      document.getElementById('nameList').innerHTML += '<li class="fileList" id="image" + i>' + formInput.images[i].originalName + '</li>';
+    }
   }
 }
 

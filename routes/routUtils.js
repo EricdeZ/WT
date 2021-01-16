@@ -13,8 +13,11 @@ module.exports = {
     entry.markdown = req.body.markdown;
     entry.isPublic = true;
 
+
+    let imageList = [];
+    if(req.body.uploadList != undefined)
+      imageList = JSON.parse(req.body.uploadList)
     const images = req.files;
-    const imageList = [];
     if (images) {
       images.forEach(image => {
         const img = fs.readFileSync(image.path);
