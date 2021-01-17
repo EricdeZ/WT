@@ -108,6 +108,7 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
                 </div>
                 <button class="btn undo-btn" id="undo-btn"></button>
                 <button class="btn undo-btn redo-btn" id="redo-btn"></button>
+                <button class="btn clear-btn save-btn" id="save-btn"></button>
                 <button class="btn clear-btn" id="clear-btn"></button>
             </div>
             <div class="col-10 canvas">
