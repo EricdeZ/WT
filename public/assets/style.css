@@ -157,6 +157,15 @@ ul::-webkit-scrollbar-thumb{
   border: 2px solid #F98F61;
 }
 
+li.fileList{
+  list-style-type: none;
+  font-size: smaller;
+  text-align: start;
+  cursor: pointer;
+  padding-bottom: 5px;
+  color: white;
+}
+
 .btn.btn{
   display: inline-flex;
   justify-content: center;
@@ -354,6 +363,12 @@ input[type="file"]{
   background-color: #f86323;
   color: white;
   padding: 20px;
+  font-size: medium;
+}
+
+.solid{
+  border-top: 2px solid white;
+  border-radius: 3px;
 }
 
 .colors{

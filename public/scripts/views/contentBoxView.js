@@ -163,8 +163,10 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
               <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
               <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
               <input type="file" id="images" name="images" multiple accept="image/*">
-            </div> <div class="col-bg-6 uploads-zone">
-            List of Uploads:
+            </div> 
+            <div class="col-bg-6 uploads-zone">
+            List of Uploads
+            <hr class="solid">
             <ul id="nameListAdd" name="nameListAdd" class="fileList"></ul>
             </div>
           </div>

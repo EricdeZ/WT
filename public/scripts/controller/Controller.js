@@ -170,9 +170,9 @@ Controller = function() {
       let name = fileList.files.item(i).name;
       document.getElementById('nameListAdd').innerHTML += '<li class="fileList" id="image" + i>' + name + '</li>';
     }
-    document.getElementById('nameListAdd').innerHTML += '<button id="deleteImage"> Delete </button>';
+    document.getElementById('nameListAdd').innerHTML += '<button class="btn btn-primary delete-img-btn" id="deleteImage">DELETE</button>';
     let deleteButton = document.getElementById("deleteImage");
-      deleteButton.addEventListener('click', deleteImageFromUploadList);
+    deleteButton.addEventListener('click', deleteImageFromUploadList);
 
     function deleteImageFromUploadList() {
       document.getElementById('images').value = "";
