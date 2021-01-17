@@ -115,6 +115,10 @@ CanvasView = function() {
     }
 
     CanvasView.prototype.saveButtonOnClick = function () {
-        alert('implement save function');
+        let link = document.createElement('a');
+        link.download = 'Drawing.png';
+        link.href = document.getElementById('canvas').toDataURL()
+        link.click();
+        alert("Your drawing has been downloaded, to add it to the entry upload it down below. :)");
     }
 }
