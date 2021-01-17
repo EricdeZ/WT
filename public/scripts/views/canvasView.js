@@ -113,4 +113,8 @@ CanvasView = function() {
             undoButton.disabled = indexUndo <= -1;
         }
     }
+
+    CanvasView.prototype.saveButtonOnClick = function () {
+        alert('implement save function');
+    }
 }

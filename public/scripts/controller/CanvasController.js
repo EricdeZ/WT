@@ -6,6 +6,7 @@ CanvasController = function() {
     const clearButton = document.getElementById('clear-btn');
     const undoButton = document.getElementById('undo-btn');
     const redoButton = document.getElementById('redo-btn');
+    const saveButton = document.getElementById('save-btn');
 
     const canvasView = new CanvasView();
 
@@ -38,5 +39,8 @@ CanvasController = function() {
       canvasView.redoButtonOnClick(e);
     });
 
+    saveButton.addEventListener('click', e =>{
+      canvasView.saveButtonOnClick(e);
+    });
   }
 }

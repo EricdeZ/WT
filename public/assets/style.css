@@ -529,6 +529,24 @@ input[type="file"]{
   background-image: url("http://localhost:5000/public/resources/redo.svg");
 }
 
+.clear-btn.save-btn{
+  background-image: url("http://localhost:5000/public/resources/save.svg");
+  background-color: royalblue;
+  border-color: royalblue;
+}
+
+.clear-btn.save-btn::before {
+  background-image: url("http://localhost:5000/public/resources/save.svg");
+  background-color: royalblue;
+  border-color: royalblue;
+}
+
+.clear-btn.save-btn:hover::before,
+.clear-btn.save-btn:active::before {
+  background-image: url("http://localhost:5000/public/resources/save.svg");
+  background-color: cornflowerblue;
+  border-color: cornflowerblue;
+}
 
 .tools{
   background: #28A745;
