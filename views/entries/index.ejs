@@ -75,15 +75,16 @@
         </div>
         <div class="col-sm-2 bg-success box chat-box">
 
-          <div id="chatMessages" style="height: 70%; width: 80%; margin: auto; overflow: scroll; display: flex; flex-wrap: wrap"></div>
+          <div id="chatMessages" class="message-box"></div>
 
-          <textarea  type="text" id="messageBox" placeholder="Type your message here"></textarea>
-          <textarea  type="text" id="usernameBox" placeholder="Select username"></textarea>
+          <textarea  type="text" id="messageBox" class="text-box" placeholder="Type your message here"></textarea>
+          <textarea  type="text" id="usernameBox" class="text-box" placeholder="Select username"></textarea>
 
 
-          <button  id="chatSendButton" title="SendButton" class="btn btn-primary btn-chat" style="display: none">S</button>
-          <button  id="confirmUsernameButton" title="ConfirmUsernameButton" class="btn btn-primary btn-chat">C</button>
-
+          <div class="chat-buttons">
+          <button  id="chatSendButton" title="SendButton" class="btn btn-primary btn-chat" style="display: none; width: 120px">SEND</button>
+          <button  id="confirmUsernameButton" title="ConfirmUsernameButton" class="btn btn-primary btn-chat" style="width: 120px">CONFIRM</button>
+          </div>
         </div>
       </div>
 

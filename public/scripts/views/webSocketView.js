@@ -8,13 +8,13 @@ WebSocketView = function() {
     let backgroundColor = isOwnMessage? "mediumturquoise" : "#80EBA4"
     let borderColor = isOwnMessage? "blue" : "#28A745"
     messages.innerHTML += `
-    <div style="display: flex; flex-direction: ${alignment}; height: max-content; width: 80%;">
+    <div style="display: flex; flex-direction: ${alignment}; height: max-content; width: 100%;">
       <p style="
         word-wrap: break-word;
-        max-width: 80%;
+        max-width: 100%;
         padding: 5px;
         font-size: 11pt;
-        color: orangered;
+        color: black;
         background-color: ${backgroundColor};
         line-height: 13pt;
         border: ${borderColor} ridge 2px;
