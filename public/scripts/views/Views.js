@@ -45,6 +45,8 @@ Views = function(controller, models) {
     ContentBoxView.showEditEntry(formData, useDefault)
     this.canvasController.loadCanvas()
     this.controller.registerEventListenerById("editEntryForm", "change", this.controller.handleEditFormChanged)
+    this.controller.registerEventListenerById("nameListDelete", "click", this.controller.deleteImageFromEditUploadList)
+    this.controller.registerEventListenerById("images", "change", this.controller.handleEditUploadListChanged)
   }
 
   Views.prototype.handleEditFormSubmit = function(entry, params) {

@@ -78,8 +78,9 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
             <label for="markdown">Text</label>
             <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
+          <div id="oldImages">
           <textarea type="text" name="uploadList" id="uploadList" hidden></textarea>
-          
+          </div>
           <div class="form-check">
             <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
             <label class="form-check-label" for="publicCheckbox">Public Entry</label>
@@ -92,8 +93,13 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
               <input type="file" id="images" name="images" multiple accept="image/*">
             </div> 
             <div class="col-bg-6 uploads-zone">
-            List of Uploads:
-                <ul id="nameList" name="nameList" class="fileList"></ul>
+            List of Uploads
+            <hr class="solid">
+            <ul id="oldList" name="nameList" class="fileList"></ul>
+            <ul id="nameList" name="nameList" class="fileList"></ul>
+            <div id="ListDelete" style="visibility: hidden">
+            <button class="btn btn-primary delete-img-btn" id="nameListDelete">DELETE</button>
+            </div>
             </div>
           </div>
           
@@ -130,7 +136,8 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
     form.elements["markdown"].value = formInput.markdown
     form.elements["uploadList"].value = JSON.stringify(formInput.images)
     for (let i = 0; i < formInput.images.length; i++) {
-      document.getElementById('nameList').innerHTML += '<li class="fileList" id="image" + i>' + formInput.images[i].originalName + '</li>';
+      document.getElementById('oldList').innerHTML += '<li class="fileList" id="image" + i>' + formInput.images[i].originalName + '</li>';
+      document.getElementById('ListDelete').style.visibility = 'visible'
     }
   }
 }

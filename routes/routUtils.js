@@ -15,7 +15,7 @@ module.exports = {
 
 
     let imageList = [];
-    if(req.body.uploadList != undefined)
+    if(req.body.uploadList !== undefined)
       imageList = JSON.parse(req.body.uploadList)
     const images = req.files;
     if (images) {

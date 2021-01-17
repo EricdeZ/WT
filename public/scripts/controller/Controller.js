@@ -164,8 +164,30 @@ Controller = function() {
       models.sessionSaveData(models.sessionKeys.editFormData, formInput)
   }
 
+  Controller.prototype.handleEditUploadListChanged = function() {
+    let fileList = document.getElementById("images")
+    document.getElementById('nameList').innerHTML = '';
+    for (let i = 0; i < fileList.files.length; ++i) {
+      let name = fileList.files.item(i).name;
+      document.getElementById('nameList').innerHTML += '<li class="fileList" id="image" + i>' + name + '</li>';
+    }
+    document.getElementById('ListDelete').style.visibility = 'visible';
+    let deleteButton = document.getElementById("nameListDelete");
+    deleteButton.addEventListener('click', this.deleteImageFromEditUploadList);
+  }
+
+  Controller.prototype.deleteImageFromEditUploadList = function (e) {
+    e.preventDefault();
+    document.getElementById('ListDelete').style.visibility = 'hidden';
+    document.getElementById('images').value = "";
+    document.getElementById('nameList').innerHTML = '';
+    document.getElementById('oldImages').innerHTML = '';
+    document.getElementById('oldList').innerHTML = '';
+  }
+
   Controller.prototype.handleUploadListChanged = function() {
     let fileList = document.getElementById("images")
+    document.getElementById('nameListAdd').innerHTML = '';
     for (let i = 0; i < fileList.files.length; ++i) {
       let name = fileList.files.item(i).name;
       document.getElementById('nameListAdd').innerHTML += '<li class="fileList" id="image" + i>' + name + '</li>';
