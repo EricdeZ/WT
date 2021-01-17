@@ -78,7 +78,7 @@ CanvasView = function() {
     }
 
     CanvasView.prototype.clearButtonOnClick = function (e) {
-        var result = confirm('Are you sure you want to delete your masterpiece?');
+        let result = confirm('Are you sure you want to delete your masterpiece?');
         if(result){
             clearCanvas();
         }

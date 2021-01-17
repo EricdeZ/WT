@@ -28,18 +28,22 @@ CanvasController = function() {
     });
 
     clearButton.addEventListener('click', e => {
+      e.preventDefault()
       canvasView.clearButtonOnClick(e);
     });
 
     undoButton.addEventListener('click', e => {
+      e.preventDefault()
       canvasView.undoButtonOnClick(e);
     });
 
     redoButton.addEventListener('click', e=> {
+      e.preventDefault()
       canvasView.redoButtonOnClick(e);
     });
 
     saveButton.addEventListener('click', e =>{
+      e.preventDefault()
       canvasView.saveButtonOnClick(e);
     });
   }
