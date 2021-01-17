@@ -98,6 +98,7 @@ Views = function(controller, models) {
     let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
     ContentBoxView.showAddEntry(formData, useDefault)
     this.canvasController.loadCanvas()
+    this.controller.registerEventListenerById("images", "change", this.controller.handleUploadListChanged)
     this.controller.registerEventListenerById("addEntryForm", "submit", this.controller.handleAddFormSubmit)
     this.controller.registerEventListenerById("addEntryForm", "change", this.controller.handleAddFormChanged)
   }

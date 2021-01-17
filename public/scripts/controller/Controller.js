@@ -164,6 +164,10 @@ Controller = function() {
       models.sessionSaveData(models.sessionKeys.editFormData, formInput)
   }
 
+  Controller.prototype.handleUploadListChanged = function() {
+    let fileList = document.getElementById("images")
+  }
+
   Controller.prototype.registerEventListenerById = function (id, type, eventListener) {
     let element = document.getElementById(id)
     element.addEventListener(type, eventListener)
