@@ -3,9 +3,11 @@ const mongoose = require("mongoose");
 const entriesRouter = require("./routes/entries");
 const viewsRouter = require("./routes/views");
 const Entry = require("./models/entry");
+const WebSocket = require('ws');
 const methodOverride = require("method-override");
 
 const app = express();
+let chatlog = [];
 
 mongoose.connect("mongodb://localhost/blog", {
   useNewUrlParser: true,
@@ -37,4 +39,27 @@ app.use("/entries", entriesRouter);
 app.use("/views", viewsRouter);
 
 const port = 5000;
-app.listen(port, () => console.log(`Server started on port ${port}`));
+const server = app.listen(port, () => console.log(`Server started on port ${port}`));
+
+const wss = new WebSocket.Server({ server })
+
+wss.on('connection', function connection(ws) {
+  chatlog.forEach(item => ws.send(item))
+  ws.on('message', function incoming(data) {
+    logChatMessage(data);
+    wss.clients.forEach(function each(client) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
+    })
+  })
+})
+
+function logChatMessage(message) {
+  if(chatlog.length < 20) {
+    chatlog.push(message);
+  } else {
+    chatlog.shift();
+    chatlog.push(message);
+  }
+}
