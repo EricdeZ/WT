@@ -16,12 +16,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
     <script src="../../public/scripts/controller/Controller.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/controller/CanvasController.js" type="text/javascript" defer></script>
+    <script src="../../public/scripts/controller/WebSocketController.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/Utils.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/views/Views.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/views/contentBoxView.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/views/indexListView.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/views/titleBarView.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/views/canvasView.js" type="text/javascript" defer></script>
+    <script src="../../public/scripts/views/webSocketView.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/models/Models.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/mvc.js" type="text/javascript" defer></script>
 
@@ -41,7 +43,7 @@
       </div>
 
       <div class="row content-row">
-        <div class="col-sm-2 bg-success box index-box">
+        <div class="col-sm-1 bg-success box index-box">
 
           <div class="row button-row">
             <div id="index">
@@ -67,11 +69,24 @@
             <ul class="overflow-auto private-index" id="indexListPrivate"></ul>
           </div>
         </div>
-        <div class="col-sm-10 bg-light box overflow-auto content-box" id="contentBox">
+        <div class="col-sm-9 bg-light box overflow-auto content-box" id="contentBox">
           <h1>Welcome to your blog!</h1>
           <button class="btn btn-homepage" id="welcomeButton">SHOW ENTRIES</button>
         </div>
+        <div class="col-sm-2 bg-success box chat-box">
+
+          <div id="chatMessages" style="height: 70%; width: 80%; margin: auto; overflow: scroll; display: flex; flex-wrap: wrap"></div>
+
+          <textarea  type="text" id="messageBox" placeholder="Type your message here"></textarea>
+          <textarea  type="text" id="usernameBox" placeholder="Select username"></textarea>
+
+
+          <button  id="chatSendButton" title="SendButton" class="btn btn-primary btn-chat" style="display: none">S</button>
+          <button  id="confirmUsernameButton" title="ConfirmUsernameButton" class="btn btn-primary btn-chat">C</button>
+
+        </div>
       </div>
+
     </div>
   </body>
 </html>
