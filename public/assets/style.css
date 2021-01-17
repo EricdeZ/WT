@@ -12,6 +12,10 @@ body,html {
   justify-content: center;*/
 }
 
+textarea {
+  border: black ridge 5px;
+}
+
 .head-row
 {
   margin-left: 150px;
@@ -48,6 +52,7 @@ body,html {
   display: flex;
   text-align: center;
   padding: 20px;
+  border: orangered ridge 5px;
 }
 
 div.box {
@@ -67,12 +72,16 @@ div.index-box
 div.chat-box
 {
   background-color: white!important; /*#F86323!important;*/
-  margin-left: 30px;
+  margin: auto;
   height: 80vh;
   width: 150px;!important;
   max-width: 250px;
   visibility: visible;
-  justify-content: center
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  border: orangered ridge 5px;
 }
 
 div.index-row
@@ -180,7 +189,9 @@ ul::-webkit-scrollbar-thumb{
 
 .btn.btn-chat
 {
-  width: 100%;
+  width: 10%;
+  margin: unset;
+  text-align: center;
 }
 
 .btn.btn-edit
@@ -197,6 +208,21 @@ ul::-webkit-scrollbar-thumb{
   background-color: var(--suc_col);
   z-index: 1;
   margin-top: 30px;;
+}
+
+/*--------------ids------------------------*/
+
+#messageBox {
+  height: 20%;
+  width: 80%;
+  padding: 10px;
+  display:none;
+}
+
+#usernameBox {
+  height: 20%;
+  width: 80%;
+  padding: 10px;
 }
 
 /*--------------button states--------------*/

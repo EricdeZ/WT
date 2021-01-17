@@ -3,11 +3,12 @@ document.addEventListener('DOMContentLoaded', onLoad);
 function onLoad() {
 
   const controller = new Controller()
+  const webSocketController = new WebSocketController()
 
   console.log(localStorage)
   loadPrivateEntries()
   registerEventListeners(controller)
-  createWebSocket()
+  webSocketController.createWebSocket()
   window.history.pushState(null, '', "http://localhost:5000/");
 }
 
@@ -89,67 +90,3 @@ function registerEventListeners(controller) {
     console.log('location changed!');
   })
 }
-
-function createWebSocket() {
-
-  const sendBtn = document.querySelector('#chatSendButton');
-  const confirmBtn = document.querySelector('#confirmUsernameButton');
-  const messages = document.querySelector('#chatMessages');
-  const messageBox = document.querySelector('#messageBox');
-  const usernameBox = document.querySelector('#usernameBox');
-
-  let ws = new WebSocket('ws://localhost:5000');
-  ws.onopen = () => {
-    console.log('Connection opened!');
-  }
-  ws.onmessage = ({ data }) => showMessage(data);
-  ws.onclose = function() {
-    ws = null;
-  }
-
-  sendBtn.onclick = function() {
-    if (!ws) {
-      showMessage("No WebSocket connection :(");
-      return ;
-    }
-    if (messageBox.value != "") {
-      let chatMessage = usernameBox.value + ": " + messageBox.value;
-      ws.send(chatMessage);
-      showMessage(chatMessage);
-    }
-  }
-
-  confirmBtn.onclick = function() {
-    if(usernameBox.value != "") {
-      usernameBox.style.display = "none";
-      confirmBtn.style.display = "none";
-      messageBox.style.display = "block";
-      sendBtn.style.display = "block";
-    }
-  }
-
-
-  function showMessage(message) {
-    messages.textContent += `${message}\n\n`;
-    messages.scrollTop = messages.scrollHeight;
-    messageBox.value = '';
-  }
-
-}
-
-function setSessionStorageDefault() {
-
-  let formInput =
-  {
-    title: "Title",
-    description: "Description",
-    markdown: "MarkDown"
-  }
-  sessionStorage.setItem('addFormData', JSON.stringify(formInput));
-}
-
-
-/* sessionStorageList:
-*  currentEntry - The entry data loaded on IndexRequest
-*  addFormData - The data how it was before the new entry was saved
-*  editFormData - The data how it was before the edited entry was saved*/

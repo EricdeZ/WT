@@ -40,8 +40,7 @@ const server = app.listen(port, () => console.log(`Server started on port ${port
 const wss = new WebSocket.Server({ server })
 
 wss.on('connection', function connection(ws) {
-  let chat = retrieveChatLog();
-  ws.send(chat);
+  chatlog.forEach(item => ws.send(item))
   ws.on('message', function incoming(data) {
     logChatMessage(data);
     wss.clients.forEach(function each(client) {
@@ -59,14 +58,4 @@ function logChatMessage(message) {
     chatlog.shift();
     chatlog.push(message);
   }
-}
-
-function retrieveChatLog(){
-  let chatLogString = "";
-  chatlog.forEach(item => chatLogString = chatLogString + item + "\n\n");
-  //console.log(chatLogString);
-  if(chatlog.length > 0) {
-    chatLogString = chatLogString.slice(0,-2);
-  }
-  return chatLogString;
 }

@@ -15,11 +15,13 @@
     <link rel="stylesheet" href="../../public/assets/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
     <script src="../../public/scripts/controller/Controller.js" type="text/javascript" defer></script>
+    <script src="../../public/scripts/controller/WebSocketController.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/Utils.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/views/Views.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/views/contentBoxView.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/views/indexListView.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/views/titleBarView.js" type="text/javascript" defer></script>
+    <script src="../../public/scripts/views/webSocketView.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/models/Models.js" type="text/javascript" defer></script>
     <script src="../../public/scripts/mvc.js" type="text/javascript" defer></script>
 
@@ -70,21 +72,15 @@
           <button class="btn btn-homepage" id="welcomeButton">SHOW ENTRIES</button>
         </div>
         <div class="col-sm-2 bg-success box chat-box">
-          <div class="container">
-            <div class="row">
-              <pre id="chatMessages" style="height: 400px; overflow: scroll"></pre>
-            </div>
-            <div class="row justify-content-md-center">
-              <div class="col-sm-9">
-                <input class="col-sm-12" type="text" id="messageBox" placeholder="Type your message here" style="width: 100%; padding: 10px; display:none;" />
-                <input class="col-sm-12" type="text" id="usernameBox" placeholder="Select username" style="width: 100%; padding: 10px;" />
-              </div>
-              <div class="col-sm-3 align-self-center">
-                <button  id="chatSendButton" title="SendButton" class="btn btn-primary btn-chat" style="display: none">S</button>
-                <button  id="confirmUsernameButton" title="ConfirmUsernameButton" class="btn btn-primary btn-chat">C</button>
-              </div>
-            </div>
-          </div>
+
+          <div id="chatMessages" style="height: 70%; width: 80%; margin: auto; overflow: scroll; display: flex; flex-wrap: wrap"></div>
+
+          <textarea  type="text" id="messageBox" placeholder="Type your message here"></textarea>
+          <textarea  type="text" id="usernameBox" placeholder="Select username"></textarea>
+
+
+          <button  id="chatSendButton" title="SendButton" class="btn btn-primary btn-chat" style="display: none">S</button>
+          <button  id="confirmUsernameButton" title="ConfirmUsernameButton" class="btn btn-primary btn-chat">C</button>
 
         </div>
       </div>
