@@ -166,6 +166,18 @@ Controller = function() {
 
   Controller.prototype.handleUploadListChanged = function() {
     let fileList = document.getElementById("images")
+    for (let i = 0; i < fileList.files.length; ++i) {
+      let name = fileList.files.item(i).name;
+      document.getElementById('nameListAdd').innerHTML += '<li class="fileList" id="image" + i>' + name + '</li>';
+    }
+    document.getElementById('nameListAdd').innerHTML += '<button id="deleteImage"> Delete </button>';
+    let deleteButton = document.getElementById("deleteImage");
+      deleteButton.addEventListener('click', deleteImageFromUploadList);
+
+    function deleteImageFromUploadList() {
+      document.getElementById('images').value = "";
+      document.getElementById('nameListAdd').innerHTML = '';
+    }
   }
 
   Controller.prototype.registerEventListenerById = function (id, type, eventListener) {
