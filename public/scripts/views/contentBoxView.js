@@ -103,7 +103,7 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
           <textarea type="text" name="uploadList" id="uploadList" hidden></textarea>
           </div>
           <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
-            <div class="col-bg-6 dropzone">
+            <div class="col-bg-6 dropzone" id="dropzone">
               <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
               <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
               <input type="file" id="images" name="images" multiple accept="image/*">
@@ -158,9 +158,7 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
             <label for="markdown">Text</label>
             <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
-          
 
-          
           <div class="form-check">
             <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
             <label class="form-check-label" for="publicCheckbox">Public Entry</label>
@@ -186,7 +184,7 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
           </div>
           
           <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
-            <div class="col-bg-6 dropzone">
+            <div class="col-bg-6 dropzone" id="dropzone">
               <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
               <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
               <input type="file" id="images" name="images" multiple accept="image/*">
@@ -194,7 +192,10 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
             <div class="col-bg-6 uploads-zone">
             List of Uploads
             <hr class="solid">
-            <ul id="nameListAdd" name="nameListAdd" class="fileList"></ul>
+            <ul id="nameList" name="nameList" class="fileList"></ul>
+            <div id="ListDelete" style="visibility: hidden">
+            <button class="btn btn-primary delete-img-btn" id="nameListDelete">DELETE</button>
+            </div>
             </div>
           </div>
           

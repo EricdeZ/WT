@@ -2,6 +2,7 @@ Views = function(controller, models) {
   this.controller = controller
   this.models = models
   this.canvasController = new CanvasController()
+  this.dragDropController = new DragDropController()
 
   Views.prototype.handleIndexRequest = function(entry) {
     if (!entry) {
@@ -44,6 +45,7 @@ Views = function(controller, models) {
     let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
     ContentBoxView.showEditEntry(formData, useDefault)
     this.canvasController.loadCanvas()
+    this.dragDropController.loadDragDrop()
     this.controller.registerEventListenerById("editEntryForm", "change", this.controller.handleEditFormChanged)
     this.controller.registerEventListenerById("nameListDelete", "click", this.controller.deleteImageFromEditUploadList)
     this.controller.registerEventListenerById("images", "change", this.controller.handleEditUploadListChanged)
@@ -84,7 +86,8 @@ Views = function(controller, models) {
     let parameter = {pushState: true, indexElement : indexElement}
     if (entryJson.isPublic) {
       this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPublic, parameter)
-      this.controller.handleShowPublicButtonClick()
+      // das war der privatepublic bug mit den buttons
+      //this.controller.handleShowPublicButtonClick()
     } else {
       this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPrivate, parameter)
       this.controller.handleShowPrivateButtonClick()
@@ -100,6 +103,7 @@ Views = function(controller, models) {
     let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
     ContentBoxView.showAddEntry(formData, useDefault)
     this.canvasController.loadCanvas()
+    this.dragDropController.loadDragDrop()
     this.controller.registerEventListenerById("images", "change", this.controller.handleUploadListChanged)
     this.controller.registerEventListenerById("addEntryForm", "submit", this.controller.handleAddFormSubmit)
     this.controller.registerEventListenerById("addEntryForm", "change", this.controller.handleAddFormChanged)

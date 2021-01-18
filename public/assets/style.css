@@ -166,7 +166,6 @@ div.row.filter-row
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  visibility: hidden;
 }
 
 li.index {
@@ -439,6 +438,10 @@ input[type="file"]{
   background-repeat: no-repeat;
   background-position: center;
   background-color: white;
+}
+
+.dropzone.highlight{
+  border: 2px dashed black;
 }
 
 .custom-upload{
