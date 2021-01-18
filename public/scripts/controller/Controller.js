@@ -113,12 +113,10 @@ Controller = function() {
     const oldSlug = editEntryForm.elements["editEntryFormSlug"].value;
     if(models.getSessionDataByKeyJson(models.sessionKeys.currentEntry).isPublic) {
       let url = "http://localhost:5000/entries/edit/" + oldSlug;
-      XMLHttpRequestPostForm(url, views.handleEditFormSubmit, editEntryForm, [oldSlug])
+      XMLHttpRequestPostForm(url, views.handleEditFormSubmit, editEntryForm)
     } else {
       models.deleteEntry(oldSlug)
-      models.savePrivateEntry(editEntryForm)
-      let entry = models.getEntryString(Utils.convertToSlug(editEntryForm.title.value))
-      views.handleEditFormSubmit(entry, [oldSlug])
+      models.savePrivateEntry(editEntryForm, views.handleEditFormSubmit)
     }
 
   }
@@ -138,8 +136,6 @@ Controller = function() {
       XMLHttpRequestPostForm(url, views.handleAddFormSubmit, addEntryForm)
     } else {
       models.savePrivateEntry(addEntryForm, views.handleAddFormSubmit)
-          //let entry = models.getEntryString(Utils.convertToSlug(addEntryForm.title.value))
-          //views.handleAddFormSubmit(entry)
     }
 
   }

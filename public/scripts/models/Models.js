@@ -77,6 +77,10 @@ Models = function(controller) {
         images: []
       }
 
+    if (EntryForm.uploadList && EntryForm.uploadList.value !== 0) {
+      formInput.images = JSON.parse(EntryForm.uploadList.value)
+    }
+
     const files = EntryForm.images.files
 
     for (let i = 0; i < files.length; i++) {
@@ -84,6 +88,8 @@ Models = function(controller) {
         let reader = new FileReader();
         reader.onload = function(e) {
           const image_file = {
+            contentType: file.type,
+            originalName: file.name,
             data: e.target.result
           };
           formInput.images.push(image_file)
@@ -94,6 +100,11 @@ Models = function(controller) {
         }
         reader.readAsDataURL(file);
       })(files[i], files);
+    }
+
+    if (files.length < 1) {
+      addPrivateEntryToLocalStorage(formInput)
+      callback(JSON.stringify(formInput))
     }
   }
 

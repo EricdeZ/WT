@@ -49,13 +49,13 @@ Views = function(controller, models) {
     this.controller.registerEventListenerById("images", "change", this.controller.handleEditUploadListChanged)
   }
 
-  Views.prototype.handleEditFormSubmit = function(entry, params) {
+  Views.prototype.handleEditFormSubmit = function(entry) {
     if (!entry) {
       alert("No data transmitted!")
       return
     }
     const entryJson = JSON.parse(entry)
-    let oldSlug = params[0]
+    let oldSlug = document.getElementById('editEntryForm').elements["editEntryFormSlug"].value;;
     indexListView.showEditedEntry(entryJson, oldSlug)
     ContentBoxView.showIndex(entryJson)
     let indexElement = document.getElementById(entryJson.slug)

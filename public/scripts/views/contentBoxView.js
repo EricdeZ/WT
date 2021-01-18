@@ -80,11 +80,6 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
           </div>
           <div id="oldImages">
           <textarea type="text" name="uploadList" id="uploadList" hidden></textarea>
-          </div>
-          <div class="form-check">
-            <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
-            <label class="form-check-label" for="publicCheckbox">Public Entry</label>
-          </div>
           
           <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
             <div class="col-bg-6 dropzone">
@@ -161,10 +156,6 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
             <label for="markdown">Text</label>
             <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
-          <div class="form-check">
-            <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
-            <label class="form-check-label" for="publicCheckbox">Public Entry</label>
-          </div>
           
           <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
             <div class="col-bg-6 dropzone">
@@ -177,6 +168,11 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
             <hr class="solid">
             <ul id="nameListAdd" name="nameListAdd" class="fileList"></ul>
             </div>
+          </div>
+          
+          <div class="form-check">
+            <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
+            <label class="form-check-label" for="publicCheckbox">Public Entry</label>
           </div>
           
           <div class="row canvas-row" style="margin: 20px"> 
