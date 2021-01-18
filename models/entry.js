@@ -4,6 +4,7 @@ const slugify = require("slugify");
 const createDomPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
 const dompurify = createDomPurify(new JSDOM().window);
+const fs = require('fs');
 
 const entrySchema = new mongoose.Schema({
   title: {
@@ -34,7 +35,13 @@ const entrySchema = new mongoose.Schema({
   isPublic: {
     type: Boolean,
     default: true,
-  }
+  },
+  images: [{
+    contentType: String,
+    originalName: String,
+    path: String,
+    data: String
+  }]
 });
 
 entrySchema.pre("validate", function (next) {

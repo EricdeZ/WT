@@ -40,17 +40,22 @@ Views = function(controller, models) {
   }.bind(this)
 
   Views.prototype.handleEditButton = function(formData) {
-    ContentBoxView.showEditEntry(formData)
+    models.sessionSaveData(models.sessionKeys.editFormData, formData)
+    let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
+    ContentBoxView.showEditEntry(formData, useDefault)
+    this.canvasController.loadCanvas()
     this.controller.registerEventListenerById("editEntryForm", "change", this.controller.handleEditFormChanged)
+    this.controller.registerEventListenerById("nameListDelete", "click", this.controller.deleteImageFromEditUploadList)
+    this.controller.registerEventListenerById("images", "change", this.controller.handleEditUploadListChanged)
   }
 
-  Views.prototype.handleEditFormSubmit = function(entry, params) {
+  Views.prototype.handleEditFormSubmit = function(entry) {
     if (!entry) {
       alert("No data transmitted!")
       return
     }
     const entryJson = JSON.parse(entry)
-    let oldSlug = params[0]
+    let oldSlug = document.getElementById('editEntryForm').elements["editEntryFormSlug"].value;;
     indexListView.showEditedEntry(entryJson, oldSlug)
     ContentBoxView.showIndex(entryJson)
     let indexElement = document.getElementById(entryJson.slug)
@@ -95,6 +100,7 @@ Views = function(controller, models) {
     let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
     ContentBoxView.showAddEntry(formData, useDefault)
     this.canvasController.loadCanvas()
+    this.controller.registerEventListenerById("images", "change", this.controller.handleUploadListChanged)
     this.controller.registerEventListenerById("addEntryForm", "submit", this.controller.handleAddFormSubmit)
     this.controller.registerEventListenerById("addEntryForm", "change", this.controller.handleAddFormChanged)
   }

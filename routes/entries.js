@@ -19,7 +19,7 @@ router.get("/:slug", async (req, res) => {
   res.json(entry);
 });
 
-router.post("/edit/:slug", upload.none(), async (req, res, next) => {
+router.post("/edit/:slug", upload.array('images', 10), async (req, res, next) => {
   const oldEntry = await Entry.findOne({slug: req.params.slug});
   if (oldEntry) {
     Entry.deleteOne({slug: req.params.slug}, async function (err) {
@@ -36,7 +36,7 @@ router.post("/edit/:slug", upload.none(), async (req, res, next) => {
   }
 });
 
-router.post("/", upload.none(), async (req, res, next) => {
+router.post("/", upload.array('images', 10), async (req, res, next) => {
   const newEntry = await Utils.createEntry(req);
   res.json(newEntry);
   return;

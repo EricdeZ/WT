@@ -223,6 +223,15 @@ ul::-webkit-scrollbar-thumb{
   border: 2px solid #F98F61;
 }
 
+li.fileList{
+  list-style-type: none;
+  font-size: smaller;
+  text-align: start;
+  cursor: pointer;
+  padding-bottom: 5px;
+  color: white;
+}
+
 .btn.btn{
   display: inline-flex;
   justify-content: center;
@@ -442,6 +451,12 @@ input[type="file"]{
   background-color: #f86323;
   color: white;
   padding: 20px;
+  font-size: medium;
+}
+
+.solid{
+  border-top: 2px solid white;
+  border-radius: 3px;
 }
 
 .colors{
@@ -602,6 +617,24 @@ input[type="file"]{
   background-image: url("http://localhost:5000/public/resources/redo.svg");
 }
 
+.clear-btn.save-btn{
+  background-image: url("http://localhost:5000/public/resources/save.svg");
+  background-color: royalblue;
+  border-color: royalblue;
+}
+
+.clear-btn.save-btn::before {
+  background-image: url("http://localhost:5000/public/resources/save.svg");
+  background-color: royalblue;
+  border-color: royalblue;
+}
+
+.clear-btn.save-btn:hover::before,
+.clear-btn.save-btn:active::before {
+  background-image: url("http://localhost:5000/public/resources/save.svg");
+  background-color: cornflowerblue;
+  border-color: cornflowerblue;
+}
 
 .tools{
   background: #28A745;
@@ -619,4 +652,12 @@ input[type="file"]{
   padding-left: 0;
   display: flex;
   justify-content: flex-start;
+}
+
+
+.fileList{
+  padding-left: 0;
+  text-align-all: left;
+  font-size: 20px;
+  list-style-type: none;
 }

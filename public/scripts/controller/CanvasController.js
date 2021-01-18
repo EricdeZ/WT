@@ -6,6 +6,7 @@ CanvasController = function() {
     const clearButton = document.getElementById('clear-btn');
     const undoButton = document.getElementById('undo-btn');
     const redoButton = document.getElementById('redo-btn');
+    const saveButton = document.getElementById('save-btn');
 
     const canvasView = new CanvasView();
 
@@ -27,16 +28,23 @@ CanvasController = function() {
     });
 
     clearButton.addEventListener('click', e => {
+      e.preventDefault()
       canvasView.clearButtonOnClick(e);
     });
 
     undoButton.addEventListener('click', e => {
+      e.preventDefault()
       canvasView.undoButtonOnClick(e);
     });
 
     redoButton.addEventListener('click', e=> {
+      e.preventDefault()
       canvasView.redoButtonOnClick(e);
     });
 
+    saveButton.addEventListener('click', e =>{
+      e.preventDefault()
+      canvasView.saveButtonOnClick(e);
+    });
   }
 }

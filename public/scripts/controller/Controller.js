@@ -113,12 +113,10 @@ Controller = function() {
     const oldSlug = editEntryForm.elements["editEntryFormSlug"].value;
     if(models.getSessionDataByKeyJson(models.sessionKeys.currentEntry).isPublic) {
       let url = "http://localhost:5000/entries/edit/" + oldSlug;
-      XMLHttpRequestPostForm(url, views.handleEditFormSubmit, editEntryForm, [oldSlug])
+      XMLHttpRequestPostForm(url, views.handleEditFormSubmit, editEntryForm)
     } else {
       models.deleteEntry(oldSlug)
-      models.savePrivateEntry(editEntryForm)
-      let entry = models.getEntryString(Utils.convertToSlug(editEntryForm.title.value))
-      views.handleEditFormSubmit(entry, [oldSlug])
+      models.savePrivateEntry(editEntryForm, views.handleEditFormSubmit)
     }
 
   }
@@ -137,9 +135,7 @@ Controller = function() {
       let url = "http://localhost:5000/entries";
       XMLHttpRequestPostForm(url, views.handleAddFormSubmit, addEntryForm)
     } else {
-      models.savePrivateEntry(addEntryForm)
-      let entry = models.getEntryString(Utils.convertToSlug(addEntryForm.title.value))
-      views.handleAddFormSubmit(entry)
+      models.savePrivateEntry(addEntryForm, views.handleAddFormSubmit)
     }
 
   }
@@ -162,6 +158,44 @@ Controller = function() {
         markdown: e.target.form["markdown"].value
       }
       models.sessionSaveData(models.sessionKeys.editFormData, formInput)
+  }
+
+  Controller.prototype.handleEditUploadListChanged = function() {
+    let fileList = document.getElementById("images")
+    document.getElementById('nameList').innerHTML = '';
+    for (let i = 0; i < fileList.files.length; ++i) {
+      let name = fileList.files.item(i).name;
+      document.getElementById('nameList').innerHTML += '<li class="fileList" id="image" + i>' + name + '</li>';
+    }
+    document.getElementById('ListDelete').style.visibility = 'visible';
+    let deleteButton = document.getElementById("nameListDelete");
+    deleteButton.addEventListener('click', this.deleteImageFromEditUploadList);
+  }
+
+  Controller.prototype.deleteImageFromEditUploadList = function (e) {
+    e.preventDefault();
+    document.getElementById('ListDelete').style.visibility = 'hidden';
+    document.getElementById('images').value = "";
+    document.getElementById('nameList').innerHTML = '';
+    document.getElementById('oldImages').innerHTML = '';
+    document.getElementById('oldList').innerHTML = '';
+  }
+
+  Controller.prototype.handleUploadListChanged = function() {
+    let fileList = document.getElementById("images")
+    document.getElementById('nameListAdd').innerHTML = '';
+    for (let i = 0; i < fileList.files.length; ++i) {
+      let name = fileList.files.item(i).name;
+      document.getElementById('nameListAdd').innerHTML += '<li class="fileList" id="image" + i>' + name + '</li>';
+    }
+    document.getElementById('nameListAdd').innerHTML += '<button class="btn btn-primary delete-img-btn" id="deleteImage">DELETE</button>';
+    let deleteButton = document.getElementById("deleteImage");
+    deleteButton.addEventListener('click', deleteImageFromUploadList);
+
+    function deleteImageFromUploadList() {
+      document.getElementById('images').value = "";
+      document.getElementById('nameListAdd').innerHTML = '';
+    }
   }
 
   Controller.prototype.registerEventListenerById = function (id, type, eventListener) {

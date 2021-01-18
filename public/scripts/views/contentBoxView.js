@@ -14,6 +14,13 @@ ContentBoxView.showIndex = function (entry) {
       <div style="text-align: left">${entry.sanitizedHtml}</div>
   `;
 
+  entry.images.forEach(image => {
+    //let decodedStr = atob(image.data);
+    //let imageHtml = new Image();
+    //imageHtml.src = image.data;
+    contentBox.innerHTML += `<img src="${image.data}"></img>`
+  })
+
   /*let xmlhttp = new XMLHttpRequest();
   let url = "http://localhost:5000/views/showIndex";
 
@@ -51,39 +58,83 @@ ContentBoxView.showEntries = function (entries) {
   }
 }
 
-ContentBoxView.showEditEntry = function (formData) {
-  let contentBox = document.getElementById("contentBox")
+ContentBoxView.showEditEntry = function (formInput, useDefault) {
+  let contentBox = document.getElementById("contentBox");
   contentBox.innerHTML = `
-    <div class="row align-items-center">
-        <div class="col-lg-4 text-light">
-          <h1>-BlogTitle</h1>
-        </div>
-     </div>
-     <div class="row" style="height: 100%">
-        <div class="container bg-light p-4">
-          <h1 class="mb-4">Edit Entry</h1>
-          <form action="" method="POST" id="editEntryForm" enctype="multipart/form-data">
-            <input type="hidden" name="editEntryFormSlug" value="${formData.slug}">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input required type="text" value=${formData.title} name="title" id="title" class="form-control"/>
+    <div class="row d-flex align-items-start " style="height: 100%">
+      <div class="container bg-light">
+        <h1 class="mb-4">Your Entry</h1>
+        <form action="" method="POST" id="editEntryForm">
+          <input type="hidden" name="editEntryFormSlug" value="${formInput.slug}">
+          <div class="form-group">
+              <label for="title">Title</label>
+              <input required type="text" name="title" id="title" class="form-control" placeholder="Enter a title..."/>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea required type="text" name="description" id="description" class="form-control" placeholder="Write a description..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="markdown">Text</label>
+            <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
+          </div>
+          <div id="oldImages">
+          <textarea type="text" name="uploadList" id="uploadList" hidden></textarea>
+          </div>
+          <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
+            <div class="col-bg-6 dropzone">
+              <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
+              <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
+              <input type="file" id="images" name="images" multiple accept="image/*">
+            </div> 
+            <div class="col-bg-6 uploads-zone">
+            List of Uploads
+            <hr class="solid">
+            <ul id="oldList" name="nameList" class="fileList"></ul>
+            <ul id="nameList" name="nameList" class="fileList"></ul>
+            <div id="ListDelete" style="visibility: hidden">
+            <button class="btn btn-primary delete-img-btn" id="nameListDelete">DELETE</button>
             </div>
-            <div class="form-group">
-              <label for="description">Description</label>
-              <textarea required type="text" name="description" id="description" class="form-control">${formData.description}</textarea>
             </div>
-            <div class="form-group">
-              <label for="markdown">Text</label>
-              <textarea required type="text" name="markdown" id="markdown" class="form-control">${formData.markdown}</textarea>
+          </div>
+          
+          <div class="row canvas-row" style="margin: 20px"> 
+            <div class="col-2 tools">
+                <div class="color-picker">
+                <input class="colors" value="#000000" type="color" id="colorChange" name="colorChange">
+                </div>
+                <div class="slidecontainer thickness">
+                    <label for="thickness" class="thickness-label" id="thickness-label">5</label>
+                    <input type="range" min="1" max="50" value="5" class="slider" id="thickness">
+                </div>
+                <button class="btn undo-btn" id="undo-btn"></button>
+                <button class="btn undo-btn redo-btn" id="redo-btn"></button>
+                <button class="btn clear-btn save-btn" id="save-btn"></button>
+                <button class="btn clear-btn" id="clear-btn"></button>
             </div>
+            <div class="col-10 canvas">
+            <canvas id="canvas"></canvas>
+            </div>
+          </div>
+          
+          <a href="/" class="btn btn-secondary" style="margin: 20px">CANCEL</a>
+          <button type="submit" class="btn btn-primary" style="margin: 20px">SAVE</button>
 
-            <a href="/" class="btn btn-secondary">CANCEL</a>
-            
-            <button type="submit" class="btn btn-primary">SAVE</button>
+        </form>
+      </div>
+    </div>`
 
-          </form>
-        </div>
-      </div>`;
+  let form = document.getElementById("editEntryForm");
+  if (!useDefault) {
+    form.elements["title"].value = formInput.title
+    form.elements["description"].value = formInput.description
+    form.elements["markdown"].value = formInput.markdown
+    form.elements["uploadList"].value = JSON.stringify(formInput.images)
+    for (let i = 0; i < formInput.images.length; i++) {
+      document.getElementById('oldList').innerHTML += '<li class="fileList" id="image" + i>' + formInput.images[i].originalName + '</li>';
+      document.getElementById('ListDelete').style.visibility = 'visible'
+    }
+  }
 }
 
 ContentBoxView.showAddEntry = function (formInput, useDefault) {
@@ -105,22 +156,23 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
             <label for="markdown">Text</label>
             <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
-          <div class="form-check">
-              <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
-              <label class="form-check-label" for="publicCheckbox">Public Entry</label>
-          </div>
           
           <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
             <div class="col-bg-6 dropzone">
-            <label for="image" class="custom-upload" id="drag-drop">Drag and Drop or</label>
-            <label for="image" class="custom-upload" id="custom-upload">BROWSE</label>
-            <input type="file" id="image"
-                     name="image">
-            
-            </div>
+              <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
+              <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
+              <input type="file" id="images" name="images" multiple accept="image/*">
+            </div> 
             <div class="col-bg-6 uploads-zone">
-            list of uploads is shown here
+            List of Uploads
+            <hr class="solid">
+            <ul id="nameListAdd" name="nameListAdd" class="fileList"></ul>
             </div>
+          </div>
+          
+          <div class="form-check">
+            <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
+            <label class="form-check-label" for="publicCheckbox">Public Entry</label>
           </div>
           
           <div class="row canvas-row" style="margin: 20px"> 
@@ -134,6 +186,7 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
                 </div>
                 <button class="btn undo-btn" id="undo-btn"></button>
                 <button class="btn undo-btn redo-btn" id="redo-btn"></button>
+                <button class="btn clear-btn save-btn" id="save-btn"></button>
                 <button class="btn clear-btn" id="clear-btn"></button>
             </div>
             <div class="col-10 canvas">

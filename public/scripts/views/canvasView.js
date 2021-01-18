@@ -78,7 +78,7 @@ CanvasView = function() {
     }
 
     CanvasView.prototype.clearButtonOnClick = function (e) {
-        var result = confirm('Are you sure you want to delete your masterpiece?');
+        let result = confirm('Are you sure you want to delete your masterpiece?');
         if(result){
             clearCanvas();
         }
@@ -112,5 +112,13 @@ CanvasView = function() {
             redoButton.disabled = indexRedo <= -1;
             undoButton.disabled = indexUndo <= -1;
         }
+    }
+
+    CanvasView.prototype.saveButtonOnClick = function () {
+        let link = document.createElement('a');
+        link.download = 'Drawing.png';
+        link.href = document.getElementById('canvas').toDataURL()
+        link.click();
+        alert("Your drawing has been downloaded, to add it to the entry upload it down below. :)");
     }
 }
