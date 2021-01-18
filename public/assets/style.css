@@ -166,6 +166,7 @@ div.row.filter-row
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  visibility: hidden;
 }
 
 li.index {
