@@ -1,5 +1,4 @@
 Models = function(controller) {
-  this.controller = controller
   this.sessionKeys = {
     currentEntry : "currentEntry", // The entry data loaded on IndexRequest
     addFormData : "addFormData",   // The data how it was before the new entry was saved
@@ -48,10 +47,6 @@ Models = function(controller) {
   }
 
   //-----------------------------------LOCALSTORAGE-------------------------
-
-  Models.prototype.readFile = async function (EntryForm) {
-
-  }
 
   function addPrivateEntryToLocalStorage(formInput) {
     let entries = localStorage.getItem("entries")
