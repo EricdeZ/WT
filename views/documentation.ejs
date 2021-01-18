@@ -317,6 +317,81 @@
 
     </div>
 
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                After initializing the application server on port 5000 a WebSocket server is created and bond to that
+                server. It is specified that on the establishment of a new connection the chatlog is send to new client.
+                Logging a message takes places with a global server variable being an array of Strings. If this array
+                has less than 20 entries the new message is just pushed to the end. If it has reached a size of 20 the
+                first message of it is deleted and all other messages are shifted to make room in the 20th index for
+                the new chat message. On reception of a new message the message is added to the log and forwarded to
+                every other connected client.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/docu_websocketserver.png">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                In HTML the chat is represented as a column of size 2 using bootstrap. Inside this column there is the
+                message box followed by a text area followed by a button. Depending on the state of the program either
+                the message box and the send button are displayed or the username box and the confirm button. When
+                accessing the website the first time the latter two are displayed.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/docu_websockethtmlk.png">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                On the client side the main part of the work is done by the WebSocket controller which is created the
+                first time the page is loaded. At first all relevant HTML objects get retrieved to be manipulated
+                later. Then this function is being called. At first it opens a connection to the server on the same
+                port as the application is running. Then the behaviour for different states is defined. On opening
+                there is just a log message. On reception of a message the data being transmitted is passed onto a
+                function in the view component of the WebSocket to display it together with the information that the
+                message to display is of external nature. On closing the variable for storing the WebSocket is reset.
+                Then event listeners for the previously explained buttons are added. The confirm button simply stops
+                displaying itself and the username box to make room for the send button and the new message box. The
+                send button first checks if there is a WebSocket connection. If not this is shown inside the chat. If
+                it is and the there is some actual text inside the new message box the message to display is composed
+                of the username that was previously entered and the new message. This is then send via the WebSocket to
+                the server and also send to the view component together with the information that this time the message
+                is of internal nature.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/docu_websocketcontroller.png">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                The WebSocketView component is responsible for altering the content of the chat box upon new messages.
+                At first the relevant HTML objects are retrieved. Then when a new message is created or received the
+                showMessage function gets called. Depending on the origin of the message the alignment inside the box
+                the background colour of the message and the border of the message are determined. Then the message
+                gets wrapped in some HTML code to be added to the chat HTML object. Afterwards it is auto-scrolled to
+                the bottom of the chat box and the content of the new message box is deleted.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/docu_websocketview.png">
+        </div>
+
+    </div>
+
 
     <hr>
 
