@@ -25,7 +25,10 @@ DragDropView = function () {
         }
         document.getElementById('ListDelete').style.visibility = 'visible';
         let deleteButton = document.getElementById("ListDelete");
-        deleteButton.addEventListener('click', deleteImageFromUploadList);
+        deleteButton.addEventListener('click', function(e) {
+            e.preventDefault()
+            deleteImageFromUploadList()
+        }.bind(this));
 
         function deleteImageFromUploadList() {
             document.getElementById('ListDelete').style.visibility = 'hidden';
