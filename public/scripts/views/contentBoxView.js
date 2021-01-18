@@ -80,7 +80,7 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
           </div>
           <div id="oldImages">
           <textarea type="text" name="uploadList" id="uploadList" hidden></textarea>
-          
+          </div>
           <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
             <div class="col-bg-6 dropzone">
               <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
