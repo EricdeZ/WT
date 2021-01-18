@@ -12,10 +12,12 @@ ContentBoxView.showIndex = function (entry) {
       <button onclick="" id="deleteButton" class="btn btn-secondary" style="margin-bottom: 20px">Delete</button>
       <div style="text-align: left; font-weight: bold">${entry.description}</div>
       <div style="text-align: left">${entry.sanitizedHtml}</div>
+      <div id="indexImages" style="display: flex; justify-content: space-around; flex-wrap: wrap; "></div>
   `;
 
+  let indexDiv = document.getElementById("indexImages")
   entry.images.forEach(image => {
-    contentBox.innerHTML += `<img src="${image.data}" alt="Image">`
+    indexDiv.innerHTML += `<img src="${image.data}" alt="Image" style="max-width: 20%; height: auto; border: #F87F4A groove 4px; margin: 4px">`
   })
 
 }
