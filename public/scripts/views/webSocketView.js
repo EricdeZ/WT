@@ -23,5 +23,6 @@ WebSocketView = function() {
     </div>`
 
     messageBox.value = '';
+    messages.scrollTop = messages.scrollHeight
   }
 }
