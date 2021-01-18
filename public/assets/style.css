@@ -440,6 +440,10 @@ input[type="file"]{
   background-color: white;
 }
 
+.dropzone.highlight{
+  border: 2px dashed black;
+}
+
 .custom-upload{
   margin: 20px;
 }

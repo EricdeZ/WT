@@ -1,5 +1,6 @@
 Views = function(controller, indexListController, models) {
   const canvasController = new CanvasController()
+  const dragDropController = new DragDropController()
 
   Views.prototype.handleIndexRequest = function(entry) {
     if (!entry) {
@@ -29,6 +30,10 @@ Views = function(controller, indexListController, models) {
       return
     }
     let entriesJson = JSON.parse(entries)
+    if (entriesJson.length === 0) {
+      alert("Unfortunately there exist no public entries at the moment!")
+      return
+    }
     ContentBoxView.showEntries(entriesJson)
     for(let i = 0; i < entriesJson.length; i++) {
       let indexElement = document.getElementById(entriesJson[i].slug)
@@ -42,6 +47,7 @@ Views = function(controller, indexListController, models) {
     let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
     ContentBoxView.showEditEntry(formData, useDefault)
     canvasController.loadCanvas()
+    dragDropController.loadDragDrop()
     controller.registerEventListenerById("editEntryForm", "change", controller.handleEditFormChanged)
     controller.registerEventListenerById("nameListDelete", "click", controller.deleteImageFromEditUploadList)
     controller.registerEventListenerById("images", "change", controller.handleEditUploadListChanged)
@@ -82,10 +88,8 @@ Views = function(controller, indexListController, models) {
     let parameter = {pushState: true, indexElement : indexElement}
     if (entryJson.isPublic) {
       controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", controller.handleIndexRequestPublic, parameter)
-      indexListController.handleShowPublicButtonClick()
     } else {
       controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", controller.handleIndexRequestPrivate, parameter)
-      indexListController.handleShowPrivateButtonClick()
     }
     models.sessionSaveData(models.sessionKeys.currentEntry, entryJson)
     controller.registerEventListenerById("deleteButton", "click", controller.handleDeleteButton)
@@ -98,6 +102,7 @@ Views = function(controller, indexListController, models) {
     let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
     ContentBoxView.showAddEntry(formData, useDefault)
     canvasController.loadCanvas()
+    dragDropController.loadDragDrop()
     controller.registerEventListenerById("images", "change", controller.handleUploadListChanged)
     controller.registerEventListenerById("addEntryForm", "submit", controller.handleAddFormSubmit)
     controller.registerEventListenerById("addEntryForm", "change", controller.handleAddFormChanged)

@@ -179,18 +179,19 @@ Controller = function(indexListController) {
 
   Controller.prototype.handleUploadListChanged = function() {
     let fileList = document.getElementById("images")
-    document.getElementById('nameListAdd').innerHTML = '';
+    document.getElementById('nameList').innerHTML = '';
     for (let i = 0; i < fileList.files.length; ++i) {
       let name = fileList.files.item(i).name;
-      document.getElementById('nameListAdd').innerHTML += `<li class="fileList" id=${"image" + i}>${name}</li>`;
+      document.getElementById('nameList').innerHTML += `<li class="fileList" id=${"image" + i}>${name}</li>`;
     }
-    document.getElementById('nameListAdd').innerHTML += '<button class="btn btn-primary delete-img-btn" id="deleteImage">DELETE</button>';
-    let deleteButton = document.getElementById("deleteImage");
+    document.getElementById('ListDelete').style.visibility = 'visible';
+    let deleteButton = document.getElementById("ListDelete");
     deleteButton.addEventListener('click', deleteImageFromUploadList);
 
     function deleteImageFromUploadList() {
+      document.getElementById('ListDelete').style.visibility = 'hidden';
       document.getElementById('images').value = "";
-      document.getElementById('nameListAdd').innerHTML = '';
+      document.getElementById('nameList').innerHTML = '';
     }
   }
 

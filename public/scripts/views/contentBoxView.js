@@ -37,7 +37,6 @@ ContentBoxView.showEntries = function (entries) {
         ${(new Date(entries[i].createdAt).toLocaleDateString())}
         </div>
         <div style="text-align: left; font-weight: bold">${entries[i].description}</div> 
-        <div style="text-align: left; display:-webkit-box; -webkit-box-orient:vertical; overflow: hidden; -webkit-line-clamp: 3">${entries[i].sanitizedHtml}</div>
         <button class="btn btn-homepage" id=${readButtonId}>READ</button>
         </div>
         </div>
@@ -65,25 +64,7 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
             <label for="markdown">Text</label>
             <textarea required name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
-          <div id="oldImages">
-          <textarea name="uploadList" id="uploadList" hidden></textarea>
-          </div>
-          <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
-            <div class="col-bg-6 dropzone">
-              <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
-              <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
-              <input type="file" id="images" name="images" multiple accept="image/*">
-            </div> 
-            <div class="col-bg-6 uploads-zone">
-            List of Uploads
-            <hr class="solid">
-            <ul id="oldList" class="fileList"></ul>
-            <ul id="nameList" class="fileList"></ul>
-            <div id="ListDelete" style="visibility: hidden">
-            <button class="btn btn-primary delete-img-btn" id="nameListDelete">DELETE</button>
-            </div>
-            </div>
-          </div>
+          
           
           <div class="row canvas-row" style="margin: 20px"> 
             <div class="col-2 tools">
@@ -101,6 +82,26 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
             </div>
             <div class="col-10 canvas">
             <canvas id="canvas"></canvas>
+            </div>
+          </div>
+          
+          <div id="oldImages">
+          <textarea type="text" name="uploadList" id="uploadList" hidden></textarea>
+          </div>
+          <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
+            <div class="col-bg-6 dropzone" id="dropzone">
+              <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
+              <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
+              <input type="file" id="images" name="images" multiple accept="image/*">
+            </div> 
+            <div class="col-bg-6 uploads-zone">
+            List of Uploads
+            <hr class="solid">
+            <ul id="oldList" name="nameList" class="fileList"></ul>
+            <ul id="nameList" name="nameList" class="fileList"></ul>
+            <div id="ListDelete" style="visibility: hidden">
+            <button class="btn btn-primary delete-img-btn" id="nameListDelete">DELETE</button>
+            </div>
             </div>
           </div>
           
@@ -144,20 +145,7 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
             <label for="markdown">Text</label>
             <textarea required name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
-          
-          <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
-            <div class="col-bg-6 dropzone">
-              <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
-              <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
-              <input type="file" id="images" name="images" multiple accept="image/*">
-            </div> 
-            <div class="col-bg-6 uploads-zone">
-            List of Uploads
-            <hr class="solid">
-            <ul id="nameListAdd" class="fileList"></ul>
-            </div>
-          </div>
-          
+
           <div class="form-check">
             <input type="checkbox" name="publicCheckbox" id="publicCheckbox" checked class="form-check-input"/>
             <label class="form-check-label" for="publicCheckbox">Public Entry</label>
@@ -179,6 +167,22 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
             </div>
             <div class="col-10 canvas">
             <canvas id="canvas"></canvas>
+            </div>
+          </div>
+          
+          <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
+            <div class="col-bg-6 dropzone" id="dropzone">
+              <label for="images" class="custom-upload" id="drag-drop">Drag and Drop or</label>
+              <label for="images" class="custom-upload" id="custom-upload">BROWSE</label>
+              <input type="file" id="images" name="images" multiple accept="image/*">
+            </div> 
+            <div class="col-bg-6 uploads-zone">
+            List of Uploads
+            <hr class="solid">
+            <ul id="nameList" name="nameList" class="fileList"></ul>
+            <div id="ListDelete" style="visibility: hidden">
+            <button class="btn btn-primary delete-img-btn" id="nameListDelete">DELETE</button>
+            </div>
             </div>
           </div>
           
