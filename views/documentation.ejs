@@ -22,19 +22,16 @@
 <div class="container-md">
     <div class="row item">
         <div class="col-6 text">
+            <h2>Canvas</h2>
             <p>
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
+                For our graphics technology we decided to use canvas. This is part of the CanvasController.js file, which
+                gets all the elements associated with the canvas by id and initialises them.
+                A canvasView object is also initialised. The CanvasController listens for events and then calls for the
+                corresponding functions of canvasView.
             </p>
         </div>
         <div class="col-6 align-self-center">
-            <img class="image" src="../public/resources/Documentation_Overview.PNG">
+            <img class="image" src="../public/resources/canvasController.PNG">
         </div>
 
     </div>
@@ -42,18 +39,15 @@
     <div class="row item">
         <div class="col-6 text">
             <p>
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
+                In canvasView we start off by getting the canvas element itself from the
+                contentBoxView.js innerHTML. We define all the necessary variables and the basic size
+                of the canvas itself. All the elements in the canvas are also pulled from the innerHTML.
+                drawLine is the function that draws the strokes and applies thickness, color and style to it.
+
             </p>
         </div>
         <div class="col-6 align-self-center">
-            <img class="image" src="../public/resources/Documentation_Overview.PNG">
+            <img class="image" src="../public/resources/canvasView1.PNG">
         </div>
 
     </div>
@@ -61,18 +55,14 @@
     <div class="row item">
         <div class="col-6 text">
             <p>
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
+                Here are a few more functions regarding disabling the Undo and Redo buttons as long as there have been
+                no strokes to undo/redo. clearCanvas deletes all of the strokes and disables the buttons.
+                The following two functions react to mouseEvents, for example canvasOnMouseDown gets the starting
+                position of the stroke and canvasOnMouseMove follows the mouse pointer and draws a line in its path.
             </p>
         </div>
         <div class="col-6 align-self-center">
-            <img class="image" src="../public/resources/Documentation_Overview.PNG">
+            <img class="image" src="../public/resources/canvasView2.PNG">
         </div>
 
     </div>
@@ -80,18 +70,208 @@
     <div class="row item">
         <div class="col-6 text">
             <p>
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
-                Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello
+                canvasOnMouseUp ends the stroke and stores it in the undoArray in case it has to
+                be deleted in the future. thicknessOnChange assigns a value picked by the user from the
+                thickness slider and assigns it to the stroke. clearButtonOnClick is what happens when
+                the user clicks the delete button. An alert pops up and depending on the user's
+                choice the clearCanvas function gets called.
             </p>
         </div>
         <div class="col-6 align-self-center">
-            <img class="image" src="../public/resources/Documentation_Overview.PNG">
+            <img class="image" src="../public/resources/canvasView3.PNG">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                undoButtonOnClick is the function that keeps track of the number of
+                strokes and stores them in an array to undo them based on the user's input.
+                redoButtonOnClick does almost the same but with a different array which - upon redo -
+                gets the latest undone stroke from the undo array if the user presses Redo.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/canvasView4.PNG">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                saveButtonOnClick is the function that converts all of the strokes into a base64 string
+                which enables the user to download their drawing and add it to their entry. It does this using the
+                HTMLCanvasElement.toDataURL() method which returns a data URL containing a representation of the image
+                in the format specified by the type parameter (defaults to PNG).
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/canvasView5.PNG">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <h2>Model, View and Controller</h2>
+            <h3>Controller</h3>
+            <p>
+                The Controller file takes care of all the communication with the Server.
+                All eventListener functions are in the Controller.js file and are waiting on
+                user input to call corresponding functions in Views.js and Models.js.
+                We use XMLHttpRequests to issue HTTP requests in order to exchange data
+                between the web site and the server. To send an HTTP request, we create an XMLHttpRequest object, open a URL, and send the request.
+                The "POST" and "GET" methods are part of our router in entries.js.
+                After the transaction completes, the object will contain the information we need. We do this
+                primarily for our form data.
+
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/controller.PNG">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                handleResetRequest0 uses the history which gives us the ability to
+                modify a website's URL without a full page refresh. This is necessary for a single page application like ours
+                and is useful for loading portions of a page with JavaScript and if the content is different enough to warrant
+                a new URL like for example the Add Entry page.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/controller2.PNG">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                The following functions call the corresponding views.js functions and get
+                the required data by calling the required models.js functions. This is also where
+                you start to see our usage of slug which is a clearer way of retrieving
+                items and it ends up showing the title of the current entry in the URL.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/controller3.PNG">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                handleUploadListChanged works together with the file input HTML
+                element to add a list of files added for upload to the nameList element
+                in our Add Entry page. This happens either automatically through the
+                input="file" "Browse" context menu or through the means of drag and drop.
+                In registerEventListenerById we add the ability to add specific eventlisteners
+                to views, controller models if we need them.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/controller4.PNG">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <h3>Views</h3>
+            <p>
+                In our Views file we have all the functions that make changes to the
+                HTML and innerHTML and take care of the appearance of all of the different
+                pages. We also instantiated two extra Controller files in order to be able to
+                use their functions to load the corresponding features. In handleIndexRequest
+                we check if we have gotten an entry as this is also the functions parameter
+                and parse it in order to be able to use the showIndex function which writes all
+                our entries into the index bar.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/views.PNG">
+        </div>
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <h3>dragDropView</h3>
+            <p>
+                This file contains the handleDrop function which gets called through the
+                DragDropController and handles what happens to a file when it gets dropped into
+                the "dropzone" element. First we initialise a fileInput file which we add our
+                files into using dataTransfer. This skips the need to open the Browse context menu
+                of the input="file" element and this allows us to temporarily store files which will
+                later be uploaded upon pressing the Save button. This function also updates the
+                list visible to the user.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/draganddrop.PNG">
+        </div>
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                Upon clicking of the Show Entries button on the welcome screen all
+                current public entries are listed. As can be seen in the handleEditButton
+                function we use sessionStorage here to temporarily save any changes a user might
+                make to an entry upon clicking the Edit button. The page itself gets updated
+                to the Edit Page using ContentBoxView.showEditEntry. All of our innerHTML is contained
+                in the contentBoxView.js file. This is also one of the times we call the loadCanvas
+                and loadDragDrop functions through the instantiated Controllers and their Views files.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/views2.PNG">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <h2>Server Side Storage - JSON, entry</h2>
+            <p>
+                Here we add all the dependencies, libraries and packages and define
+                our Schema which the JSON objects will follow. Title, Description and
+                Markdown are simple text fields that use String as their datatype, createdAt
+                is our date, Date.now converts it to a more userf riendly format similar to the
+                one the client's device uses. slug uses slugify to make a string of numbers and
+                letters into something readable like for example the title of the entry which will
+                be displayed in the URL. sanitizedHtml "sanitizes" the markdown to make it safer
+                against malicious usage attempts to for example write HTML directly into our markdown
+                field and use the server for something nefarious.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/entry.PNG">
+        </div>
+
+    </div>
+
+    <div class="row item">
+        <div class="col-6 text">
+            <p>
+                isPublic is a Boolean which is controlled through a checkbox and this
+                decides whether or not the entry will be saved locally or to our database.
+                images is an array of objects of a few different attributes/properties.
+                This is what we use to save our images to the database. Our images get encoded to
+                base64 which means we can use string as the main datatype for every attribute here.
+                originalName is a property of our data transfer middleware multer and it gets the
+                original name of the file before encoding. path is the path of the file and data is
+                where our base64 string ends up being saved.
+            </p>
+        </div>
+        <div class="col-6 align-self-center">
+            <img class="image" src="../public/resources/entry2.PNG">
         </div>
 
     </div>
