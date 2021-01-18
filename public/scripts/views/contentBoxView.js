@@ -38,7 +38,7 @@ ContentBoxView.showIndex = function (entry) {
 ContentBoxView.showEntries = function (entries) {
   const contentBox = document.getElementById("contentBox");
   for (var i = 0; i < entries.length; i++) {
-    if (i == 0) {
+    if (i === 0) {
       contentBox.innerHTML = ``
     }
     let readButtonId = "read-button" + entries[i].slug
@@ -50,7 +50,6 @@ ContentBoxView.showEntries = function (entries) {
         ${(new Date(entries[i].createdAt).toLocaleDateString())}
         </div>
         <div style="text-align: left; font-weight: bold">${entries[i].description}</div> 
-        <div style="text-align: left; display:-webkit-box; -webkit-box-orient:vertical; overflow: hidden; -webkit-line-clamp: 3">${entries[i].sanitizedHtml}</div>
         <button class="btn btn-homepage" id=${readButtonId}>READ</button>
         </div>
         </div>

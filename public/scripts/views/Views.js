@@ -32,6 +32,10 @@ Views = function(controller, models) {
       return
     }
     let entriesJson = JSON.parse(entries)
+    if (entriesJson.length === 0) {
+      alert("Unfortunately there exist no public entries at the moment!")
+      return
+    }
     ContentBoxView.showEntries(entriesJson)
     for(let i = 0; i < entriesJson.length; i++) {
       let indexElement = document.getElementById(entriesJson[i].slug)
