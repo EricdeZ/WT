@@ -15,30 +15,15 @@ ContentBoxView.showIndex = function (entry) {
   `;
 
   entry.images.forEach(image => {
-    //let decodedStr = atob(image.data);
-    //let imageHtml = new Image();
-    //imageHtml.src = image.data;
-    contentBox.innerHTML += `<img src="${image.data}"></img>`
+    contentBox.innerHTML += `<img src="${image.data}" alt="Image">`
   })
-
-  /*let xmlhttp = new XMLHttpRequest();
-  let url = "http://localhost:5000/views/showIndex";
-
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      contentBox.innerHTML = this.responseText.toString()
-    }
-  };
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();*/
-  //$("#contentBox").load("../../public/views/_form_fields.html");
 
 }
 
 ContentBoxView.showEntries = function (entries) {
   const contentBox = document.getElementById("contentBox");
-  for (var i = 0; i < entries.length; i++) {
-    if (i == 0) {
+  for (let i = 0; i < entries.length; i++) {
+    if (i === 0) {
       contentBox.innerHTML = ``
     }
     let readButtonId = "read-button" + entries[i].slug
@@ -72,14 +57,14 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea required type="text" name="description" id="description" class="form-control" placeholder="Write a description..."></textarea>
+            <textarea required name="description" id="description" class="form-control" placeholder="Write a description..."></textarea>
           </div>
           <div class="form-group">
             <label for="markdown">Text</label>
-            <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
+            <textarea required name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
           <div id="oldImages">
-          <textarea type="text" name="uploadList" id="uploadList" hidden></textarea>
+          <textarea name="uploadList" id="uploadList" hidden></textarea>
           </div>
           <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
             <div class="col-bg-6 dropzone">
@@ -90,8 +75,8 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
             <div class="col-bg-6 uploads-zone">
             List of Uploads
             <hr class="solid">
-            <ul id="oldList" name="nameList" class="fileList"></ul>
-            <ul id="nameList" name="nameList" class="fileList"></ul>
+            <ul id="oldList" class="fileList"></ul>
+            <ul id="nameList" class="fileList"></ul>
             <div id="ListDelete" style="visibility: hidden">
             <button class="btn btn-primary delete-img-btn" id="nameListDelete">DELETE</button>
             </div>
@@ -131,7 +116,8 @@ ContentBoxView.showEditEntry = function (formInput, useDefault) {
     form.elements["markdown"].value = formInput.markdown
     form.elements["uploadList"].value = JSON.stringify(formInput.images)
     for (let i = 0; i < formInput.images.length; i++) {
-      document.getElementById('oldList').innerHTML += '<li class="fileList" id="image" + i>' + formInput.images[i].originalName + '</li>';
+      let image_id = "image" + i
+      document.getElementById('oldList').innerHTML += `<li class="fileList" id=${image_id}>${formInput.images[i].originalName}</li>`;
       document.getElementById('ListDelete').style.visibility = 'visible'
     }
   }
@@ -150,11 +136,11 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea required type="text" name="description" id="description" class="form-control" placeholder="Write a description..."></textarea>
+            <textarea required name="description" id="description" class="form-control" placeholder="Write a description..."></textarea>
           </div>
           <div class="form-group">
             <label for="markdown">Text</label>
-            <textarea required type="text" name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
+            <textarea required name="markdown" id="markdown" class="form-control" placeholder="Write about something..."></textarea>
           </div>
           
           <div class="row upload-row d-flex justify-content-center" style="margin: 20px"> 
@@ -166,7 +152,7 @@ ContentBoxView.showAddEntry = function (formInput, useDefault) {
             <div class="col-bg-6 uploads-zone">
             List of Uploads
             <hr class="solid">
-            <ul id="nameListAdd" name="nameListAdd" class="fileList"></ul>
+            <ul id="nameListAdd" class="fileList"></ul>
             </div>
           </div>
           

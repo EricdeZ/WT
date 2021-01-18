@@ -1,7 +1,5 @@
-Views = function(controller, models) {
-  this.controller = controller
-  this.models = models
-  this.canvasController = new CanvasController()
+Views = function(controller, indexListController, models) {
+  const canvasController = new CanvasController()
 
   Views.prototype.handleIndexRequest = function(entry) {
     if (!entry) {
@@ -11,18 +9,18 @@ Views = function(controller, models) {
     let entryJson = JSON.parse(entry)
 
     ContentBoxView.showIndex(entryJson)
-    if (!this.controller.toggle) {
-      this.controller.handleIndexButtonClick()
+    if (!indexListController.toggle) {
+      indexListController.handleIndexButtonClick()
     }
     if (entryJson.isPublic) {
-      this.controller.handleShowPublicButtonClick()
+      indexListController.handleShowPublicButtonClick()
     } else {
-      this.controller.handleShowPrivateButtonClick()
+      indexListController.handleShowPrivateButtonClick()
     }
     TitleBarView.showEditButton()
     models.sessionSaveData(models.sessionKeys.currentEntry, entryJson)
-    this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
-    this.controller.registerEventListenerById("deleteButton", "click", this.controller.handleDeleteButton)
+    controller.registerEventListenerById("homePageButton", "click", controller.handleWelcomeButton)
+    controller.registerEventListenerById("deleteButton", "click", controller.handleDeleteButton)
   }.bind(this)
 
   Views.prototype.handleWelcomeButton = function(entries) {
@@ -35,7 +33,7 @@ Views = function(controller, models) {
     for(let i = 0; i < entriesJson.length; i++) {
       let indexElement = document.getElementById(entriesJson[i].slug)
       let parameter = {pushState: true, indexElement : indexElement}
-      this.controller.registerEventListenerByIdWithParameter("read-button" + entriesJson[i].slug, "click", this.controller.handleIndexRequestPublic, parameter)
+      controller.registerEventListenerByIdWithParameter("read-button" + entriesJson[i].slug, "click", controller.handleIndexRequestPublic, parameter)
     }
   }.bind(this)
 
@@ -43,10 +41,10 @@ Views = function(controller, models) {
     models.sessionSaveData(models.sessionKeys.editFormData, formData)
     let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
     ContentBoxView.showEditEntry(formData, useDefault)
-    this.canvasController.loadCanvas()
-    this.controller.registerEventListenerById("editEntryForm", "change", this.controller.handleEditFormChanged)
-    this.controller.registerEventListenerById("nameListDelete", "click", this.controller.deleteImageFromEditUploadList)
-    this.controller.registerEventListenerById("images", "change", this.controller.handleEditUploadListChanged)
+    canvasController.loadCanvas()
+    controller.registerEventListenerById("editEntryForm", "change", controller.handleEditFormChanged)
+    controller.registerEventListenerById("nameListDelete", "click", controller.deleteImageFromEditUploadList)
+    controller.registerEventListenerById("images", "change", controller.handleEditUploadListChanged)
   }
 
   Views.prototype.handleEditFormSubmit = function(entry) {
@@ -55,21 +53,21 @@ Views = function(controller, models) {
       return
     }
     const entryJson = JSON.parse(entry)
-    let oldSlug = document.getElementById('editEntryForm').elements["editEntryFormSlug"].value;;
+    let oldSlug = document.getElementById('editEntryForm').elements["editEntryFormSlug"].value;
     indexListView.showEditedEntry(entryJson, oldSlug)
     ContentBoxView.showIndex(entryJson)
     let indexElement = document.getElementById(entryJson.slug)
     let parameter = {pushState: true, indexElement : indexElement}
     if (models.getCurrentEntryJson().isPublic) {
-      this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPublic, parameter)
-      this.controller.handleShowPublicButtonClick()
+      controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", controller.handleIndexRequestPublic, parameter)
+      indexListController.handleShowPublicButtonClick()
     } else {
-      this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPrivate, parameter)
-      this.controller.handleShowPrivateButtonClick()
+      controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", controller.handleIndexRequestPrivate, parameter)
+      indexListController.handleShowPrivateButtonClick()
     }
     models.sessionSaveData(models.sessionKeys.currentEntry, entryJson)
-    this.controller.registerEventListenerById("deleteButton", "click", this.controller.handleDeleteButton)
-    this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
+    controller.registerEventListenerById("deleteButton", "click", controller.handleDeleteButton)
+    controller.registerEventListenerById("homePageButton", "click", controller.handleWelcomeButton)
   }.bind(this)
 
   Views.prototype.handleAddFormSubmit = function(entry) {
@@ -83,15 +81,15 @@ Views = function(controller, models) {
     let indexElement = document.getElementById(entryJson.slug)
     let parameter = {pushState: true, indexElement : indexElement}
     if (entryJson.isPublic) {
-      this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPublic, parameter)
-      this.controller.handleShowPublicButtonClick()
+      controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", controller.handleIndexRequestPublic, parameter)
+      indexListController.handleShowPublicButtonClick()
     } else {
-      this.controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", this.controller.handleIndexRequestPrivate, parameter)
-      this.controller.handleShowPrivateButtonClick()
+      controller.registerEventListenerByIdWithParameter(entryJson.slug, "click", controller.handleIndexRequestPrivate, parameter)
+      indexListController.handleShowPrivateButtonClick()
     }
     models.sessionSaveData(models.sessionKeys.currentEntry, entryJson)
-    this.controller.registerEventListenerById("deleteButton", "click", this.controller.handleDeleteButton)
-    this.controller.registerEventListenerById("homePageButton", "click", this.controller.handleWelcomeButton)
+    controller.registerEventListenerById("deleteButton", "click", controller.handleDeleteButton)
+    controller.registerEventListenerById("homePageButton", "click", controller.handleWelcomeButton)
     models.resetFormData(models.sessionKeys.addFormData)
   }.bind(this)
 
@@ -99,10 +97,10 @@ Views = function(controller, models) {
     models.sessionSaveData(models.sessionKeys.addFormData, formData)
     let useDefault = JSON.stringify(formData) === JSON.stringify(models.formDataDefault)
     ContentBoxView.showAddEntry(formData, useDefault)
-    this.canvasController.loadCanvas()
-    this.controller.registerEventListenerById("images", "change", this.controller.handleUploadListChanged)
-    this.controller.registerEventListenerById("addEntryForm", "submit", this.controller.handleAddFormSubmit)
-    this.controller.registerEventListenerById("addEntryForm", "change", this.controller.handleAddFormChanged)
+    canvasController.loadCanvas()
+    controller.registerEventListenerById("images", "change", controller.handleUploadListChanged)
+    controller.registerEventListenerById("addEntryForm", "submit", controller.handleAddFormSubmit)
+    controller.registerEventListenerById("addEntryForm", "change", controller.handleAddFormChanged)
   }
 
   Views.prototype.handleDeleteButton = function(entry) {
@@ -117,6 +115,6 @@ Views = function(controller, models) {
 
   Views.prototype.handleResetRequest = function() {
     ContentBoxView.resetContentBox()
-    this.controller.registerEventListenerById("welcomeButton", "click", this.controller.handleWelcomeButton)
+    controller.registerEventListenerById("welcomeButton", "click", controller.handleWelcomeButton)
   }
 }

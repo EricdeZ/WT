@@ -2,12 +2,15 @@ document.addEventListener('DOMContentLoaded', onLoad);
 
 function onLoad() {
 
-  const controller = new Controller()
+  const indexListController = new IndexListController()
   const webSocketController = new WebSocketController()
+  const controller = new Controller(indexListController)
+
 
   console.log(localStorage)
   loadPrivateEntries()
   registerEventListeners(controller)
+  registerEventListenersIndexList(indexListController)
   webSocketController.createWebSocket()
   window.history.pushState(null, '', "http://localhost:5000/");
 }
@@ -55,38 +58,42 @@ function registerEventListeners(controller) {
     controller.handleAddButton({pushState: true, formDataAdd: formData})
   })
 
-  let indexButton = document.getElementById("index-button");
-  indexButton.addEventListener('click', function (event){
-    controller.handleIndexButtonClick()})
-
-  indexButton.addEventListener('mouseover', function (event){
-    controller.handleIndexButtonHover()})
-
-  indexButton.addEventListener('mouseout', function (event){
-    controller.handleIndexButtonUnhover()})
-
-  let showPrivateButton = document.getElementById('show-private');
-  showPrivateButton.addEventListener('click', function(event){
-    controller.handleShowPrivateButtonClick()})
-
-  showPrivateButton.addEventListener('mouseover', function(event){
-    controller.handleShowPrivateButtonHover()})
-
-  showPrivateButton.addEventListener('mouseout', function(event){
-    controller.handleShowPrivateButtonUnhover()})
-
-  let showPublicButton = document.getElementById('show-public');
-  showPublicButton.addEventListener('click', function (event){
-    controller.handleShowPublicButtonClick()})
-
-  showPublicButton.addEventListener('mouseover', function(event){
-    controller.handleShowPublicButtonHover()})
-
-  showPublicButton.addEventListener('mouseout', function(event){
-    controller.handleShowPublicButtonUnhover()})
-
   window.addEventListener('popstate', function(event){
     controller.handleUrlChange(event)
     console.log('location changed!');
   })
+}
+
+function registerEventListenersIndexList(indexListController) {
+
+  let indexButton = document.getElementById("index-button");
+  indexButton.addEventListener('click', function (event){
+    indexListController.handleIndexButtonClick()})
+
+  indexButton.addEventListener('mouseover', function (event){
+    indexListController.handleIndexButtonHover()})
+
+  indexButton.addEventListener('mouseout', function (event){
+    indexListController.handleIndexButtonUnhover()})
+
+  let showPrivateButton = document.getElementById('show-private');
+  showPrivateButton.addEventListener('click', function(event){
+    indexListController.handleShowPrivateButtonClick()})
+
+  showPrivateButton.addEventListener('mouseover', function(event){
+    indexListController.handleShowPrivateButtonHover()})
+
+  showPrivateButton.addEventListener('mouseout', function(event){
+    indexListController.handleShowPrivateButtonUnhover()})
+
+  let showPublicButton = document.getElementById('show-public');
+  showPublicButton.addEventListener('click', function (event){
+    indexListController.handleShowPublicButtonClick()})
+
+  showPublicButton.addEventListener('mouseover', function(event){
+    indexListController.handleShowPublicButtonHover()})
+
+  showPublicButton.addEventListener('mouseout', function(event){
+    indexListController.handleShowPublicButtonUnhover()})
+
 }

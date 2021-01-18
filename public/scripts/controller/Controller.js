@@ -1,17 +1,16 @@
-Controller = function() {
+Controller = function(indexListController) {
 
   const models = new Models(this)
-  const views = new Views(this, models)
+  const views = new Views(this, indexListController, models)
   models.setSessionStorageDefault()
-  this.toggle;
 
   function XMLHttpRequestGet(url, callback) {
     let xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
+      if (this.readyState === 4 && this.status === 200) {
         callback(this.responseText)
-      } else if (this.readyState == 4 && this.status == 400) {
+      } else if (this.readyState === 4 && this.status === 400) {
         callback(null)
       }
     };
@@ -20,19 +19,18 @@ Controller = function() {
   }
 
   function XMLHttpRequestPostForm(url, callback, form, params = {}) {
-    var formData = new FormData(form);
+    let formData = new FormData(form);
     let xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
+      if (this.readyState === 4 && this.status === 200) {
         callback(this.responseText, params)
-      } else if (this.readyState == 4 && this.status == 400) {
+      } else if (this.readyState === 4 && this.status === 400) {
         callback(null)
       }
     };
 
     xmlhttp.open("POST", url, true);
-    //xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlhttp.send(formData);
   }
 
@@ -40,9 +38,9 @@ Controller = function() {
     let xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
+      if (this.readyState === 4 && this.status === 200) {
         callback(this.responseText, params)
-      } else if (this.readyState == 4 && this.status == 400) {
+      } else if (this.readyState === 4 && this.status === 400) {
         alert("Entry could not be deleted!")
       }
     };
@@ -141,8 +139,7 @@ Controller = function() {
   }
 
   Controller.prototype.handleAddFormChanged = function(e) {
-    let formInput =
-    {
+    let formInput = {
       title: e.target.form["title"].value,
       description: e.target.form["description"].value,
       markdown: e.target.form["markdown"].value
@@ -151,8 +148,7 @@ Controller = function() {
   }
 
   Controller.prototype.handleEditFormChanged = function(e) {
-    let formInput =
-      {
+    let formInput = {
         title: e.target.form["title"].value,
         description: e.target.form["description"].value,
         markdown: e.target.form["markdown"].value
@@ -165,7 +161,7 @@ Controller = function() {
     document.getElementById('nameList').innerHTML = '';
     for (let i = 0; i < fileList.files.length; ++i) {
       let name = fileList.files.item(i).name;
-      document.getElementById('nameList').innerHTML += '<li class="fileList" id="image" + i>' + name + '</li>';
+      document.getElementById('nameList').innerHTML += `<li class="fileList" id=${"image" + i}>${name}</li>`;
     }
     document.getElementById('ListDelete').style.visibility = 'visible';
     let deleteButton = document.getElementById("nameListDelete");
@@ -186,7 +182,7 @@ Controller = function() {
     document.getElementById('nameListAdd').innerHTML = '';
     for (let i = 0; i < fileList.files.length; ++i) {
       let name = fileList.files.item(i).name;
-      document.getElementById('nameListAdd').innerHTML += '<li class="fileList" id="image" + i>' + name + '</li>';
+      document.getElementById('nameListAdd').innerHTML += `<li class="fileList" id=${"image" + i}>${name}</li>`;
     }
     document.getElementById('nameListAdd').innerHTML += '<button class="btn btn-primary delete-img-btn" id="deleteImage">DELETE</button>';
     let deleteButton = document.getElementById("deleteImage");
@@ -247,57 +243,4 @@ Controller = function() {
 
   }
 
-  Controller.prototype.handleIndexButtonClick = function() {
-
-    if(this.toggle) {
-      document.getElementById("indexListPublic").style.visibility = "hidden";
-      document.getElementById("filter").style.visibility = "hidden";
-      document.getElementById("indexListPrivate").style.visibility = "hidden"
-      return this.toggle = 0;
-    } else {
-      document.getElementById("indexListPublic").style.visibility = "visible";
-      document.getElementById("filter").style.visibility = "visible";
-      return this.toggle = 1;
-    }
-  }
-
-  Controller.prototype.handleIndexButtonHover = function () {
-    document.getElementById("index-button").setAttribute("src",
-        "http://localhost:5000/public/resources/INDEX-H.svg");
-  }
-
-  Controller.prototype.handleIndexButtonUnhover = function () {
-    document.getElementById("index-button").setAttribute("src",
-        "http://localhost:5000/public/resources/INDEX.svg");
-  }
-
-  Controller.prototype.handleShowPrivateButtonClick = function () {
-    document.getElementById("indexListPublic").style.visibility = "hidden";
-    document.getElementById("indexListPrivate").style.visibility = "visible";
-  }
-
-  Controller.prototype.handleShowPrivateButtonHover = function ()
-  {
-    document.getElementById("show-private").style.height = "25px";
-  }
-
-  Controller.prototype.handleShowPrivateButtonUnhover = function ()
-  {
-    document.getElementById("show-private").style.height = "20px";
-  }
-
-  Controller.prototype.handleShowPublicButtonClick = function () {
-    document.getElementById("indexListPublic").style.visibility = "visible";
-    document.getElementById("indexListPrivate").style.visibility = "hidden";
-  }
-
-  Controller.prototype.handleShowPublicButtonHover = function ()
-  {
-    document.getElementById("show-public").style.height = "25px";
-  }
-
-  Controller.prototype.handleShowPublicButtonUnhover = function ()
-  {
-    document.getElementById("show-public").style.height = "20px";
-  }
 }
