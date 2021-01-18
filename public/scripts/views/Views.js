@@ -31,7 +31,7 @@ Views = function(controller, indexListController, models) {
     }
     let entriesJson = JSON.parse(entries)
     if (entriesJson.length === 0) {
-      alert("Unfortunately there exist no public entries at the moment!")
+      alert("Unfortunately no public entries exist at the moment!")
       return
     }
     ContentBoxView.showEntries(entriesJson)
