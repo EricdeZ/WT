@@ -23,6 +23,7 @@
 <div class="container-md">
     <div class="row item">
         <div class="col-6 text">
+            <h2>HappyBlog: Overview</h2>
             <p>
                 When accessing the website – your own personal blog – the first thing you see is the welcome page.
                 There you are greeted with a message and a button that would bring you to an overview of all your blog
@@ -286,13 +287,11 @@
         <div class="col-6 text">
             <h3>Views</h3>
             <p>
-                In our Views file we have all the functions that make changes to the
-                HTML and innerHTML and take care of the appearance of all of the different
-                pages. We also instantiated two extra Controller files in order to be able to
-                use their functions to load the corresponding features. In handleIndexRequest
-                we check if we have gotten an entry as this is also the functions parameter
-                and parse it in order to be able to use the showIndex function which writes all
-                our entries into the index bar.
+                In our Views file we call all the functions that make changes to the
+                HTML and innerHTML and take care of the appearance of the page. We also
+                instantiated two extra Controller objects which are reloaded each time when
+                a new or old entry gets edited. In handleIndexRequest we parse it in order to
+                be able to use the showIndex function which shows our entry in our contentbox.
             </p>
         </div>
         <div class="col-6 align-self-center">
@@ -302,7 +301,7 @@
 
     <div class="row item">
         <div class="col-6 text">
-            <h3>dragDropView</h3>
+            <h3>DragDropView</h3>
             <p>
                 This file contains the handleDrop function which gets called through the
                 DragDropController and handles what happens to a file when it gets dropped into
@@ -378,19 +377,7 @@
 
     <div class="row item">
         <div class="col-6 text">
-            <p>
-                On the server side the public entries are saved. This is done by help of the mongoose package for Node.js.
-                An entry schema is defined to save all entries in the MongoDB database which runs locally.
-            </p>
-        </div>
-        <div class="col-6 align-self-center">
-            <img class="image" src="../public/resources/Documentation_Server_Model.PNG">
-        </div>
-
-    </div>
-
-    <div class="row item">
-        <div class="col-6 text">
+            <h2>Client Side Storage</h2>
             <p>
                 On the client side localStorage is used to store private entries which can be only seen
                 by the user of this specific computer. Also sessionStorage is used for temporary saving form data and form
@@ -436,6 +423,7 @@
 
     <div class="row item">
         <div class="col-6 text">
+            <h2>WebSocket and Chat</h2>
             <p>
                 In HTML the chat is represented as a column of size 2 using bootstrap. Inside this column there is the
                 message box followed by a text area followed by a button. Depending on the state of the program either
